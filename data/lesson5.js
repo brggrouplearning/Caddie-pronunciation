@@ -1,6 +1,6 @@
 // =========================================================================
 // LESSON 5: COMPLAINTS, SUGGESTIONS, ENCOURAGEMENT & FAREWELL FOR CADDY
-// File: lesson5.js (Đã bổ sung tối thiểu 25 câu / Section)
+// File: lesson5.js (Đầy đủ 125 câu - 25 câu / Section)
 // =========================================================================
 
 if (typeof window.masterQuizData === 'undefined') {
@@ -518,9 +518,9 @@ window.masterQuizData.push(
         "title": "[5.2 Luyện phát âm 10] Luyện câu đề xuất chuyển gậy thừa về bảo quản:",
         "audioText": "We have more than 14 clubs. May I keep the excess ones safe for you, Sir?",
         "phonetic": "/wiː hæv mɔːr ðæn ˌfɔːrˈtiːn klʌbz. meɪ aɪ kiːp ðə ɪkˈses wʌnz seɪf fɔːr juː, sɜːr/",
-        "translation": "Túi gậy có quá 14 cây. Tôi xin phép cất giữ giúp ông các cây gậy dư để tránh phạt nhé ạ?",
+        "translation": "Túi gậy có quá 14 cây[cite: 1, 2]. Tôi xin phép cất giữ giúp ông các cây gậy dư để tránh phạt nhé ạ?",
         "options": [
-            { "en": "A. May I keep the excess ones safe for you to avoid penalty, Sir?", "vi": "Đề xuất cất giữ gậy thừa tránh bị phạt điểm" },
+            { "en": "A. May I keep the excess ones safe for you to avoid penalty, Sir?", "vi": "Đề xuất cất giữ gậy thừa tránh bị phạt điểm[cite: 1, 2]" },
             { "en": "B. Keep all 20 clubs in bag, Sir.", "vi": "Cứ để cả 20 cây" },
             { "en": "C. Break the extra club, Sir.", "vi": "Bẻ gãy gậy thừa" },
             { "en": "D. Throw extra clubs in water, Sir.", "vi": "Ném gậy xuống nước" }
@@ -563,7 +563,7 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.2",
         "type": "mcq",
-        "title": "[5.2 Luyện phát âm 13] Luyện câu chủ động đề xuất hỗ trợ lái xe điện Buggy[cite: 1, 2]:",
+        "title": "[5.2 Luyện phát âm 13] Luyện câu chủ động đề xuất hỗ trợ lái xe điện Buggy:",
         "audioText": "Shall I drive the buggy for you, Sir?",
         "phonetic": "/ʃæl aɪ draɪv ðə ˈbʌɡ.i fɔːr juː, sɜːr/",
         "translation": "Tôi lái xe buggy phục vụ ông nhé ạ?[cite: 1, 2]",
@@ -607,7 +607,7 @@ window.masterQuizData.push(
         "audioText": "Would you like me to open the umbrella, Sir?",
         "phonetic": "/wʊd juː laɪk miː tə ˈoʊ.pən ðə ʌmˈbrel.ə, sɜːr/",
         "translation": "Ông có muốn tôi mở ô che cho ông không ạ?",
-        "displaySentence": "Would you like me to open the _______, Sir?",
+        "displaySentence": "Would you like me to open the _______, Sir.",
         "targetWord": "umbrella",
         "hint": "💡 Gợi ý: Điền từ (8 ký tự)."
     },
@@ -639,13 +639,13 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.2",
         "type": "fill",
-        "title": "[5.2 Luyện phát âm - Điền từ 19] Nghe câu hỏi ý kiến dùng thêm gậy bù gió[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.2 Luyện phát âm - Điền từ 19] Nghe câu hỏi ý kiến dùng thêm gậy bù gió và ĐIỀN TỪ CHUẨN:",
         "audioText": "Would you like to add a club to compensate for headwind, Sir?",
         "phonetic": "/wʊd juː laɪk tə æd ə klʌbz tə ˈkɑːm.pən.seɪt fɔːr ˈhed.wɪnd, sɜːr/",
         "translation": "Ông có muốn dùng tăng thêm 1 gậy để bù gió ngược không ạ?[cite: 1, 2]",
         "displaySentence": "Would you like to add a club to _______ for headwind, Sir?",
         "targetWord": "compensate",
-        "hint": "💡 Gợi ý: Điền từ (10 ký tự)[cite: 1, 2]."
+        "hint": "💡 Gợi ý: Điền từ (10 ký tự)."
     },
     {
         "lesson": "5",
@@ -675,19 +675,19 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.2",
         "type": "fill",
-        "title": "[5.2 Luyện phát âm - Điền từ 22] Nghe câu xin phép nhặt cờ cắm green[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.2 Luyện phát âm - Điền từ 22] Nghe câu xin phép nhặt cờ cắm green và ĐIỀN TỪ CHUẨN:",
         "audioText": "May I attend the pin for you, Sir?",
         "phonetic": "/meɪ aɪ əˈtend ðə pɪn fɔːr juː, sɜːr/",
         "translation": "Tôi xin phép giữ/nhặt cờ giúp ông nhé ạ?[cite: 1, 2]",
         "displaySentence": "May I attend the _______ for you, Sir?",
         "targetWord": "pin",
-        "hint": "💡 Gợi ý: Điền từ (3 ký tự)[cite: 1, 2]."
+        "hint": "💡 Gợi ý: Điền từ (3 ký tự)."
     },
     {
         "lesson": "5",
         "section": "section5.2",
         "type": "fill",
-        "title": "[5.2 Luyện phát âm - Điền từ 23] Nghe câu đề xuất dọn vật thể tự do trên green[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.2 Luyện phát âm - Điền từ 23] Nghe câu đề xuất dọn vật thể tự do trên green và ĐIỀN TỪ CHUẨN:",
         "audioText": "Let me remove those loose impediments for you, Sir.",
         "phonetic": "/let miː rɪˈmuːv ðoʊz luːs ɪmˈped.ə.mənts fɔːr juː, sɜːr/",
         "translation": "Để tôi dọn bỏ những lá cây/chướng ngại vật tự do này cho ông ạ[cite: 1, 2].",
@@ -711,13 +711,13 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.2",
         "type": "fill",
-        "title": "[5.2 Luyện phát âm - Điền từ 25] Nghe câu đề xuất cút cào cát sau khi đánh[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.2 Luyện phát âm - Điền từ 25] Nghe câu đề xuất cút cào cát sau khi đánh và ĐIỀN TỪ CHUẨN:",
         "audioText": "Don't worry, I will rake the bunker for you, Sir.",
         "phonetic": "/doʊnt ˈwɜːr.i, aɪ wɪl reɪk ðə ˈbʌŋ.kɚ fɔːr juː, sɜːr/",
         "translation": "Đừng lo, tôi sẽ cào lại bẫy cát cho ông ạ.",
         "displaySentence": "Don't worry, I will _______ the bunker for you, Sir.",
         "targetWord": "rake",
-        "hint": "💡 Gợi ý: Điền từ (4 ký tự)[cite: 1, 2]."
+        "hint": "💡 Gợi ý: Điền từ (4 ký tự)."
     },
 
     // -------------------------------------------------------------------------
@@ -743,12 +743,12 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.3",
         "type": "mcq",
-        "title": "[5.3 Luyện phát âm 2] Luyện câu khen cứu bóng xuất sắc khỏi bẫy khó[cite: 1, 2]:",
+        "title": "[5.3 Luyện phát âm 2] Luyện câu khen cứu bóng xuất sắc khỏi bẫy khó:",
         "audioText": "Excellent save, Sir! Good job getting out of the bunker!",
         "phonetic": "/ˈek.səl.ənt seɪv, sɜːr! ɡʊd dʒɑːb ˈɡet.ɪŋ aʊt əv ðə ˈbʌŋ.kɚ/",
         "translation": "Cứu bóng xuất sắc quá thưa ông! Làm tốt lắm khi thoát khỏi bẫy cát ạ![cite: 1, 2]",
         "options": [
-            { "en": "A. Excellent save, Sir! Good job!", "vi": "Cứu bóng xuất sắc (/ˈek.səl.ənt seɪv/)[cite: 1, 2]" },
+            { "en": "A. Excellent save, Sir! Good job!", "vi": "Cứu bóng xuất sắc (/ˈek.səl.ənt seɪv/)" },
             { "en": "B. Unlucky shot in the sand, Sir.", "vi": "Kém may mắn" },
             { "en": "C. You got lucky today, Sir.", "vi": "May mắn thôi" },
             { "en": "D. Leave the ball in bunker, Sir.", "vi": "Bỏ bóng trong bẫy" }
@@ -775,12 +775,12 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.3",
         "type": "mcq",
-        "title": "[5.3 Luyện phát âm 4] Luyện câu khuyên hít thở sâu lấy lại bình tĩnh[cite: 1, 2]:",
+        "title": "[5.3 Luyện phát âm 4] Luyện câu khuyên hít thở sâu lấy lại bình tĩnh:",
         "audioText": "Take your time, Sir. Relax and take a deep breath before you swing.",
         "phonetic": "/teɪk jʊər taɪm, sɜːr. rɪˈlæks ænd teɪk ə diːp breθ bɪˈfɔːr juː swɪŋ/",
         "translation": "Cứ bình tĩnh thưa ông. Ông thư giãn và hít thở sâu trước khi vung gậy nhé ạ[cite: 1, 2].",
         "options": [
-            { "en": "A. Take your time, Sir. Relax and breathe.", "vi": "Thư giãn và hít thở sâu (/rɪˈlæks ænd breθ/)[cite: 1, 2]" },
+            { "en": "A. Take your time, Sir. Relax and breathe.", "vi": "Thư giãn và hít thở sâu (/rɪˈlæks ænd breθ/)" },
             { "en": "B. Swing as fast as possible, Sir.", "vi": "Vung gậy nhanh hết sức" },
             { "en": "C. Don't waste time breathing, Sir.", "vi": "Đừng tốn thời gian hít thở" },
             { "en": "D. You are too slow, Sir.", "vi": "Quá chậm" }
@@ -791,12 +791,12 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.3",
         "type": "mcq",
-        "title": "[5.3 Luyện phát âm 5] Luyện câu khen khi hoàn thành hố gôn đạt điểm Par[cite: 1, 2]:",
+        "title": "[5.3 Luyện phát âm 5] Luyện câu khen khi hoàn thành hố gôn đạt điểm Par:",
         "audioText": "Nice Par, Sir! You are playing very well today!",
         "phonetic": "/naɪs pɑːr, sɜːr! juː ɑːr ˈpleɪ.ɪŋ ˈver.i wel təˈdeɪ/",
         "translation": "Điểm Par đẹp quá thưa ông! Hôm nay ông đang chơi rất hay ạ!",
         "options": [
-            { "en": "A. Nice Par, Sir! You are playing very well.", "vi": "Khen điểm Par đẹp (/naɪs pɑːr/)[cite: 1, 2]" },
+            { "en": "A. Nice Par, Sir! You are playing very well.", "vi": "Khen điểm Par đẹp (/naɪs pɑːr/)" },
             { "en": "B. Bad bogey on this hole, Sir.", "vi": "Bogey tệ" },
             { "en": "C. You got lucky with that putt, Sir.", "vi": "May mắn" },
             { "en": "D. Par is not good enough, Sir.", "vi": "Par chưa đủ tốt" }
@@ -807,12 +807,12 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.3",
         "type": "mcq",
-        "title": "[5.3 Luyện phát âm 6] Luyện câu khuyên hướng tâm trí về hố tiếp theo[cite: 1, 2]:",
+        "title": "[5.3 Luyện phát âm 6] Luyện câu khuyên hướng tâm trí về hố tiếp theo:",
         "audioText": "It's okay, Sir. Forget it. We have many holes left, let's focus on the next one.",
         "phonetic": "/ɪts oʊˈkeɪ, sɜːr. fɚˈɡet ɪt. wiː hæv ˈmen.i hoʊlz left, lets ˈfoʊ.kəs ɑːn ðə nekst wʌn/",
         "translation": "Không sao đâu ông ơi. Quên nó đi ạ. Mình còn nhiều hố phía trước, hãy tập trung vào quả tiếp theo nhé[cite: 1, 2].",
         "options": [
-            { "en": "A. Forget it, Sir. Let's focus on the next one.", "vi": "Quên đi, tập trung quả tiếp theo (/fɚˈɡet ɪt/)[cite: 1, 2]" },
+            { "en": "A. Forget it, Sir. Let's focus on the next one.", "vi": "Quên đi, tập trung quả tiếp theo (/fɚˈɡet ɪt/)" },
             { "en": "B. Keep complaining about the last shot, Sir.", "vi": "Tiếp tục phàn nàn" },
             { "en": "C. This match is ruined, Sir.", "vi": "Trận đấu hỏng rồi" },
             { "en": "D. Go home now, Sir.", "vi": "Về nhà thôi" }
@@ -823,12 +823,12 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.3",
         "type": "mcq",
-        "title": "[5.3 Luyện phát âm 7] Luyện câu khen đọc line green xuất sắc[cite: 1, 2]:",
+        "title": "[5.3 Luyện phát âm 7] Luyện câu khen đọc line green xuất sắc:",
         "audioText": "Nice Birdie, Sir! You read the green very well. Great job!",
         "phonetic": "/naɪs ˈbɜːr.di, sɜːr! juː red ðə ɡriːn ˈver.i wel. ɡreɪt dʒɑːb/",
         "translation": "Điểm Birdie đẹp quá thưa ông! Ông đọc green rất tốt. Làm tốt lắm ạ![cite: 1, 2]",
         "options": [
-            { "en": "A. You read the green very well. Great job, Sir!", "vi": "Đọc green rất tốt, làm tốt lắm (/red ðə ɡriːn/)[cite: 1, 2]" },
+            { "en": "A. You read the green very well. Great job, Sir!", "vi": "Đọc green rất tốt, làm tốt lắm (/red ðə ɡriːn/)" },
             { "en": "B. I read the line for you, not you, Sir.", "vi": "Tôi đọc line hộ chứ không phải ông" },
             { "en": "C. Lucky putt into the hole, Sir.", "vi": "Gạt may mắn" },
             { "en": "D. Wrong line, Sir.", "vi": "Sai line" }
@@ -839,12 +839,12 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.3",
         "type": "mcq",
-        "title": "[5.3 Luyện phát âm 8] Luyện câu khen nhịp điệu vung gậy hoàn hảo[cite: 1, 2]:",
+        "title": "[5.3 Luyện phát âm 8] Luyện câu khen nhịp điệu vung gậy hoàn hảo:",
         "audioText": "Yes, Sir. Your rhythm was perfect on that swing. Keep it up!",
         "phonetic": "/jes, sɜːr. jʊər ˈrɪð.əm wəz ˈpɜːr.fekt ɑːn ðæt swɪŋ. kiːp ɪt ʌp/",
         "translation": "Dạ đúng. Nhịp điệu của ông rất hoàn hảo ở cú swing đó. Ông giữ vững phong độ nhé![cite: 1, 2]",
         "options": [
-            { "en": "A. Your rhythm was perfect. Keep it up, Sir!", "vi": "Nhịp điệu hoàn hảo (/ˈrɪð.əm/)[cite: 1, 2]" },
+            { "en": "A. Your rhythm was perfect. Keep it up, Sir!", "vi": "Nhịp điệu hoàn hảo (/ˈrɪð.əm/)" },
             { "en": "B. Your swing is too fast and bad, Sir.", "vi": "Swing quá nhanh và tệ" },
             { "en": "C. Change your golf posture, Sir.", "vi": "Đổi tư thế" },
             { "en": "D. Stop swinging like that, Sir.", "vi": "Dừng swing kiểu đó" }
@@ -871,12 +871,12 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.3",
         "type": "mcq",
-        "title": "[5.3 Luyện phát âm 10] Luyện câu cổ vũ tinh thần tập trung thi đấu từng cú đánh một[cite: 1, 2]:",
+        "title": "[5.3 Luyện phát âm 10] Luyện câu cổ vũ tinh thần tập trung thi đấu từng cú đánh một:",
         "audioText": "One shot at a time, Sir. Stay in the moment!",
         "phonetic": "/wʌn ʃɑːt æt ə taɪm, sɜːr. steɪ ɪn ðə ˈmoʊ.mənt/",
         "translation": "Hãy giải quyết từng cú đánh một thưa ông. Giữ tập trung vào hiện tại nhé ạ![cite: 1, 2]",
         "options": [
-            { "en": "A. One shot at a time, Sir. Stay in the moment!", "vi": "Tập trung từng cú đánh một (/steɪ ɪn ðə ˈmoʊ.mənt/)[cite: 1, 2]" },
+            { "en": "A. One shot at a time, Sir. Stay in the moment!", "vi": "Tập trung từng cú đánh một (/steɪ ɪn ðə ˈmoʊ.mənt/)" },
             { "en": "B. Think about your score at hole 18, Sir.", "vi": "Nghĩ về điểm số hố 18 đi" },
             { "en": "C. Hurry up and swing, Sir.", "vi": "Nhanh tay vung gậy lên" },
             { "en": "D. You are going to lose, Sir.", "vi": "Ông sắp thua rồi" }
@@ -887,12 +887,12 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.3",
         "type": "mcq",
-        "title": "[5.3 Luyện phát âm 11] Luyện câu động viên kiên nhẫn khi gặp phong độ trồi sụt[cite: 1, 2]:",
+        "title": "[5.3 Luyện phát âm 11] Luyện câu động viên kiên nhẫn khi gặp phong độ trồi sụt:",
         "audioText": "Stay patient, Sir. Golf is a game of ups and downs.",
         "phonetic": "/steɪ ˈpeɪ.ʃənt, sɜːr. ɡɑːlf ɪz ə ɡeɪm əv ʌps ænd daʊnz/",
         "translation": "Hãy giữ kiên nhẫn thưa ông. Môn golf vốn có những lúc thăng lúc trầm mà ạ[cite: 1, 2].",
         "options": [
-            { "en": "A. Stay patient, Sir. Golf is a game of ups and downs.", "vi": "Kiên nhẫn, môn golf có lúc thăng lúc trầm (/ˈpeɪ.ʃənt/)[cite: 1, 2]" },
+            { "en": "A. Stay patient, Sir. Golf is a game of ups and downs.", "vi": "Kiên nhẫn, môn golf có lúc thăng lúc trầm (/ˈpeɪ.ʃənt/)" },
             { "en": "B. Golf is too hard for you, Sir.", "vi": "Golf quá khó với ông" },
             { "en": "C. Throw your clubs away, Sir.", "vi": "Vứt gậy đi" },
             { "en": "D. You will never improve, Sir.", "vi": "Không tiến bộ nổi" }
@@ -903,12 +903,12 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.3",
         "type": "mcq",
-        "title": "[5.3 Luyện phát âm 12] Luyện câu chúc mừng cú đánh Hole-in-one kinh điển[cite: 1, 2]:",
+        "title": "[5.3 Luyện phát âm 12] Luyện câu chúc mừng cú đánh Hole-in-one kinh điển:",
         "audioText": "Unbelievable, Sir! Hole-in-one! Congratulations on this historic moment!",
         "phonetic": "/ˌʌn.bəˈliː.və.bəl, sɜːr! hoʊl ɪn wʌn! kənˌɡrætʃ.əˈleɪ.ʃənz ɑːn ðɪs hɪˈstɔːr.ɪk ˈmoʊ.mənt/",
         "translation": "Không thể tin nổi ông ơi! Hole-in-one rồi! Chúc mừng ông với khoảnh khắc lịch sử này ạ![cite: 1, 2]",
         "options": [
-            { "en": "A. Unbelievable, Sir! Hole-in-one! Congratulations!", "vi": "Khen cú Hole-in-one tuyệt đỉnh (/hoʊl ɪn wʌn/)[cite: 1, 2]" },
+            { "en": "A. Unbelievable, Sir! Hole-in-one! Congratulations!", "vi": "Khen cú Hole-in-one tuyệt đỉnh (/hoʊl ɪn wʌn/)" },
             { "en": "B. The wind blew it in, Sir.", "vi": "Gió thổi bóng vào đấy" },
             { "en": "C. Pure luck, Sir.", "vi": "May mắn thuần túy" },
             { "en": "D. You should play again, Sir.", "vi": "Đánh lại đi" }
@@ -919,12 +919,12 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.3",
         "type": "mcq",
-        "title": "[5.3 Luyện phát âm 13] Luyện câu khen cú thoát bẫy Chip-in tuyệt vời[cite: 1, 2]:",
+        "title": "[5.3 Luyện phát âm 13] Luyện câu khen cú thoát bẫy Chip-in tuyệt vời:",
         "audioText": "Wow! What a Chip-in, Sir! That was an incredible shot!",
         "phonetic": "/waʊ! wɑːt ə tʃɪp ɪn, sɜːr! ðæt wəz æn ɪnˈkred.ə.bəl ʃɑːt/",
         "translation": "Wow! Cú chip-in đỉnh quá ông ơi! Đó là một cú đánh không thể tin nổi ạ![cite: 1, 2]",
         "options": [
-            { "en": "A. What a Chip-in, Sir! That was an incredible shot!", "vi": "Khen cú Chip-in bóng vào lỗ trực tiếp (/tʃɪp ɪn/)[cite: 1, 2]" },
+            { "en": "A. What a Chip-in, Sir! That was an incredible shot!", "vi": "Khen cú Chip-in bóng vào lỗ trực tiếp (/tʃɪp ɪn/)" },
             { "en": "B. The cup was too large, Sir.", "vi": "Lỗ golf to quá" },
             { "en": "C. Next time it will miss, Sir.", "vi": "Lần sau sẽ trượt thôi" },
             { "en": "D. Bad luck, Sir.", "vi": "Kém may mắn" }
@@ -971,109 +971,109 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.3",
         "type": "fill",
-        "title": "[5.3 Luyện phát âm - Điền từ 17] Nghe câu khen cú gạt bóng điểm Birdie đỉnh cao[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.3 Luyện phát âm - Điền từ 17] Nghe câu khen cú gạt bóng điểm Birdie đỉnh cao và ĐIỀN TỪ CHUẨN:",
         "audioText": "Amazing putt, Sir! Good birdie!",
         "phonetic": "/əˈmeɪ.zɪŋ pʌt, sɜːr! ɡʊd ˈbɜːr.di/",
         "translation": "Cú gạt bóng quá đỉnh thưa ông! Chúc mừng điểm Birdie tuyệt vời![cite: 1, 2]",
         "displaySentence": "Amazing putt, Sir! Good _______!",
         "targetWord": "birdie",
-        "hint": "💡 Gợi ý: Điền từ (6 ký tự)[cite: 1, 2]."
+        "hint": "💡 Gợi ý: Điền từ (6 ký tự)."
     },
     {
         "lesson": "5",
         "section": "section5.3",
         "type": "fill",
-        "title": "[5.3 Luyện phát âm - Điền từ 18] Nghe câu khen cú swing xuất sắc[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.3 Luyện phát âm - Điền từ 18] Nghe câu khen cú swing xuất sắc và ĐIỀN TỪ CHUẨN:",
         "audioText": "Great swing, Sir! Keep it up!",
         "phonetic": "/ɡreɪt swɪŋ, sɜːr! kiːp ɪt ʌp/",
         "translation": "Cú swing quá tuyệt thưa ông! Hãy giữ vững phong độ nhé![cite: 1, 2]",
         "displaySentence": "Great _______, Sir! Keep it up!",
         "targetWord": "swing",
-        "hint": "💡 Gợi ý: Điền từ (5 ký tự)[cite: 1, 2]."
+        "hint": "💡 Gợi ý: Điền từ (5 ký tự)."
     },
     {
         "lesson": "5",
         "section": "section5.3",
         "type": "fill",
-        "title": "[5.3 Luyện phát âm - Điền từ 19] Nghe câu khen ngợi sự tự tin làm chủ trận đấu[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.3 Luyện phát âm - Điền từ 19] Nghe câu khen ngợi sự tự tin làm chủ trận đấu và ĐIỀN TỪ CHUẨN:",
         "audioText": "You nailed it, Sir!",
         "phonetic": "/juː neɪld ɪt, sɜːr/",
         "translation": "Ông làm quá đỉnh/chuẩn xác rồi ạ![cite: 1, 2]",
         "displaySentence": "You _______ it, Sir!",
         "targetWord": "nailed",
-        "hint": "💡 Gợi ý: Điền từ (6 ký tự)[cite: 1, 2]."
+        "hint": "💡 Gợi ý: Điền từ (6 ký tự)."
     },
     {
         "lesson": "5",
         "section": "section5.3",
         "type": "fill",
-        "title": "[5.3 Luyện phát âm - Điền từ 20] Nghe câu khen cú thoát hiểm/cứu bóng đẹp[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.3 Luyện phát âm - Điền từ 20] Nghe câu khen cú thoát hiểm/cứu bóng đẹp và ĐIỀN TỪ CHUẨN:",
         "audioText": "Great recovery shot, Sir!",
         "phonetic": "/ɡreɪt rɪˈkʌv.ɚ.i ʃɑːt, sɜːr/",
         "translation": "Cú đánh cứu bóng tuyệt vời thưa ông![cite: 1, 2]",
         "displaySentence": "Great _______ shot, Sir!",
         "targetWord": "recovery",
-        "hint": "💡 Gợi ý: Điền từ (8 ký tự)[cite: 1, 2]."
+        "hint": "💡 Gợi ý: Điền từ (8 ký tự)."
     },
     {
         "lesson": "5",
         "section": "section5.3",
         "type": "fill",
-        "title": "[5.3 Luyện phát âm - Điền từ 21] Nghe câu khen trận đấu thành công[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.3 Luyện phát âm - Điền từ 21] Nghe câu khen trận đấu thành công và ĐIỀN TỪ CHUẨN:",
         "audioText": "Well played today, Sir!",
         "phonetic": "/wel pleɪd təˈdeɪ, sɜːr/",
         "translation": "Hôm nay ông chơi rất hay/tuyệt vời ạ![cite: 1, 2]",
         "displaySentence": "Well _______ today, Sir!",
         "targetWord": "played",
-        "hint": "💡 Gợi ý: Điền từ (6 ký tự)[cite: 1, 2]."
+        "hint": "💡 Gợi ý: Điền từ (6 ký tự)."
     },
     {
         "lesson": "5",
         "section": "section5.3",
         "type": "fill",
-        "title": "[5.3 Luyện phát âm - Điền từ 22] Nghe câu khuyên thư giãn trước khi vung gậy[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.3 Luyện phát âm - Điền từ 22] Nghe câu khuyên thư giãn trước khi vung gậy và ĐIỀN TỪ CHUẨN:",
         "audioText": "Take a deep breath to relax, Sir.",
         "phonetic": "/teɪk ə diːp breθ tə rɪˈlæks, sɜːr/",
         "translation": "Hãy hít một hơi thật sâu để thư giãn thưa ông[cite: 1, 2].",
         "displaySentence": "Take a deep _______ to relax, Sir.",
         "targetWord": "breath",
-        "hint": "💡 Gợi ý: Điền từ (6 ký tự)[cite: 1, 2]."
+        "hint": "💡 Gợi ý: Điền từ (6 ký tự)."
     },
     {
         "lesson": "5",
         "section": "section5.3",
         "type": "fill",
-        "title": "[5.3 Luyện phát âm - Điền từ 23] Nghe câu khen đọc line chuẩn xác[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.3 Luyện phát âm - Điền từ 23] Nghe câu khen đọc line chuẩn xác và ĐIỀN TỪ CHUẨN:",
         "audioText": "Perfect read on that putt, Sir!",
         "phonetic": "/ˈpɜːr.fekt riːd ɑːn ðæt pʌt, sɜːr/",
         "translation": "Đọc line cú gạt bóng đó quá hoàn hảo thưa ông![cite: 1, 2]",
         "displaySentence": "Perfect _______ on that putt, Sir!",
         "targetWord": "read",
-        "hint": "💡 Gợi ý: Điền từ (4 ký tự)[cite: 1, 2]."
+        "hint": "💡 Gợi ý: Điền từ (4 ký tự)."
     },
     {
         "lesson": "5",
         "section": "section5.3",
         "type": "fill",
-        "title": "[5.3 Luyện phát âm - Điền từ 24] Nghe câu động viên hướng vào thứ kiểm soát được[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.3 Luyện phát âm - Điền từ 24] Nghe câu động viên hướng vào thứ kiểm soát được và ĐIỀN TỪ CHUẨN:",
         "audioText": "Focus on what you can control, Sir.",
         "phonetic": "/ˈfoʊ.kəs ɑːn wɑːt juː kæn kənˈtroʊl, sɜːr/",
         "translation": "Tập trung vào những gì ông có thể kiểm soát được thưa ông[cite: 1, 2].",
         "displaySentence": "Focus on what you can _______, Sir.",
         "targetWord": "control",
-        "hint": "💡 Gợi ý: Điền từ (7 ký tự)[cite: 1, 2]."
+        "hint": "💡 Gợi ý: Điền từ (7 ký tự)."
     },
     {
         "lesson": "5",
         "section": "section5.3",
         "type": "fill",
-        "title": "[5.3 Luyện phát âm - Điền từ 25] Nghe câu khuyên vui vẻ phấn chấn lên[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.3 Luyện phát âm - Điền từ 25] Nghe câu khuyên vui vẻ phấn chấn lên và ĐIỀN TỪ CHUẨN:",
         "audioText": "Cheer up, Sir! The game is not over yet!",
         "phonetic": "/tʃɪr ʌp, sɜːr! ðə ɡeɪm ɪz nɑːt ˈoʊ.vɚ jet/",
         "translation": "Vui lên thưa ông! Trận đấu vẫn chưa kết thúc mà![cite: 1, 2]",
         "displaySentence": "_______ up, Sir! The game is not over yet!",
         "targetWord": "Cheer",
-        "hint": "💡 Gợi ý: Điền từ (5 ký tự)[cite: 1, 2]."
+        "hint": "💡 Gợi ý: Điền từ (5 ký tự)."
     },
 
     // -------------------------------------------------------------------------
@@ -1439,7 +1439,7 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.5",
         "type": "mcq",
-        "title": "[5.5 Đóng vai thực chiến 1] Khách ghi điểm Birdie xuất sắc dài 3 mét[cite: 1, 2]:",
+        "title": "[5.5 Đóng vai thực chiến 1] Khách ghi điểm Birdie xuất sắc dài 3 mét:",
         "audioText": "Wow, amazing putt, Sir! Good birdie! You read the line perfectly!",
         "phonetic": "/waʊ, əˈmeɪ.zɪŋ pʌt, sɜːr! ɡʊd ˈbɜːr.di! juː red ðə laɪn ˈpɜːr.fekt.li/",
         "translation": "Wow, cú gạt bóng quá đỉnh thưa ông! Birdie tuyệt vời! Ông đọc đường bóng chuẩn xác quá ạ![cite: 1, 2]",
@@ -1471,7 +1471,7 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.5",
         "type": "mcq",
-        "title": "[5.5 Đóng vai thực chiến 3] Khách bực bội vì đánh bóng vào bẫy cát hoặc bẫy nước[cite: 1, 2]:",
+        "title": "[5.5 Đóng vai thực chiến 3] Khách bực bội vì đánh bóng không như ý vào bẫy:",
         "audioText": "It's okay, Sir. Forget it. We have many holes left. Let's focus on the next one.",
         "phonetic": "/ɪts oʊˈkeɪ, sɜːr. fɚˈɡet ɪt. wiː hæv ˈmen.i hoʊlz left. lets ˈfoʊ.kəs ɑːn ðə nekst wʌn/",
         "translation": "Không sao đâu ông ơi. Quên nó đi ạ. Mình còn nhiều hố phía trước mà. Hãy tập trung vào quả tiếp theo nhé[cite: 1, 2].",
@@ -1527,7 +1527,7 @@ window.masterQuizData.push(
             { "en": "A. I will contact the Marshal to request front group to speed up, Sir.", "vi": "Liên hệ Marshal yêu cầu nhóm trước đi nhanh hơn" },
             { "en": "B. Shout at the front group, Sir.", "vi": "Hét vào mặt nhóm trước" },
             { "en": "C. Hit your ball at them, Sir.", "vi": "Đánh bóng thẳng vào họ" },
-            { "en": "D. Sit down and sleep, Sir.", "vi": "Sit down and sleep" }
+            { "en": "D. Sit down and sleep, Sir.", "vi": "Nằm ngủ" }
         ],
         "correct": 0
     },
@@ -1535,7 +1535,7 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.5",
         "type": "mcq",
-        "title": "[5.5 Đóng vai thực chiến 7] Khách bối rối vì đánh bóng vào vạch penalty màu đỏ[cite: 1, 2]:",
+        "title": "[5.5 Đóng vai thực chiến 7] Khách bối rối vì đánh bóng vào vạch penalty màu đỏ:",
         "audioText": "Sir, your ball entered the red penalty area. Under the rules, you have 3 options to take relief with 1 penalty stroke.",
         "phonetic": "/sɜːr, jʊər bɔːl ˈen.t̬ɚd ðə red ˈpen.əl.ti ˈer.i.ə. ˈʌn.dɚ ðə ruːlz, juː hæv θriː ˈɑːp.ʃənz tə teɪk rɪˈliːf wɪð wʌn ˈpen.əl.ti stroʊk/",
         "translation": "Thưa ông, bóng đã vào bẫy đỏ. Theo luật golf, ông có 3 lựa chọn giải thoát phạt 1 gậy ạ[cite: 1, 2].",
@@ -1551,7 +1551,7 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.5",
         "type": "mcq",
-        "title": "[5.5 Đóng vai thực chiến 8] Khách nghi ngờ bóng đọng nước tạm thời trên fairway (casual water)[cite: 1, 2]:",
+        "title": "[5.5 Đóng vai thực chiến 8] Khách nghi ngờ bóng đọng nước tạm thời trên fairway (casual water):",
         "audioText": "Sir, your ball lies in casual water. You can take free relief from the nearest point.",
         "phonetic": "/sɜːr, jʊər bɔːl laɪz ɪn ˈkæʒ.u.əl ˈwɔː.t̬ɚ. juː kæn teɪk friː rɪˈliːf frəm ðə ˈnɪr.ɪst pɔɪnt/",
         "translation": "Thưa ông, bóng nằm ở vùng nước đọng tạm thời. Ông được giải thoát miễn phí tại điểm gần nhất ạ[cite: 1, 2].",
@@ -1599,7 +1599,7 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.5",
         "type": "mcq",
-        "title": "[5.5 Tiêu chuẩn an toàn 11] Caddy cảnh báo khi thấy nhóm khách lái xe buggy nguy hiểm[cite: 1, 2]:",
+        "title": "[5.5 Tiêu chuẩn an toàn 11] Caddy cảnh báo khi thấy nhóm khách lái xe buggy nguy hiểm:",
         "audioText": "Please slow down and mind your speed around this bend, Sir.",
         "phonetic": "/pliːz sloʊ daʊn ænd maɪnd jʊər spiːd əˈraʊnd ðɪs bend, sɜːr/",
         "translation": "Xin ông giảm tốc độ và chú ý quan sát khi đi qua khúc cua này ạ[cite: 1, 2].",
@@ -1615,7 +1615,7 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.5",
         "type": "mcq",
-        "title": "[5.5 Xử lý sự cố 12] Caddy hô to cảnh báo khi bóng bay chệch hướng về phía người khác[cite: 1, 2]:",
+        "title": "[5.5 Xử lý sự cố 12] Caddy hô to cảnh báo khi bóng bay chệch hướng về phía người khác:",
         "audioText": "FORE! Watch out! Cover your head, Sir!",
         "phonetic": "/fɔːr! wɑːtʃ aʊt! ˈkʌv.ɚ jʊər hed, sɜːr/",
         "translation": "FORE! Chú ý! Che đầu lại thưa ông![cite: 1, 2]",
@@ -1631,7 +1631,7 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.5",
         "type": "mcq",
-        "title": "[5.5 Xử lý y tế 13] Caddy phản ứng khi khách bị thương/sức khỏe có vấn đề trên sân[cite: 1, 2]:",
+        "title": "[5.5 Xử lý y tế 13] Caddy phản ứng khi khách bị thương/sức khỏe có vấn đề trên sân:",
         "audioText": "Are you alright, Sir? I will call the clubhouse for medical assistance right away.",
         "phonetic": "/ɑːr juː ˌɔːlˈraɪt, sɜːr? aɪ wɪl kɑːl ðə ˈklʌb.haʊs fɔːr ˈmed.ɪ.kəl əˈsɪs.təns raɪt əˈweɪ/",
         "translation": "Ông có sao không ạ? Tôi sẽ gọi cho Nhà Câu lạc bộ hỗ trợ y tế ngay lập tức ạ![cite: 1, 2]",
@@ -1683,49 +1683,49 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.5",
         "type": "fill",
-        "title": "[5.5 Luyện phát âm - Điền từ 17] Nghe câu gọi tên giải thoát miễn phí theo luật[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.5 Luyện phát âm - Điền từ 17] Nghe câu gọi tên giải thoát miễn phí theo luật và ĐIỀN TỪ CHUẨN:",
         "audioText": "You can take free relief from this area, Sir.",
         "phonetic": "/juː kæn teɪk friː rɪˈliːf frəm ðɪs ˈer.i.ə, sɜːr/",
         "translation": "Ông có thể thực hiện giải thoát miễn phí từ khu vực này ạ[cite: 1, 2].",
         "displaySentence": "You can take free _______ from this area, Sir.",
         "targetWord": "relief",
-        "hint": "💡 Gợi ý: Điền từ (6 ký tự)[cite: 1, 2]."
+        "hint": "💡 Gợi ý: Điền từ (6 ký tự)."
     },
     {
         "lesson": "5",
         "section": "section5.5",
         "type": "fill",
-        "title": "[5.5 Luyện phát âm - Điền từ 18] Nghe câu hướng dẫn thả bóng ngang tầm gối[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.5 Luyện phát âm - Điền từ 18] Nghe câu hướng dẫn thả bóng ngang tầm gối và ĐIỀN TỪ CHUẨN:",
         "audioText": "Please drop the ball from knee height, Sir.",
         "phonetic": "/pliːz drɑːp ðə bɔːl frəm niː haɪt, sɜːr/",
         "translation": "Xin hãy thả bóng từ độ cao ngang tầm đầu gối thưa ông[cite: 1, 2].",
         "displaySentence": "Please drop the ball from knee _______, Sir.",
         "targetWord": "height",
-        "hint": "💡 Gợi ý: Điền từ (6 ký tự)[cite: 1, 2]."
+        "hint": "💡 Gợi ý: Điền từ (6 ký tự)."
     },
     {
         "lesson": "5",
         "section": "section5.5",
         "type": "fill",
-        "title": "[5.5 Luyện phát âm - Điền từ 19] Nghe câu hô to cảnh báo nguy hiểm[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.5 Luyện phát âm - Điền từ 19] Nghe câu hô to cảnh báo nguy hiểm và ĐIỀN TỪ CHUẨN:",
         "audioText": "FORE! Please cover your head, Sir!",
         "phonetic": "/fɔːr! pliːz ˈkʌv.ɚ jʊər hed, sɜːr/",
         "translation": "FORE! Xin hãy che đầu lại thưa ông![cite: 1, 2]",
         "displaySentence": "FORE! Please cover your _______, Sir!",
         "targetWord": "head",
-        "hint": "💡 Gợi ý: Điền từ (4 ký tự)[cite: 1, 2]."
+        "hint": "💡 Gợi ý: Điền từ (4 ký tự)."
     },
     {
         "lesson": "5",
         "section": "section5.5",
         "type": "fill",
-        "title": "[5.5 Luyện phát âm - Điền từ 20] Nghe câu nhắc duy trì khoảng cách an toàn xe buggy[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.5 Luyện phát âm - Điền từ 20] Nghe câu nhắc duy trì khoảng cách an toàn xe buggy và ĐIỀN TỪ CHUẨN:",
         "audioText": "Please maintain a safe distance with the front buggy, Sir.",
         "phonetic": "/pliːz meɪnˈteɪn ə seɪf ˈdɪs.təns wɪð ðə frʌnt ˈbʌɡ.i, sɜːr/",
         "translation": "Xin hãy giữ khoảng cách an toàn với xe caddie phía trước ạ[cite: 1, 2].",
         "displaySentence": "Please maintain a safe _______ with the front buggy, Sir.",
         "targetWord": "distance",
-        "hint": "💡 Gợi ý: Điền từ (8 ký tự)[cite: 1, 2]."
+        "hint": "💡 Gợi ý: Điền từ (8 ký tự)."
     },
     {
         "lesson": "5",
@@ -1743,10 +1743,10 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.5",
         "type": "fill",
-        "title": "[5.5 Luyện phát âm - Điền từ 22] Nghe câu chúc mừng điểm Par đẹp[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.5 Luyện phát âm - Điền từ 22] Nghe câu chúc mừng điểm Par đẹp và ĐIỀN TỪ CHUẨN:",
         "audioText": "Nice Par, Sir! Beautiful performance today!",
         "phonetic": "/naɪs pɑːr, sɜːr! ˈbjuː.t̬ə.fəl pɚˈfɔːr.məns təˈdeɪ/",
-        "translation": "Điểm Par đẹp quá thưa ông! Phong độ xuất sắc hôm nay ạ![cite: 1, 2]",
+        "translation": "Điểm Par đẹp quá thưa ông! Phong độ xuất sắc hôm nay ạ!",
         "displaySentence": "Nice Par, Sir! Beautiful _______ today!",
         "targetWord": "performance",
         "hint": "💡 Gợi ý: Điền từ (11 ký tự)."
@@ -1755,25 +1755,25 @@ window.masterQuizData.push(
         "lesson": "5",
         "section": "section5.5",
         "type": "fill",
-        "title": "[5.5 Luyện phát âm - Điền từ 23] Nghe câu trấn an khi bóng ở vị trí không đánh được (unplayable lie)[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.5 Luyện phát âm - Điền từ 23] Nghe câu trấn an khi bóng ở vị trí không đánh được (unplayable lie) và ĐIỀN TỪ CHUẨN:",
         "audioText": "Don't worry, Sir. You can declare an unplayable ball.",
         "phonetic": "/doʊnt ˈwɜːr.i, sɜːr. juː kæn dɪˈkler æn ʌnˈpleɪ.ə.bəl bɔːl/",
         "translation": "Đừng lo lắng thưa ông. Ông có thể tuyên bố bóng không đánh được ạ[cite: 1, 2].",
         "displaySentence": "Don't worry, Sir. You can declare an _______ ball.",
         "targetWord": "unplayable",
-        "hint": "💡 Gợi ý: Điền từ (10 ký tự)[cite: 1, 2]."
+        "hint": "💡 Gợi ý: Điền từ (10 ký tự)."
     },
     {
         "lesson": "5",
         "section": "section5.5",
         "type": "fill",
-        "title": "[5.5 Luyện phát âm - Điền từ 24] Nghe câu nhắc nhở khách đất trơn trượt an toàn[cite: 1, 2] và ĐIỀN TỪ CHUẨN:",
+        "title": "[5.5 Luyện phát âm - Điền từ 24] Nghe câu nhắc nhở khách đất trơn trượt an toàn và ĐIỀN TỪ CHUẨN:",
         "audioText": "Hold on a moment, Sir. The ground ahead is slippery.",
         "phonetic": "/hoʊld ɑːn ə ˈmoʊ.mənt, sɜːr. ðə ɡraʊnd əˈhed ɪz ˈslɪp.ɚ.i/",
         "translation": "Xin chờ một chút thưa ông. Mặt đất phía trước hơi trơn trượt ạ[cite: 1, 2].",
         "displaySentence": "Hold on a moment, Sir. The ground ahead is _______.",
         "targetWord": "slippery",
-        "hint": "💡 Gợi ý: Điền từ (8 ký tự)[cite: 1, 2]."
+        "hint": "💡 Gợi ý: Điền từ (8 ký tự)."
     },
     {
         "lesson": "5",
