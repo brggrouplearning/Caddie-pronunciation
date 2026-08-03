@@ -14,7 +14,7 @@
         .sub-type { color: #666; font-size: 12px; margin-top: 0; margin-bottom: 6px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
         #lesson-subtitle { color: #0d6efd; font-size: 14px; margin-top: 0; margin-bottom: 18px; font-weight: bold; text-transform: uppercase; }
         
-        /* GIAO DIỆN KHAI BÁO THÔNG TIN TRỰC QUAN DỄ NHÌN */
+        /* GIAO DIỆN THÔNG TIN HỌC VIÊN SONG NGỮ TRỰC QUAN */
         .user-card { background: #ffffff; border: 2px solid #e7f1ff; border-radius: 12px; padding: 20px; text-align: left; box-shadow: 0 4px 12px rgba(13, 110, 253, 0.05); margin-bottom: 10px; }
         .user-card-header { font-size: 15px; font-weight: bold; color: #0d6efd; border-bottom: 2px solid #e7f1ff; padding-bottom: 8px; margin-bottom: 15px; text-align: center; text-transform: uppercase; }
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -68,10 +68,26 @@
 
         .stats-box { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 10px; padding: 14px; margin: 15px 0; text-align: left; font-size: 13.5px; line-height: 1.6; }
         
-        /* KHUNG ĐỀ XUẤT GÓP Ý */
+        /* KHUNG ĐỀ XUẤT GÓP Ý: CỐ ĐỊNH NGANG - CO GIẢN DỌC TÙY Ý */
         .feedback-card { background: #fff8e6; border: 1px solid #ffe8a1; border-radius: 10px; padding: 12px 15px; margin-top: 15px; text-align: left; }
         .feedback-card label { font-size: 13px; font-weight: bold; color: #8c6d00; display: block; margin-bottom: 6px; }
-        .btn-send-feedback { background: #ffc107; color: #000; font-weight: bold; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; margin-top: 8px; width: 100%; }
+        
+        .feedback-card textarea { 
+            width: 100%; 
+            resize: vertical; /* Cố định chiều ngang, cho phép kéo dài chiều dọc */
+            min-height: 70px;
+            max-height: 250px;
+            padding: 10px 12px; 
+            border: 1.5px solid #ffe082; 
+            border-radius: 8px; 
+            font-size: 13px; 
+            font-family: inherit; 
+            outline: none; 
+            background: #ffffff; 
+        }
+        .feedback-card textarea:focus { border-color: #ffc107; box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2); }
+        .btn-send-feedback { background: #ffc107; color: #000; font-weight: bold; border: none; padding: 10px 14px; border-radius: 8px; cursor: pointer; margin-top: 8px; width: 100%; transition: background 0.2s; }
+        .btn-send-feedback:hover { background: #e0a800; }
 
         .action-buttons { display: flex; gap: 10px; justify-content: center; margin-top: 15px; flex-wrap: wrap; }
         .btn-review { background: #17a2b8; color: white; flex: 1; padding: 11px; border-radius: 8px; font-weight: bold; border: none; cursor: pointer; min-width: 130px; }
@@ -96,15 +112,15 @@
         <div class="sub-type">LUYỆN TẬP KỸ NĂNG PHÁT ÂM (SPEAKING PRACTICE)</div>
         <div id="lesson-subtitle">ĐANG TẢI BÀI HỌC...</div>
         
-        <!-- BƯỚC 1: KHAI BÁO THÔNG TIN THÍ SINH (TRỰC QUAN & RÕ RÀNG) -->
+        <!-- BƯỚC 1: THÔNG TIN HỌC VIÊN (SONG NGỮ VIỆT - ANH) -->
         <div id="user-info-view" class="user-card">
-            <div class="user-card-header">📋 KHAI BÁO THÔNG TIN THÍ SINH</div>
+            <div class="user-card-header">📋 THÔNG TIN HỌC VIÊN / STUDENT INFORMATION</div>
             
             <div class="form-grid">
                 <div class="form-group full-width">
-                    <label for="work-place">1. Nơi làm việc (Work place) (*):</label>
+                    <label for="work-place">1. Nơi làm việc / Work place (*):</label>
                     <select id="work-place">
-                        <option value="">-- Chọn đơn vị làm việc --</option>
+                        <option value="">-- Chọn đơn vị làm việc / Select Work Place --</option>
                         <option value="KI">KINGS ISLAND</option>
                         <option value="LH">LEGEND HILL</option>
                         <option value="RT">RUBY TREE</option>
@@ -115,23 +131,24 @@
                 </div>
 
                 <div class="form-group full-width">
-                    <label for="student-name">2. Họ Và Tên (Full name) (*):</label>
-                    <input type="text" id="student-name" placeholder="Nhập họ và tên đầy đủ">
+                    <label for="student-name">2. Họ Và Tên / Full name (*):</label>
+                    <input type="text" id="student-name" placeholder="Nhập họ và tên đầy đủ / Enter your full name">
                 </div>
 
                 <div class="form-group">
-                    <label for="staff-number">3. Mã Nhân viên (*):</label>
-                    <input type="text" id="staff-number" placeholder="Ví dụ: 123, 435">
+                    <label for="staff-number">3. Mã Nhân viên / Staff ID (*):</label>
+                    <input type="text" id="staff-number" placeholder="Ví dụ / e.g. 123, 435">
                 </div>
 
                 <div class="form-group">
-                    <label for="birthday-date">4. Ngày sinh (*):</label>
+                    <label for="birthday-date">4. Ngày sinh / Date of birth (*):</label>
                     <input type="date" id="birthday-date">
                 </div>
 
                 <div class="form-group full-width">
-                    <label for="department">5. Bộ phận, Phòng, Ban (*):</label>
+                    <label for="department">5. Bộ phận, Phòng, Ban / Department, Division (*):</label>
                     <select id="department">
+                        <option value="">-- Chọn bộ phận / Select Department --</option>
                         <option value="Caddie">Caddie</option>
                         <option value="Marshal">Marshal</option>
                         <option value="Starter">Starter</option>
@@ -142,7 +159,7 @@
             </div>
 
             <p id="user-info-error" style="color: #dc3545; font-size: 13px; font-weight: bold; margin: 5px 0 0 0; display: none;"></p>
-            <button class="btn-start-quiz" onclick="startQuizPractice()">BẮT ĐẦU LÀM BÀI 🚀</button>
+            <button class="btn-start-quiz" onclick="startQuizPractice()">BẮT ĐẦU LÀM BÀI / START TEST 🚀</button>
         </div>
 
         <!-- BƯỚC 2: MÀN HÌNH LÀM BÀI (ẨN BAN ĐẦU) -->
@@ -176,7 +193,7 @@
     <!-- KHỞI TẠO MẢNG DỮ LIỆU CHUNG -->
     <script> window.masterQuizData = []; </script>
 
-    <!-- SCRIPT LOADING DỮ LIỆU BÀI HỌC DYNAMICT -->
+    <!-- SCRIPT LOADING DỮ LIỆU BÀI HỌC DYNAMIC -->
     <script>
         (function loadDataFilesDynamically() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -254,9 +271,8 @@
         })();
     </script>
 
-    <!-- CORE ENGINE LUYỆN PHÁT ÂM + LINK APPS SCRIPT MỚI -->
+    <!-- CORE ENGINE LUYỆN PHÁT ÂM + LINK APPS SCRIPT -->
     <script>
-        // *** ĐƯỜNG LINK GOOGLE APPS SCRIPT CỦA BẠN ***
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz4qt5xlXMP-yztqBpQ71gOO-lOq9UCE9IoXRIZ1wXKd6ZbTSB-GzL-s8h__LNscgeiYg/exec';
 
         function cleanSectionCode(secStr) {
@@ -448,16 +464,16 @@
             totalSeconds = initialSeconds;
         }
 
-        // CHUYỂN BƯỚC: KIỂM TRA ĐẦY ĐỦ THÔNG TIN RỒI BẮT ĐẦU LÀM BÀI
         function startQuizPractice() {
             const workPlace = document.getElementById('work-place').value;
             const studentName = document.getElementById('student-name').value.trim();
             const staffNumber = document.getElementById('staff-number').value.trim();
             const birthdayDate = document.getElementById('birthday-date').value;
+            const department = document.getElementById('department').value;
             const errorElem = document.getElementById('user-info-error');
 
-            if (!workPlace || !studentName || !staffNumber || !birthdayDate) {
-                errorElem.innerText = "⚠️ Vui lòng điền đầy đủ tất cả các thông tin bắt buộc (*)!";
+            if (!workPlace || !studentName || !staffNumber || !birthdayDate || !department) {
+                errorElem.innerText = "⚠️ Vui lòng điền đầy đủ thông tin bắt buộc / Please fill in all required fields (*)!";
                 errorElem.style.display = "block";
                 return;
             }
@@ -646,7 +662,6 @@
             });
         }
 
-        // GỬI LẠI GÓP Ý SAU KHI HỌC VIÊN NHẬP FEEDBACK
         function sendFeedbackOnly() {
             if (!lastSavedPayload) return;
             const fbText = document.getElementById('user-feedback') ? document.getElementById('user-feedback').value.trim() : '';
@@ -713,7 +728,6 @@
                 feedback: ""
             };
 
-            // Tự động lưu lần 1 lên Sheet
             sendResultToGoogleSheet(lastSavedPayload);
 
             const resultView = document.getElementById('result-view');
@@ -743,11 +757,11 @@
                         • ❌ Số câu CHƯA ĐẠT / BỎ QUA (0 điểm): <b>${finalSkipped} / ${totalItems}</b> câu
                     </div>
 
-                    <!-- Ô ĐỀ XUẤT GÓP Ý (FEEDBACKS / COMMENTS) -->
+                    <!-- Ô ĐỀ XUẤT GÓP Ý CO GIẢN DỌC TÙY Ý - CỐ ĐỊNH NGANG -->
                     <div class="feedback-card">
                         <label for="user-feedback">✍️ Đề xuất góp ý (nếu có) / Feedbacks & Comments:</label>
-                        <textarea id="user-feedback" rows="2" placeholder="Nhập ý kiến đóng góp của bạn về bài học..."></textarea>
-                        <button class="btn-send-feedback" onclick="sendFeedbackOnly()">✉️ Gửi góp ý bổ sung</button>
+                        <textarea id="user-feedback" rows="3" placeholder="Nhập ý kiến đóng góp của bạn về bài học / Enter your comments..."></textarea>
+                        <button class="btn-send-feedback" onclick="sendFeedbackOnly()">✉️ Gửi góp ý bổ sung / Submit Feedback</button>
                     </div>
 
                     <div class="action-buttons">
