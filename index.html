@@ -14,7 +14,7 @@
         .sub-type { color: #666; font-size: 12px; margin-top: 0; margin-bottom: 6px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
         #lesson-subtitle { color: #0d6efd; font-size: 14px; margin-top: 0; margin-bottom: 18px; font-weight: bold; text-transform: uppercase; }
         
-        /* GIAO DIỆN THÔNG TIN HỌC VIÊN SONG NGỮ TRỰC QUAN */
+        /* GIAO DIỆN THÔNG TIN HỌC VIÊN SONG NGỮ */
         .user-card { background: #ffffff; border: 2px solid #e7f1ff; border-radius: 12px; padding: 20px; text-align: left; box-shadow: 0 4px 12px rgba(13, 110, 253, 0.05); margin-bottom: 10px; }
         .user-card-header { font-size: 15px; font-weight: bold; color: #0d6efd; border-bottom: 2px solid #e7f1ff; padding-bottom: 8px; margin-bottom: 15px; text-align: center; text-transform: uppercase; }
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -24,7 +24,6 @@
         .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 12px; border: 1.5px solid #ced4da; border-radius: 8px; font-size: 13.5px; transition: all 0.2s ease; outline: none; background-color: #fff; }
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #0d6efd; box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15); }
         
-        /* CẤU TRÚC LỰA CHỌN MỤC 6 HOẶC MỤC 7 */
         .selection-box { background: #f8f9fa; border: 1.5px dashed #b6d4fe; border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; transition: border-color 0.2s; }
         .selection-box.active { border-color: #0d6efd; background: #f0f7ff; }
         .selection-header { display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 13px; color: #0d6efd; margin-bottom: 6px; cursor: pointer; }
@@ -144,9 +143,10 @@
                     <input type="text" id="staff-number" placeholder="Ví dụ / e.g. 123, 435">
                 </div>
 
+                <!-- GIỚI HẠN NGÀY SINH: ĐỦ 18 TUỔI VÀ KHÔNG QUÁ 100 TUỔI -->
                 <div class="form-group">
                     <label for="birthday-date">4. Ngày sinh / Date of birth (*):</label>
-                    <input type="date" id="birthday-date">
+                    <input type="date" id="birthday-date" max="2008-08-03" min="1926-01-01">
                 </div>
 
                 <div class="form-group full-width">
@@ -161,7 +161,7 @@
                     </select>
                 </div>
 
-                <!-- LỰA CHỌN 1 TRONG 2: CHỌN MỤC 6 HOẶC MỤC 7 -->
+                <!-- LỰA CHỌN 1 TRONG 2: MỤC 6 HOẶC MỤC 7 -->
                 <div class="form-group full-width">
                     <label style="color: #0d6efd; font-weight: bold; margin-bottom: 8px;">NỘI DUNG THI / EXAM CONTENT (Chọn 1 trong 2):</label>
 
@@ -253,76 +253,30 @@
     <!-- KHỞI TẠO MẢNG DỮ LIỆU CHUNG -->
     <script> window.masterQuizData = []; </script>
 
-    <!-- SCRIPT LOADING DỮ LIỆU BÀI HỌC DYNAMIC -->
+    <!-- SCRIPT LOADING DỮ LIỆU BÀI HỌC TỰ ĐỘNG CẢ 10 LESSON -->
     <script>
-        (function loadDataFilesDynamically() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const reqLesson = urlParams.get('lesson');
-            const reqSection = urlParams.get('section');
-            const reqExam = urlParams.get('exam');
-
-            const filesToLoad = new Set(['data/exams.js']);
-
-            const extractLessonNumbers = (str) => {
-                if (!str) return [];
-                let nums = [];
-                let parts = str.toString().split(/[,&]/);
-                
-                parts.forEach(part => {
-                    part = part.trim();
-                    if (part.includes('-')) {
-                        let subParts = part.split('-').map(p => {
-                            let clean = p.replace(/section|lesson/gi, '').trim();
-                            return parseFloat(clean);
-                        });
-                        if (subParts.length === 2 && !isNaN(subParts[0]) && !isNaN(subParts[1])) {
-                            let start = Math.floor(Math.min(subParts[0], subParts[1]));
-                            let end = Math.floor(Math.max(subParts[0], subParts[1]));
-                            for (let i = start; i <= end; i++) nums.push(i);
-                        }
-                    } else {
-                        let clean = part.replace(/section|lesson/gi, '').trim();
-                        let mainNum = parseInt(clean.split('.')[0], 10);
-                        if (!isNaN(mainNum)) nums.push(mainNum);
-                    }
-                });
-                return nums;
-            };
-
-            if (reqSection) {
-                extractLessonNumbers(reqSection).forEach(n => filesToLoad.add(`data/lesson${n}.js`));
-            } else if (reqLesson) {
-                extractLessonNumbers(reqLesson).forEach(n => filesToLoad.add(`data/lesson${n}.js`));
-            } else if (reqExam) {
-                let examNums = extractLessonNumbers(reqExam);
-                let maxToLoad = examNums.length > 0 ? Math.max(...examNums, 10) : 20; 
-                for (let i = 1; i <= maxToLoad; i++) filesToLoad.add(`data/lesson${i}.js`);
-            } else {
-                for (let i = 1; i <= 10; i++) filesToLoad.add(`data/lesson${i}.js`);
+        (function loadAllDataFiles() {
+            const filesToLoad = ['data/exams.js'];
+            for (let i = 1; i <= 10; i++) {
+                filesToLoad.push(`data/lesson${i}.js`);
             }
 
-            const filesArray = Array.from(filesToLoad);
             let loadedCount = 0;
             let isInitialized = false;
 
             const checkAndInit = () => {
                 if (isInitialized) return;
                 isInitialized = true;
-                initApp();
+                if (typeof initApp === 'function') initApp();
             };
 
-            const safetyTimeout = setTimeout(() => {
-                checkAndInit();
-            }, 2500);
-
-            filesArray.forEach(src => {
+            filesToLoad.forEach(src => {
                 const script = document.createElement('script');
                 script.src = src;
                 script.async = false;
                 script.onload = script.onerror = () => {
                     loadedCount++;
-                    if (loadedCount === filesArray.length) {
-                        clearTimeout(safetyTimeout);
+                    if (loadedCount === filesToLoad.length) {
                         checkAndInit();
                     }
                 };
@@ -331,11 +285,11 @@
         })();
     </script>
 
-    <!-- CORE ENGINE LUYỆN PHÁT ÂM + LƯU GOOGLE SHEET -->
+    <!-- CORE ENGINE LUYỆN PHÁT ÂM -->
     <script>
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz4qt5xlXMP-yztqBpQ71gOO-lOq9UCE9IoXRIZ1wXKd6ZbTSB-GzL-s8h__LNscgeiYg/exec';
 
-        // XỬ LÝ CHỌN 1 TRONG 2 (MỤC 6 HOẶC MỤC 7)
+        // CHUYỂN BẬT TẮT NỘI DUNG MỤC 6 HOẶC MỤC 7
         function toggleContentMode(mode) {
             const radioSection = document.getElementById('mode-section');
             const radioExam = document.getElementById('mode-exam');
@@ -369,28 +323,6 @@
             toggleContentMode(mode);
         }
 
-        // TỰ ĐỘNG ĐỒNG BỘ NỘI DUNG CHỌN LÊN FORM TỪ URL NẾU CÓ THAM SỐ
-        window.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const reqSection = urlParams.get('section');
-            const reqLesson = urlParams.get('lesson');
-            const reqExam = urlParams.get('exam');
-
-            if (reqSection) {
-                toggleContentMode('section');
-                const sel = document.getElementById('select-section');
-                if (sel) sel.value = reqSection;
-            } else if (reqLesson) {
-                toggleContentMode('exam');
-                const sel = document.getElementById('select-exam');
-                if (sel) sel.value = reqLesson;
-            } else if (reqExam) {
-                toggleContentMode('exam');
-                const sel = document.getElementById('select-exam');
-                if (sel) sel.value = reqExam;
-            }
-        });
-
         function cleanSectionCode(secStr) {
             if (secStr === null || secStr === undefined) return "";
             return secStr.toString().toLowerCase().replace(/section/gi, '').replace(/\s+/g, '').trim();
@@ -422,106 +354,39 @@
             }
         }
 
-        function getFilteredSpeakingItems() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const reqSection = urlParams.get('section'); 
-            const reqLesson = urlParams.get('lesson');    
-            const reqExam = urlParams.get('exam');        
-
+        // HÀM TẠO BỘ BÀI THI TRỰC TIẾP DỰA VÀO BÀI HỌC VỪA CHỌN TRÊN FORM
+        function getFilteredSpeakingItemsBySelection(isSectionMode, selectedVal) {
             let rawPool = (window.masterQuizData && window.masterQuizData.length > 0) ? [...window.masterQuizData] : [];
             let filtered = [];
             let targetCount = 20; 
             let titleBanner = "LUYỆN PHÁT ÂM TỔNG HỢP";
 
-            const parseMixParam = (paramStr) => {
-                if (!paramStr) return [];
-                let results = [];
-                let tokens = paramStr.toString().split(/[,&]/);
-                
-                tokens.forEach(token => {
-                    token = token.trim();
-                    if (token.includes('-')) {
-                        let parts = token.split('-').map(p => p.trim());
-                        let n1 = parseFloat(cleanSectionCode(parts[0]));
-                        let n2 = parseFloat(cleanSectionCode(parts[1]));
-                        
-                        if (!isNaN(n1) && !isNaN(n2)) {
-                            if (Number.isInteger(n1) && Number.isInteger(n2)) {
-                                for (let i = Math.min(n1, n2); i <= Math.max(n1, n2); i++) {
-                                    results.push(i.toString());
-                                }
-                            } else {
-                                let step = 0.1;
-                                for (let v = Math.min(n1, n2); v <= Math.max(n1, n2) + 0.001; v += step) {
-                                    results.push(v.toFixed(1));
-                                }
-                            }
-                        }
-                    } else {
-                        results.push(cleanSectionCode(token));
-                    }
-                });
-                return results.filter(r => r !== "");
-            };
-
-            if (reqSection) {
-                let targetSections = parseMixParam(reqSection);
-                if (targetSections.length > 0) {
-                    let displayNames = targetSections.map(s => s.toUpperCase());
-                    titleBanner = targetSections.length > 1 
-                        ? `LUYỆN PHÁT ÂM MIX - SECTION ${displayNames.join(' & ')}` 
-                        : `LUYỆN PHÁT ÂM - SECTION ${displayNames[0]}`;
-
-                    let secFiltered = rawPool.filter(q => {
-                        if (!q.section) return false;
-                        let qSecClean = cleanSectionCode(q.section);
-                        return targetSections.some(ts => ts === qSecClean || String(ts) === String(qSecClean));
-                    });
-
-                    if (secFiltered.length > 0) rawPool = secFiltered;
-                    targetCount = targetSections.length > 1 ? 25 : 20;
-                }
-            } else if (reqLesson) {
-                let lessonList = parseMixParam(reqLesson).map(l => l.replace(/[^\d]/g, ''));
-                if (lessonList.length > 0) {
-                    titleBanner = lessonList.length > 1 
-                        ? `LUYỆN PHÁT ÂM MIX - LESSON ${lessonList.join(' & ')}` 
-                        : `LUYỆN PHÁT ÂM - LESSON ${lessonList[0]}`;
-
-                    let lesFiltered = rawPool.filter(q => {
-                        let qLes = (q.lesson || "").toString().replace(/[^\d]/g, '');
-                        return lessonList.includes(qLes);
-                    });
-                    if (lesFiltered.length > 0) rawPool = lesFiltered;
-                    targetCount = lessonList.length > 1 ? 30 : 20;
-                }
-            } else if (reqExam) {
-                let cleanExam = reqExam.toLowerCase().trim();
-                if (cleanExam === "all" || cleanExam === "examall") {
+            if (isSectionMode && selectedVal) {
+                titleBanner = `LUYỆN PHÁT ÂM - SECTION ${selectedVal}`;
+                let cleanTarget = cleanSectionCode(selectedVal);
+                filtered = rawPool.filter(q => q.section && cleanSectionCode(q.section) === cleanTarget);
+                targetCount = 20;
+            } else if (!isSectionMode && selectedVal) {
+                if (selectedVal === 'all') {
+                    titleBanner = "KIỂM TRA PHÁT ÂM CUỐI KHÓA - FINAL EXAM";
+                    filtered = [...rawPool];
                     targetCount = 30;
-                    titleBanner = "KIỂM TRA PHÁT ÂM CUỐI KHÓA - TỔNG QUAN";
                 } else {
-                    let examList = parseMixParam(reqExam).map(e => e.replace(/[^\d]/g, ''));
-                    if (examList.length > 0) {
-                        titleBanner = examList.length > 1 
-                            ? `KIỂM TRA PHÁT ÂM MIX - GIAI ĐOẠN ${examList.join(' & ')}` 
-                            : `KIỂM TRA PHÁT ÂM GIAI ĐOẠN ${examList[0]}`;
-
-                        let examFiltered = rawPool.filter(q => {
-                            let qLes = (q.lesson || "").toString().replace(/[^\d]/g, '');
-                            let qEx = (q.exam || "").toString().replace(/[^\d]/g, '');
-                            return examList.includes(qLes) || examList.includes(qEx);
-                        });
-                        if (examFiltered.length > 0) rawPool = examFiltered;
-                        targetCount = 30;
-                    }
+                    titleBanner = `KIỂM TRA PHÁT ÂM - EXAM ${selectedVal}`;
+                    let examLessons = selectedVal.split('-').map(n => n.trim());
+                    filtered = rawPool.filter(q => {
+                        let qLes = (q.lesson || "").toString().replace(/[^\d]/g, '');
+                        return examLessons.includes(qLes);
+                    });
+                    targetCount = 30;
                 }
             }
 
             const subTitleElem = document.getElementById('lesson-subtitle');
             if (subTitleElem) subTitleElem.innerText = titleBanner;
 
-            rawPool.forEach(item => {
+            let resultList = [];
+            filtered.forEach(item => {
                 let targetText = item.audioText || item.text || item.en || "";
                 let meaningText = item.translation || item.meaning || item.vi || "";
                 let ipaText = item.phonetic || item.ipa || "";
@@ -534,7 +399,7 @@
                 targetText = targetText.replace(/^[A-D]\.\s*/, "").trim();
 
                 if (targetText && targetText.length > 1) {
-                    filtered.push({ 
+                    resultList.push({ 
                         text: targetText, 
                         meaning: meaningText || "Mẫu câu giao tiếp Caddie chuẩn",
                         ipa: ipaText,
@@ -544,17 +409,16 @@
                 }
             });
 
-            if (filtered.length === 0) {
+            if (resultList.length === 0) {
                 document.getElementById('question').innerHTML = `
-                    <div style="color: #dc3545; font-size: 16px;">⚠️ Không thể tải dữ liệu bài học!</div>
-                    <div style="font-size: 13px; font-weight: normal; margin-top: 8px; color: #555;">Vui lòng chọn bài học phù hợp.</div>
+                    <div style="color: #dc3545; font-size: 16px;">⚠️ Chưa có dữ liệu cho phần học này!</div>
                 `;
                 document.getElementById('learning-buttons').style.display = 'none';
                 return [];
             }
 
-            shuffleArray(filtered);
-            return filtered.slice(0, Math.min(targetCount, filtered.length));
+            shuffleArray(resultList);
+            return resultList.slice(0, Math.min(targetCount, resultList.length));
         }
 
         let originalItems = [];
@@ -571,16 +435,10 @@
         let lastSavedPayload = null;
 
         function initApp() {
-            originalItems = getFilteredSpeakingItems();
-            if (originalItems.length === 0) return;
-
-            activeItems = [...originalItems];
-            itemStatus = new Array(originalItems.length).fill('pending');
-            initialSeconds = originalItems.length * 60; 
-            totalSeconds = initialSeconds;
+            // Sẵn sàng nhận thông tin từ form
         }
 
-        // BẮT ĐẦU LÀM BÀI VÀ CHUYỂN HƯỚNG URL NẾU CẦN NẠP DỮ LIỆU BÀI MỚI
+        // BẮT ĐẦU LÀM BÀI - TỰ ĐỘNG CHUẨN BỊ BÀI MỚI MÀ KHÔNG CẦN CHUYỂN TRANG
         function startQuizPractice() {
             const workPlace = document.getElementById('work-place').value;
             const studentName = document.getElementById('student-name').value.trim();
@@ -595,9 +453,21 @@
             const selectedExam = document.getElementById('select-exam').value;
 
             if (!workPlace || !studentName || !staffNumber || !birthdayDate || !department) {
-                errorElem.innerText = "⚠️ Vui lòng điền đầy đủ thông tin học viên / Please fill in all student information (*)!";
+                errorElem.innerText = "⚠️ Vui lòng điền đầy đủ thông tin học viên / Please fill in all required fields (*)!";
                 errorElem.style.display = "block";
                 return;
+            }
+
+            // XÁC NHẬN ĐỦ 18 TUỔI
+            if (birthdayDate) {
+                const birthYear = new Date(birthdayDate).getFullYear();
+                const currentYear = new Date().getFullYear();
+                const age = currentYear - birthYear;
+                if (isNaN(age) || age < 18 || birthYear > currentYear) {
+                    errorElem.innerText = "⚠️ Ngày sinh không hợp lệ! Học viên phải từ 18 tuổi trở lên (Năm sinh không hợp lệ).";
+                    errorElem.style.display = "block";
+                    return;
+                }
             }
 
             if (!isSectionMode && !isExamMode) {
@@ -620,30 +490,17 @@
 
             errorElem.style.display = "none";
 
-            // KIỂM TRA ĐỒNG BỘ THAM SỐ URL VỚI NỘI DUNG VỪA CHỌN
-            const urlParams = new URLSearchParams(window.location.search);
-            let targetUrl = window.location.pathname;
+            // KHỞI TẠO BÀI THI TRỰC TIẾP
+            const selectedVal = isSectionMode ? selectedSection : selectedExam;
+            originalItems = getFilteredSpeakingItemsBySelection(isSectionMode, selectedVal);
+            if (originalItems.length === 0) return;
 
-            if (isSectionMode && urlParams.get('section') !== selectedSection) {
-                targetUrl += `?section=${selectedSection}`;
-                window.location.href = targetUrl;
-                return;
-            } else if (isExamMode) {
-                if (selectedExam === 'all') {
-                    if (urlParams.get('exam') !== 'all') {
-                        targetUrl += `?exam=all`;
-                        window.location.href = targetUrl;
-                        return;
-                    }
-                } else {
-                    if (urlParams.get('lesson') !== selectedExam) {
-                        targetUrl += `?lesson=${selectedExam}`;
-                        window.location.href = targetUrl;
-                        return;
-                    }
-                }
-            }
-            
+            activeItems = [...originalItems];
+            itemStatus = new Array(originalItems.length).fill('pending');
+            currentIndex = 0;
+            initialSeconds = originalItems.length * 60; 
+            totalSeconds = initialSeconds;
+
             const now = new Date();
             const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
             const dateStr = now.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' });
@@ -865,7 +722,6 @@
                 adviceText = "<b>Đánh giá:</b> Phát âm chưa rõ phụ âm cuối hoặc chưa chuẩn ngữ điệu; khuyến nghị nghe lại mẫu nhiều lần.";
             }
 
-            const urlParams = new URLSearchParams(window.location.search);
             const isSection = document.getElementById('mode-section').checked;
             const isExam = document.getElementById('mode-exam').checked;
             
@@ -875,8 +731,6 @@
             } else if (isExam) {
                 const exVal = document.getElementById('select-exam').value;
                 rawLessonCode = (exVal === 'all') ? 'examall' : 'exam' + exVal;
-            } else {
-                rawLessonCode = urlParams.get('section') || urlParams.get('lesson') || urlParams.get('exam') || '';
             }
 
             const studentName = document.getElementById('student-name').value.trim();
@@ -932,7 +786,6 @@
                         • ❌ Số câu CHƯA ĐẠT / BỎ QUA (0 điểm): <b>${finalSkipped} / ${totalItems}</b> câu
                     </div>
 
-                    <!-- Ô ĐỀ XUẤT GÓP Ý CO GIẢN DỌC TÙY Ý - CỐ ĐỊNH NGANG -->
                     <div class="feedback-card">
                         <label for="user-feedback">✍️ Đề xuất góp ý (nếu có) / Feedbacks & Comments:</label>
                         <textarea id="user-feedback" rows="3" placeholder="Nhập ý kiến đóng góp của bạn về bài học / Enter your comments..."></textarea>
