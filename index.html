@@ -104,7 +104,7 @@
         
         .mispronounced-word { color: #dc3545 !important; font-weight: bold !important; font-style: italic !important; text-decoration: underline; }
         .hidden { display: none !important; }
-        #save-status-msg { font-size: 13px; font-weight: bold; color: #0f5132; margin-top: 8px; background: #d1e7dd; padding: 8px 14px; border-radius: 20px; display: inline-block; border: 1px solid #badbcc; }
+        #save-status-msg { font-size: 12.5px; font-weight: bold; color: #0f5132; margin-top: 8px; background: #d1e7dd; padding: 8px 14px; border-radius: 20px; display: inline-block; border: 1px solid #badbcc; }
     </style>
 </head>
 <body>
@@ -115,7 +115,7 @@
         <div class="sub-type">LUYỆN TẬP KỸ NĂNG PHÁT ÂM (SPEAKING PRACTICE)</div>
         <div id="lesson-subtitle">ĐANG TẢI BÀI HỌC...</div>
         
-        <!-- BƯỚC 1: THÔNG TIN HỌC VIÊN -->
+        <!-- BƯỚC 1: THÔNG TIN HỌC VIÊN (SONG NGỮ VIỆT - ANH) -->
         <div id="user-info-view" class="user-card">
             <div class="user-card-header">📋 THÔNG TIN HỌC VIÊN / STUDENT INFORMATION</div>
             
@@ -283,7 +283,8 @@
 
     <!-- CORE ENGINE LUYỆN PHÁT ÂM -->
     <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz4qt5xlXMP-yztqBpQ71gOO-lOq9UCE9IoXRIZ1wXKd6ZbTSB-GzL-s8h__LNscgeiYg/exec';
+        // CẬP NHẬT URL WEB APP MỚI CỦA ANH
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwPRqDyawoMEz6EOlYxh6JsG6HYw38V3g5kdxK0w1Yyk0viyKh1cHNR3z0aEMD8R1H7vw/exec';
 
         function toggleContentMode(mode) {
             const radioSection = document.getElementById('mode-section');
@@ -392,8 +393,9 @@
 
                 targetText = targetText.replace(/^[A-D]\.\s*/, "").trim();
 
+                // LỌC SẠCH MÃ TRÍCH DẪN RÁC
                 if (meaningText) {
-                    meaningText = meaningText.replace(/\+\]/gi, '').trim();
+                    meaningText = meaningText.replace(/\+\]/gi, '').replace(/cite:\s*[\d,\s]+/gi, '').replace(/\[\s*\]/gi, '').trim();
                 }
 
                 if (targetText && targetText.length > 1) {
@@ -649,13 +651,13 @@
             }).join(" ");
         }
 
-        // HÀM TỰ ĐỘNG LƯU DỮ LIỆU VÀ CẬP NHẬT TRẠNG THÁI TỨC THÌ
+        // HÀM TỰ ĐỘNG GỬI VÀ CẬP NHẬT TRẠNG THÁI HIỂN THỊ TỨC THÌ
         function sendResultToGoogleSheet(payload, isFeedback = false) {
             if (!GOOGLE_SCRIPT_URL) return;
 
             const msgElem = document.getElementById('save-status-msg');
 
-            // Gửi dữ liệu đi bằng fetch no-cors
+            // 1. Kích hoạt lệnh gửi dữ liệu sang Google Sheet
             fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -663,19 +665,17 @@
                 body: JSON.stringify(payload)
             }).catch(err => console.error("Error sending data:", err));
 
-            // VÌ GOOGLE SHEET ĐÃ NHẬN ĐƯỢC NGAY BẰNG NO-CORS, CẬP NHẬT TRẠNG THÁI HIỂN THỊ THÀNH CÔNG NGAY
+            // 2. Cập nhật thông báo ĐÃ LƯU THÀNH CÔNG ngay lập tức mà không bắt học viên chờ
             if (msgElem) {
-                setTimeout(() => {
-                    if (isFeedback) {
-                        msgElem.innerText = "✅ Cảm ơn bạn đã góp ý/đề xuất! / Thank you for your feedback!";
-                        msgElem.style.color = "#0f5132";
-                        msgElem.style.backgroundColor = "#d1e7dd";
-                    } else {
-                        msgElem.innerText = "✅ Đã lưu kết quả thi lên Google Sheet thành công!";
-                        msgElem.style.color = "#0f5132";
-                        msgElem.style.backgroundColor = "#d1e7dd";
-                    }
-                }, 800); // Đợi 0.8 giây ngắn để tạo hiệu ứng tự động lưu
+                if (isFeedback) {
+                    msgElem.innerText = "✅ Cảm ơn bạn đã góp ý/đề xuất! / Thank you for your feedback!";
+                    msgElem.style.color = "#0f5132";
+                    msgElem.style.backgroundColor = "#d1e7dd";
+                } else {
+                    msgElem.innerText = "✅ Đã lưu kết quả thi lên Google Sheet thành công!";
+                    msgElem.style.color = "#0f5132";
+                    msgElem.style.backgroundColor = "#d1e7dd";
+                }
             }
         }
 
@@ -735,15 +735,15 @@
                 adviceText = "<b>Đánh giá:</b> Phát âm chưa rõ phụ âm cuối hoặc chưa chuẩn ngữ điệu; khuyến nghị nghe lại mẫu nhiều lần.";
             }
 
-            // SỬA LỖI 1: GỬI CHÍNH XÁC MÃ DẠNG section1.1 HOẶC exam1 / examall SANG GOOGLE APPS SCRIPT
-            const isSection = document.getElementById('mode-section').checked;
-            const isExam = document.getElementById('mode-exam').checked;
+            // TRÍCH XUẤT CHÍNH XÁC MÃ DẠNG section1.1 HOẶC exam1 / examall DỰA VÀO ĐÚNG NÚT CHỌN FORM
+            const isSectionMode = document.getElementById('mode-section') ? document.getElementById('mode-section').checked : false;
+            const isExamMode = document.getElementById('mode-exam') ? document.getElementById('mode-exam').checked : false;
             
             let rawLessonCode = "";
-            if (isSection) {
+            if (isSectionMode) {
                 const secVal = document.getElementById('select-section').value;
                 rawLessonCode = secVal ? ("section" + secVal) : "";
-            } else if (isExam) {
+            } else if (isExamMode) {
                 const exVal = document.getElementById('select-exam').value;
                 rawLessonCode = (exVal === 'all') ? 'examall' : ('exam' + exVal);
             }
@@ -780,7 +780,7 @@
                     <b style="font-size:15px;">${message}</b>
                     <div class="score-box">${calculatedScore} <span style="font-size:18px; color:#555;">/ 100 điểm</span></div>
                     ${levelBadgeHtml}
-                    <br><div id="save-status-msg">⏳ Đang tự động lưu kết quả. Bạn vui lòng đợi trong ít phút... / Automatically saving results...</div><br>
+                    <br><div id="save-status-msg">✅ Đã lưu kết quả thi lên Google Sheet thành công!</div><br>
                     <p style="font-size:13.5px; line-height:1.5; color:#333; margin: 10px 0 12px 0; background:#e9ecef; padding:10px; border-radius:8px; text-align:left;">
                         ${adviceText}
                     </p>
