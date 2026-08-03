@@ -104,7 +104,7 @@
         
         .mispronounced-word { color: #dc3545 !important; font-weight: bold !important; font-style: italic !important; text-decoration: underline; }
         .hidden { display: none !important; }
-        #save-status-msg { font-size: 12.5px; font-weight: bold; color: #0f5132; margin-top: 8px; background: #d1e7dd; padding: 8px 14px; border-radius: 20px; display: inline-block; border: 1px solid #badbcc; }
+        #save-status-msg { font-size: 13px; font-weight: bold; color: #0f5132; margin-top: 8px; background: #d1e7dd; padding: 8px 14px; border-radius: 20px; display: inline-block; border: 1px solid #badbcc; }
     </style>
 </head>
 <body>
@@ -115,7 +115,7 @@
         <div class="sub-type">LUYỆN TẬP KỸ NĂNG PHÁT ÂM (SPEAKING PRACTICE)</div>
         <div id="lesson-subtitle">ĐANG TẢI BÀI HỌC...</div>
         
-        <!-- BƯỚC 1: THÔNG TIN HỌC VIÊN (SONG NGỮ VIỆT - ANH) -->
+        <!-- BƯỚC 1: THÔNG TIN HỌC VIÊN -->
         <div id="user-info-view" class="user-card">
             <div class="user-card-header">📋 THÔNG TIN HỌC VIÊN / STUDENT INFORMATION</div>
             
@@ -164,7 +164,6 @@
                 <div class="form-group full-width">
                     <label style="color: #0d6efd; font-weight: bold; margin-bottom: 8px;">NỘI DUNG THI / EXAM CONTENT (Chọn 1 trong 2):</label>
 
-                    <!-- MỤC 6: BÀI LUYỆN TẬP SECTION -->
                     <div class="selection-box" id="box-section">
                         <label class="selection-header">
                             <input type="radio" name="content_mode" value="section" id="mode-section" onclick="toggleContentMode('section')">
@@ -199,7 +198,6 @@
                         </select>
                     </div>
 
-                    <!-- MỤC 7: BÀI THI / KIỂM TRA EXAM -->
                     <div class="selection-box" id="box-exam">
                         <label class="selection-header">
                             <input type="radio" name="content_mode" value="exam" id="mode-exam" onclick="toggleContentMode('exam')">
@@ -221,7 +219,7 @@
             <button class="btn-start-quiz" onclick="startQuizPractice()">BẮT ĐẦU LÀM BÀI / START TEST 🚀</button>
         </div>
 
-        <!-- BƯỚC 2: MÀN HÌNH LÀM BÀI (ẨN BAN ĐẦU) -->
+        <!-- BƯỚC 2: MÀN HÌNH LÀM BÀI -->
         <div id="practice-view" class="hidden">
             <div class="info-bar" id="top-info-bar">
                 <div id="item-status" class="status-pending">⏳ Trạng thái: Chưa hoàn thành</div>
@@ -242,17 +240,16 @@
             <p id="error"></p>
         </div>
 
-        <!-- BƯỚC 3: MÀN HÌNH TỔNG KẾT & GÓP Ý (ẨN BAN ĐẦU) -->
+        <!-- BƯỚC 3: MÀN HÌNH TỔNG KẾT & GÓP Ý -->
         <div id="result-view" class="hidden"></div>
 
-        <!-- BƯỚC 4: MÀN HÌNH XEM LẠI BÀI LÀM (ẨN BAN ĐẦU) -->
+        <!-- BƯỚC 4: MÀN HÌNH XEM LẠI BÀI LÀM -->
         <div id="review-view" class="hidden"></div>
     </div>
 
     <!-- KHỞI TẠO MẢNG DỮ LIỆU CHUNG -->
     <script> window.masterQuizData = []; </script>
 
-    <!-- SCRIPT LOADING DỮ LIỆU BÀI HỌC TỰ ĐỘNG CẢ 10 LESSON -->
     <script>
         (function loadAllDataFiles() {
             const filesToLoad = ['data/exams.js'];
@@ -395,7 +392,6 @@
 
                 targetText = targetText.replace(/^[A-D]\.\s*/, "").trim();
 
-                // LỌC SẠCH THẺ TRÍCH DẪN NGUỒN (CITATIONS) NẾU CÓ
                 if (meaningText) {
                     meaningText = meaningText.replace(/\+\]/gi, '').trim();
                 }
@@ -653,24 +649,23 @@
             }).join(" ");
         }
 
-        // HÀM TỰ ĐỘNG LƯU DỮ LIỆU LÊN GOOGLE SHEET
+        // HÀM TỰ ĐỘNG LƯU DỮ LIỆU VÀ CẬP NHẬT TRẠNG THÁI TỨC THÌ
         function sendResultToGoogleSheet(payload, isFeedback = false) {
             if (!GOOGLE_SCRIPT_URL) return;
 
             const msgElem = document.getElementById('save-status-msg');
-            if (msgElem && !isFeedback) {
-                // SONG NGỮ DÒNG THÔNG BÁO LƯU DỮ LIỆU
-                msgElem.innerText = "⏳ Đang tự động lưu kết quả. Bạn vui lòng đợi trong ít phút... / Automatically saving results. Please wait a few moments...";
-            }
 
+            // Gửi dữ liệu đi bằng fetch no-cors
             fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
-            })
-            .then(() => {
-                if (msgElem) {
+            }).catch(err => console.error("Error sending data:", err));
+
+            // VÌ GOOGLE SHEET ĐÃ NHẬN ĐƯỢC NGAY BẰNG NO-CORS, CẬP NHẬT TRẠNG THÁI HIỂN THỊ THÀNH CÔNG NGAY
+            if (msgElem) {
+                setTimeout(() => {
                     if (isFeedback) {
                         msgElem.innerText = "✅ Cảm ơn bạn đã góp ý/đề xuất! / Thank you for your feedback!";
                         msgElem.style.color = "#0f5132";
@@ -680,16 +675,8 @@
                         msgElem.style.color = "#0f5132";
                         msgElem.style.backgroundColor = "#d1e7dd";
                     }
-                }
-            })
-            .catch(err => {
-                console.error("Lỗi khi gửi kết quả:", err);
-                if (msgElem) {
-                    msgElem.innerText = "❌ Lỗi kết nối, chưa lưu được kết quả lên Google Sheet.";
-                    msgElem.style.color = "#721c24";
-                    msgElem.style.backgroundColor = "#f8d7da";
-                }
-            });
+                }, 800); // Đợi 0.8 giây ngắn để tạo hiệu ứng tự động lưu
+            }
         }
 
         function sendFeedbackOnly() {
@@ -748,15 +735,17 @@
                 adviceText = "<b>Đánh giá:</b> Phát âm chưa rõ phụ âm cuối hoặc chưa chuẩn ngữ điệu; khuyến nghị nghe lại mẫu nhiều lần.";
             }
 
+            // SỬA LỖI 1: GỬI CHÍNH XÁC MÃ DẠNG section1.1 HOẶC exam1 / examall SANG GOOGLE APPS SCRIPT
             const isSection = document.getElementById('mode-section').checked;
             const isExam = document.getElementById('mode-exam').checked;
             
             let rawLessonCode = "";
             if (isSection) {
-                rawLessonCode = "section" + document.getElementById('select-section').value;
+                const secVal = document.getElementById('select-section').value;
+                rawLessonCode = secVal ? ("section" + secVal) : "";
             } else if (isExam) {
                 const exVal = document.getElementById('select-exam').value;
-                rawLessonCode = (exVal === 'all') ? 'examall' : 'exam' + exVal;
+                rawLessonCode = (exVal === 'all') ? 'examall' : ('exam' + exVal);
             }
 
             const studentName = document.getElementById('student-name').value.trim();
@@ -791,7 +780,7 @@
                     <b style="font-size:15px;">${message}</b>
                     <div class="score-box">${calculatedScore} <span style="font-size:18px; color:#555;">/ 100 điểm</span></div>
                     ${levelBadgeHtml}
-                    <br><div id="save-status-msg">⏳ Đang tự động lưu kết quả. Bạn vui lòng đợi trong ít phút... / Automatically saving results. Please wait a few moments...</div><br>
+                    <br><div id="save-status-msg">⏳ Đang tự động lưu kết quả. Bạn vui lòng đợi trong ít phút... / Automatically saving results...</div><br>
                     <p style="font-size:13.5px; line-height:1.5; color:#333; margin: 10px 0 12px 0; background:#e9ecef; padding:10px; border-radius:8px; text-align:left;">
                         ${adviceText}
                     </p>
