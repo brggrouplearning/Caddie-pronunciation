@@ -8,7 +8,7 @@
         * { box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; padding: 20px 10px; background-color: #f0f2f5; margin: 0; color: #333; }
         .external-brand { color: #B21818; font-size: 22px; font-weight: 800; margin-bottom: 12px; letter-spacing: 1.5px; text-transform: uppercase; }
-        .container { max-width: 620px; margin: 0 auto; background: white; padding: 25px 20px; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+        .container { max-width: 640px; margin: 0 auto; background: white; padding: 25px 20px; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
         
         h1 { color: #1e7e34; font-size: 19px; margin-bottom: 4px; font-weight: bold; text-transform: uppercase; line-height: 1.3; }
         .sub-type { color: #666; font-size: 12px; margin-top: 0; margin-bottom: 6px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -24,6 +24,12 @@
         .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 12px; border: 1.5px solid #ced4da; border-radius: 8px; font-size: 13.5px; transition: all 0.2s ease; outline: none; background-color: #fff; }
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #0d6efd; box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15); }
         
+        /* CẤU TRÚC LỰA CHỌN MỤC 6 HOẶC MỤC 7 */
+        .selection-box { background: #f8f9fa; border: 1.5px dashed #b6d4fe; border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; transition: border-color 0.2s; }
+        .selection-box.active { border-color: #0d6efd; background: #f0f7ff; }
+        .selection-header { display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 13px; color: #0d6efd; margin-bottom: 6px; cursor: pointer; }
+        .selection-header input[type="radio"] { width: 16px; height: 16px; cursor: pointer; accent-color: #0d6efd; }
+
         .btn-start-quiz { width: 100%; padding: 13px; font-size: 15px; font-weight: bold; color: white; background: #198754; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 10px rgba(25, 135, 84, 0.25); transition: background 0.2s; }
         .btn-start-quiz:hover { background: #146c43; }
 
@@ -68,13 +74,11 @@
 
         .stats-box { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 10px; padding: 14px; margin: 15px 0; text-align: left; font-size: 13.5px; line-height: 1.6; }
         
-        /* KHUNG ĐỀ XUẤT GÓP Ý: CỐ ĐỊNH NGANG - CO GIẢN DỌC TÙY Ý */
         .feedback-card { background: #fff8e6; border: 1px solid #ffe8a1; border-radius: 10px; padding: 12px 15px; margin-top: 15px; text-align: left; }
         .feedback-card label { font-size: 13px; font-weight: bold; color: #8c6d00; display: block; margin-bottom: 6px; }
-        
         .feedback-card textarea { 
             width: 100%; 
-            resize: vertical; /* Cố định chiều ngang, cho phép kéo dài chiều dọc */
+            resize: vertical; 
             min-height: 70px;
             max-height: 250px;
             padding: 10px 12px; 
@@ -155,6 +159,62 @@
                         <option value="Valet">Valet</option>
                         <option value="Other">Other</option>
                     </select>
+                </div>
+
+                <!-- LỰA CHỌN 1 TRONG 2: CHỌN MỤC 6 HOẶC MỤC 7 -->
+                <div class="form-group full-width">
+                    <label style="color: #0d6efd; font-weight: bold; margin-bottom: 8px;">NỘI DUNG THI / EXAM CONTENT (Chọn 1 trong 2):</label>
+
+                    <!-- MỤC 6: BÀI LUYỆN TẬP SECTION -->
+                    <div class="selection-box" id="box-section">
+                        <label class="selection-header">
+                            <input type="radio" name="content_mode" value="section" id="mode-section" onclick="toggleContentMode('section')">
+                            <span>6. Bài luyện tập (Lesson / Section)</span>
+                        </label>
+                        <select id="select-section" disabled onchange="syncRadioOnSelect('section')">
+                            <option value="">-- Chọn Chuyên đề Luyện tập --</option>
+                            <option value="1.1">section 1.1: Bảng chữ cái tiếng anh</option>
+                            <option value="1.2">section 1.2: Giới thiệu bản thân</option>
+                            <option value="1.3">section 1.3: Số đếm</option>
+                            <option value="1.4">section 1.4: Sở thích</option>
+                            <option value="1.5">section 1.5: Thực hành & luyện tập</option>
+                            <option value="2.1">section 2.1: Thời tiết</option>
+                            <option value="2.2">section 2.2: Mùa</option>
+                            <option value="2.3">section 2.3: Thực hành & luyện tập</option>
+                            <option value="3.1">section 3.1: Mô tả vị trí</option>
+                            <option value="3.2">section 3.2: Mô tả hướng</option>
+                            <option value="3.3">section 3.3: Giới thiệu trên sân</option>
+                            <option value="3.4">section 3.4: Thực hành & luyện tập</option>
+                            <option value="4.1">section 4.1: Màu sắc</option>
+                            <option value="4.2">section 4.2: Giao tiếp cơ bản</option>
+                            <option value="4.3">section 4.3: Thực hành & luyện tập</option>
+                            <option value="5.1">section 5.1: Lời than phiền</option>
+                            <option value="5.2">section 5.2: Lời đề nghị</option>
+                            <option value="5.3">section 5.3: Động viên, khích lệ</option>
+                            <option value="5.4">section 5.4: Lời chào tạm biệt</option>
+                            <option value="5.5">section 5.5: Thực hành & luyện tập</option>
+                            <option value="6.1">section 6.1: Sức khoẻ</option>
+                            <option value="6.2">section 6.2: Cảm xúc</option>
+                            <option value="6.3">section 6.3: Tình huống khẩn cấp</option>
+                            <option value="6.4">section 6.4: Thực hành & luyện tập</option>
+                        </select>
+                    </div>
+
+                    <!-- MỤC 7: BÀI THI / KIỂM TRA EXAM -->
+                    <div class="selection-box" id="box-exam">
+                        <label class="selection-header">
+                            <input type="radio" name="content_mode" value="exam" id="mode-exam" onclick="toggleContentMode('exam')">
+                            <span>7. Bài thi / Kiểm tra (Exam / Test)</span>
+                        </label>
+                        <select id="select-exam" disabled onchange="syncRadioOnSelect('exam')">
+                            <option value="">-- Chọn Bài thi / Kiểm tra --</option>
+                            <option value="1">exam 1: Giai đoạn 1 (Lesson 1)</option>
+                            <option value="2-3">exam 2: Giai đoạn 2 (Lesson 2-3)</option>
+                            <option value="4">exam 3: Giai đoạn 3 (Lesson 4)</option>
+                            <option value="5-6">exam 4: Giai đoạn 4 (Lesson 5-6)</option>
+                            <option value="all">final exam: Cuối khóa (Tất cả chuyên đề)</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -271,9 +331,65 @@
         })();
     </script>
 
-    <!-- CORE ENGINE LUYỆN PHÁT ÂM + LINK APPS SCRIPT -->
+    <!-- CORE ENGINE LUYỆN PHÁT ÂM + LƯU GOOGLE SHEET -->
     <script>
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz4qt5xlXMP-yztqBpQ71gOO-lOq9UCE9IoXRIZ1wXKd6ZbTSB-GzL-s8h__LNscgeiYg/exec';
+
+        // XỬ LÝ CHỌN 1 TRONG 2 (MỤC 6 HOẶC MỤC 7)
+        function toggleContentMode(mode) {
+            const radioSection = document.getElementById('mode-section');
+            const radioExam = document.getElementById('mode-exam');
+            const selectSection = document.getElementById('select-section');
+            const selectExam = document.getElementById('select-exam');
+            const boxSection = document.getElementById('box-section');
+            const boxExam = document.getElementById('box-exam');
+
+            if (mode === 'section') {
+                radioSection.checked = true;
+                selectSection.disabled = false;
+                boxSection.classList.add('active');
+
+                radioExam.checked = false;
+                selectExam.disabled = true;
+                selectExam.value = "";
+                boxExam.classList.remove('active');
+            } else if (mode === 'exam') {
+                radioExam.checked = true;
+                selectExam.disabled = false;
+                boxExam.classList.add('active');
+
+                radioSection.checked = false;
+                selectSection.disabled = true;
+                selectSection.value = "";
+                boxSection.classList.remove('active');
+            }
+        }
+
+        function syncRadioOnSelect(mode) {
+            toggleContentMode(mode);
+        }
+
+        // TỰ ĐỘNG ĐỒNG BỘ NỘI DUNG CHỌN LÊN FORM TỪ URL NẾU CÓ THAM SỐ
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const reqSection = urlParams.get('section');
+            const reqLesson = urlParams.get('lesson');
+            const reqExam = urlParams.get('exam');
+
+            if (reqSection) {
+                toggleContentMode('section');
+                const sel = document.getElementById('select-section');
+                if (sel) sel.value = reqSection;
+            } else if (reqLesson) {
+                toggleContentMode('exam');
+                const sel = document.getElementById('select-exam');
+                if (sel) sel.value = reqLesson;
+            } else if (reqExam) {
+                toggleContentMode('exam');
+                const sel = document.getElementById('select-exam');
+                if (sel) sel.value = reqExam;
+            }
+        });
 
         function cleanSectionCode(secStr) {
             if (secStr === null || secStr === undefined) return "";
@@ -431,7 +547,7 @@
             if (filtered.length === 0) {
                 document.getElementById('question').innerHTML = `
                     <div style="color: #dc3545; font-size: 16px;">⚠️ Không thể tải dữ liệu bài học!</div>
-                    <div style="font-size: 13px; font-weight: normal; margin-top: 8px; color: #555;">Vui lòng kiểm tra lại đường dẫn URL.</div>
+                    <div style="font-size: 13px; font-weight: normal; margin-top: 8px; color: #555;">Vui lòng chọn bài học phù hợp.</div>
                 `;
                 document.getElementById('learning-buttons').style.display = 'none';
                 return [];
@@ -464,6 +580,7 @@
             totalSeconds = initialSeconds;
         }
 
+        // BẮT ĐẦU LÀM BÀI VÀ CHUYỂN HƯỚNG URL NẾU CẦN NẠP DỮ LIỆU BÀI MỚI
         function startQuizPractice() {
             const workPlace = document.getElementById('work-place').value;
             const studentName = document.getElementById('student-name').value.trim();
@@ -472,13 +589,60 @@
             const department = document.getElementById('department').value;
             const errorElem = document.getElementById('user-info-error');
 
+            const isSectionMode = document.getElementById('mode-section').checked;
+            const isExamMode = document.getElementById('mode-exam').checked;
+            const selectedSection = document.getElementById('select-section').value;
+            const selectedExam = document.getElementById('select-exam').value;
+
             if (!workPlace || !studentName || !staffNumber || !birthdayDate || !department) {
-                errorElem.innerText = "⚠️ Vui lòng điền đầy đủ thông tin bắt buộc / Please fill in all required fields (*)!";
+                errorElem.innerText = "⚠️ Vui lòng điền đầy đủ thông tin học viên / Please fill in all student information (*)!";
+                errorElem.style.display = "block";
+                return;
+            }
+
+            if (!isSectionMode && !isExamMode) {
+                errorElem.innerText = "⚠️ Vui lòng chọn Mục 6 (Bài luyện tập) hoặc Mục 7 (Bài thi/kiểm tra)!";
+                errorElem.style.display = "block";
+                return;
+            }
+
+            if (isSectionMode && !selectedSection) {
+                errorElem.innerText = "⚠️ Vui lòng chọn một Chuyên đề Luyện tập ở Mục 6!";
+                errorElem.style.display = "block";
+                return;
+            }
+
+            if (isExamMode && !selectedExam) {
+                errorElem.innerText = "⚠️ Vui lòng chọn một Bài thi / Kiểm tra ở Mục 7!";
                 errorElem.style.display = "block";
                 return;
             }
 
             errorElem.style.display = "none";
+
+            // KIỂM TRA ĐỒNG BỘ THAM SỐ URL VỚI NỘI DUNG VỪA CHỌN
+            const urlParams = new URLSearchParams(window.location.search);
+            let targetUrl = window.location.pathname;
+
+            if (isSectionMode && urlParams.get('section') !== selectedSection) {
+                targetUrl += `?section=${selectedSection}`;
+                window.location.href = targetUrl;
+                return;
+            } else if (isExamMode) {
+                if (selectedExam === 'all') {
+                    if (urlParams.get('exam') !== 'all') {
+                        targetUrl += `?exam=all`;
+                        window.location.href = targetUrl;
+                        return;
+                    }
+                } else {
+                    if (urlParams.get('lesson') !== selectedExam) {
+                        targetUrl += `?lesson=${selectedExam}`;
+                        window.location.href = targetUrl;
+                        return;
+                    }
+                }
+            }
             
             const now = new Date();
             const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
@@ -702,7 +866,18 @@
             }
 
             const urlParams = new URLSearchParams(window.location.search);
-            const rawLessonCode = urlParams.get('section') || urlParams.get('lesson') || urlParams.get('exam') || '';
+            const isSection = document.getElementById('mode-section').checked;
+            const isExam = document.getElementById('mode-exam').checked;
+            
+            let rawLessonCode = "";
+            if (isSection) {
+                rawLessonCode = "section" + document.getElementById('select-section').value;
+            } else if (isExam) {
+                const exVal = document.getElementById('select-exam').value;
+                rawLessonCode = (exVal === 'all') ? 'examall' : 'exam' + exVal;
+            } else {
+                rawLessonCode = urlParams.get('section') || urlParams.get('lesson') || urlParams.get('exam') || '';
+            }
 
             const studentName = document.getElementById('student-name').value.trim();
             const staffNumber = document.getElementById('staff-number').value.trim();
