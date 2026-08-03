@@ -104,7 +104,7 @@
         
         .mispronounced-word { color: #dc3545 !important; font-weight: bold !important; font-style: italic !important; text-decoration: underline; }
         .hidden { display: none !important; }
-        #save-status-msg { font-size: 13px; font-weight: bold; color: #0f5132; margin-top: 8px; background: #d1e7dd; padding: 8px 12px; border-radius: 20px; display: inline-block; border: 1px solid #badbcc; }
+        #save-status-msg { font-size: 12.5px; font-weight: bold; color: #0f5132; margin-top: 8px; background: #d1e7dd; padding: 8px 14px; border-radius: 20px; display: inline-block; border: 1px solid #badbcc; }
     </style>
 </head>
 <body>
@@ -395,6 +395,11 @@
 
                 targetText = targetText.replace(/^[A-D]\.\s*/, "").trim();
 
+                // LỌC SẠCH THẺ TRÍCH DẪN NGUỒN (CITATIONS) NẾU CÓ
+                if (meaningText) {
+                    meaningText = meaningText.replace(/\+\]/gi, '').trim();
+                }
+
                 if (targetText && targetText.length > 1) {
                     resultList.push({ 
                         text: targetText, 
@@ -648,12 +653,14 @@
             }).join(" ");
         }
 
+        // HÀM TỰ ĐỘNG LƯU DỮ LIỆU LÊN GOOGLE SHEET
         function sendResultToGoogleSheet(payload, isFeedback = false) {
             if (!GOOGLE_SCRIPT_URL) return;
 
             const msgElem = document.getElementById('save-status-msg');
             if (msgElem && !isFeedback) {
-                msgElem.innerText = "⏳ Đang tự động lưu kết quả lên Google Sheet...";
+                // SONG NGỮ DÒNG THÔNG BÁO LƯU DỮ LIỆU
+                msgElem.innerText = "⏳ Đang tự động lưu kết quả. Bạn vui lòng đợi trong ít phút... / Automatically saving results. Please wait a few moments...";
             }
 
             fetch(GOOGLE_SCRIPT_URL, {
@@ -784,7 +791,7 @@
                     <b style="font-size:15px;">${message}</b>
                     <div class="score-box">${calculatedScore} <span style="font-size:18px; color:#555;">/ 100 điểm</span></div>
                     ${levelBadgeHtml}
-                    <br><div id="save-status-msg">⏳ Đang tự động lưu kết quả lên Google Sheet...</div><br>
+                    <br><div id="save-status-msg">⏳ Đang tự động lưu kết quả. Bạn vui lòng đợi trong ít phút... / Automatically saving results. Please wait a few moments...</div><br>
                     <p style="font-size:13.5px; line-height:1.5; color:#333; margin: 10px 0 12px 0; background:#e9ecef; padding:10px; border-radius:8px; text-align:left;">
                         ${adviceText}
                     </p>
