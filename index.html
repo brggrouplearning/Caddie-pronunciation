@@ -104,7 +104,7 @@
         
         .mispronounced-word { color: #dc3545 !important; font-weight: bold !important; font-style: italic !important; text-decoration: underline; }
         .hidden { display: none !important; }
-        #save-status-msg { font-size: 12.5px; font-weight: bold; color: #0d6efd; margin-top: 8px; }
+        #save-status-msg { font-size: 13px; font-weight: bold; color: #0f5132; margin-top: 8px; background: #d1e7dd; padding: 8px 12px; border-radius: 20px; display: inline-block; border: 1px solid #badbcc; }
     </style>
 </head>
 <body>
@@ -143,7 +143,6 @@
                     <input type="text" id="staff-number" placeholder="Ví dụ / e.g. 123, 435">
                 </div>
 
-                <!-- GIỚI HẠN NGÀY SINH: ĐỦ 18 TUỔI VÀ KHÔNG QUÁ 100 TUỔI -->
                 <div class="form-group">
                     <label for="birthday-date">4. Ngày sinh / Date of birth (*):</label>
                     <input type="date" id="birthday-date" max="2008-08-03" min="1926-01-01">
@@ -289,7 +288,6 @@
     <script>
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz4qt5xlXMP-yztqBpQ71gOO-lOq9UCE9IoXRIZ1wXKd6ZbTSB-GzL-s8h__LNscgeiYg/exec';
 
-        // CHUYỂN BẬT TẮT NỘI DUNG MỤC 6 HOẶC MỤC 7
         function toggleContentMode(mode) {
             const radioSection = document.getElementById('mode-section');
             const radioExam = document.getElementById('mode-exam');
@@ -354,7 +352,6 @@
             }
         }
 
-        // HÀM TẠO BỘ BÀI THI TRỰC TIẾP DỰA VÀO BÀI HỌC VỪA CHỌN TRÊN FORM
         function getFilteredSpeakingItemsBySelection(isSectionMode, selectedVal) {
             let rawPool = (window.masterQuizData && window.masterQuizData.length > 0) ? [...window.masterQuizData] : [];
             let filtered = [];
@@ -434,11 +431,8 @@
         let startTimeStampText = ""; 
         let lastSavedPayload = null;
 
-        function initApp() {
-            // Sẵn sàng nhận thông tin từ form
-        }
+        function initApp() {}
 
-        // BẮT ĐẦU LÀM BÀI - TỰ ĐỘNG CHUẨN BỊ BÀI MỚI MÀ KHÔNG CẦN CHUYỂN TRANG
         function startQuizPractice() {
             const workPlace = document.getElementById('work-place').value;
             const studentName = document.getElementById('student-name').value.trim();
@@ -458,13 +452,12 @@
                 return;
             }
 
-            // XÁC NHẬN ĐỦ 18 TUỔI
             if (birthdayDate) {
                 const birthYear = new Date(birthdayDate).getFullYear();
                 const currentYear = new Date().getFullYear();
                 const age = currentYear - birthYear;
                 if (isNaN(age) || age < 18 || birthYear > currentYear) {
-                    errorElem.innerText = "⚠️ Ngày sinh không hợp lệ! Học viên phải từ 18 tuổi trở lên (Năm sinh không hợp lệ).";
+                    errorElem.innerText = "⚠️ Ngày sinh không hợp lệ! Học viên phải từ 18 tuổi trở lên.";
                     errorElem.style.display = "block";
                     return;
                 }
@@ -490,7 +483,6 @@
 
             errorElem.style.display = "none";
 
-            // KHỞI TẠO BÀI THI TRỰC TIẾP
             const selectedVal = isSectionMode ? selectedSection : selectedExam;
             originalItems = getFilteredSpeakingItemsBySelection(isSectionMode, selectedVal);
             if (originalItems.length === 0) return;
@@ -656,11 +648,13 @@
             }).join(" ");
         }
 
-        function sendResultToGoogleSheet(payload) {
+        function sendResultToGoogleSheet(payload, isFeedback = false) {
             if (!GOOGLE_SCRIPT_URL) return;
 
             const msgElem = document.getElementById('save-status-msg');
-            if (msgElem) msgElem.innerText = "⏳ Đang tự động lưu kết quả lên Google Sheet...";
+            if (msgElem && !isFeedback) {
+                msgElem.innerText = "⏳ Đang tự động lưu kết quả lên Google Sheet...";
+            }
 
             fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
@@ -670,24 +664,49 @@
             })
             .then(() => {
                 if (msgElem) {
-                    msgElem.innerText = "✅ Đã lưu kết quả thi lên Google Sheet thành công!";
-                    msgElem.style.color = "#0f5132";
+                    if (isFeedback) {
+                        msgElem.innerText = "✅ Cảm ơn bạn đã góp ý/đề xuất! / Thank you for your feedback!";
+                        msgElem.style.color = "#0f5132";
+                        msgElem.style.backgroundColor = "#d1e7dd";
+                    } else {
+                        msgElem.innerText = "✅ Đã lưu kết quả thi lên Google Sheet thành công!";
+                        msgElem.style.color = "#0f5132";
+                        msgElem.style.backgroundColor = "#d1e7dd";
+                    }
                 }
             })
             .catch(err => {
                 console.error("Lỗi khi gửi kết quả:", err);
                 if (msgElem) {
                     msgElem.innerText = "❌ Lỗi kết nối, chưa lưu được kết quả lên Google Sheet.";
-                    msgElem.style.color = "#dc3545";
+                    msgElem.style.color = "#721c24";
+                    msgElem.style.backgroundColor = "#f8d7da";
                 }
             });
         }
 
         function sendFeedbackOnly() {
             if (!lastSavedPayload) return;
-            const fbText = document.getElementById('user-feedback') ? document.getElementById('user-feedback').value.trim() : '';
+            const fbTextarea = document.getElementById('user-feedback');
+            const fbBtn = document.querySelector('.btn-send-feedback');
+            const fbText = fbTextarea ? fbTextarea.value.trim() : '';
+
+            if (!fbText) {
+                alert("Vui lòng nhập nội dung góp ý trước khi gửi / Please enter your comment!");
+                return;
+            }
+
             lastSavedPayload.feedback = fbText;
-            sendResultToGoogleSheet(lastSavedPayload);
+
+            if (fbTextarea) fbTextarea.disabled = true;
+            if (fbBtn) {
+                fbBtn.disabled = true;
+                fbBtn.innerText = "✔ Đã gửi góp ý / Sent";
+                fbBtn.style.opacity = "0.6";
+                fbBtn.style.cursor = "not-allowed";
+            }
+
+            sendResultToGoogleSheet(lastSavedPayload, true);
         }
 
         function finishSession(message) {
@@ -757,7 +776,7 @@
                 feedback: ""
             };
 
-            sendResultToGoogleSheet(lastSavedPayload);
+            sendResultToGoogleSheet(lastSavedPayload, false);
 
             const resultView = document.getElementById('result-view');
             resultView.innerHTML = `
@@ -765,7 +784,7 @@
                     <b style="font-size:15px;">${message}</b>
                     <div class="score-box">${calculatedScore} <span style="font-size:18px; color:#555;">/ 100 điểm</span></div>
                     ${levelBadgeHtml}
-                    <div id="save-status-msg"></div>
+                    <br><div id="save-status-msg">⏳ Đang tự động lưu kết quả lên Google Sheet...</div><br>
                     <p style="font-size:13.5px; line-height:1.5; color:#333; margin: 10px 0 12px 0; background:#e9ecef; padding:10px; border-radius:8px; text-align:left;">
                         ${adviceText}
                     </p>
@@ -781,9 +800,9 @@
                         • ⏱️ Thời gian thực tế: <b>${formatTime(elapsedSeconds)}</b><br>
                         • ⏳ Thời gian còn lại: <b>${formatTime(remainingSeconds)}</b><br>
                         <hr style="border: 0; border-top: 1px dashed #ccc; margin: 8px 0;">
-                        • ✅ Số câu ĐÚNG (100% điểm): <b>${finalPassed} / ${totalItems}</b> câu<br>
-                        • 🟡 Số câu GẦN ĐÚNG (50% điểm): <b>${finalApprox} / ${totalItems}</b> câu<br>
-                        • ❌ Số câu CHƯA ĐẠT / BỎ QUA (0 điểm): <b>${finalSkipped} / ${totalItems}</b> câu
+                        • ✅ Số câu ĐÚNG: <b>${finalPassed} / ${totalItems}</b> câu<br>
+                        • 🟡 Số câu GẦN ĐÚNG: <b>${finalApprox} / ${totalItems}</b> câu<br>
+                        • ❌ Số câu CHƯA ĐẠT / BỎ QUA: <b>${finalSkipped} / ${totalItems}</b> câu
                     </div>
 
                     <div class="feedback-card">
