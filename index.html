@@ -291,10 +291,9 @@
 
     <!-- CORE ENGINE LUYỆN PHÁT ÂM -->
     <script>
-        // URL WEB APP CỦA BÀI PHÁT ÂM
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwPRqDyawoMEz6EOlYxh6JsG6HYw38V3g5kdxK0w1Yyk0viyKh1cHNR3z0aEMD8R1H7vw/exec';
+        // URL WEB APP MỚI NHẤT CỦA BÀI PHÁT ÂM
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwloxjbuutvlFPApFCNIuv4he-QkF_9IJx0RYEMpPunsq3PVLyVnaxK7RVdAWwbRQHAyw/exec';
 
-        // LƯU TRỮ THÔNG TIN HỌC VIÊN
         let studentInfo = {
             workPlace: '',
             studentName: '',
@@ -509,7 +508,6 @@
 
             errorElem.style.display = "none";
 
-            // LƯU CỐ ĐỊNH THÔNG TIN HỌC VIÊN
             studentInfo.workPlace = workPlace;
             studentInfo.studentName = studentName;
             studentInfo.staffNumber = staffNumber;
@@ -733,7 +731,7 @@
             sendResultToGoogleSheet(lastSavedPayload, true);
         }
 
-        // CHỨC NĂNG 1: CHỤP ẢNH MÀN HÌNH VỚI ĐUÔI _lstn.jpg (hoặc _prnc.jpg tùy chỉnh, ở đây theo yêu cầu là _lstn.jpg)
+        // CHỨC NĂNG 1: CHỤP ẢNH MÀN HÌNH VỚI ĐUÔI _lstn.jpg (HOẶC _PRNC.JPG)
         function captureResultScreenshot() {
             const resultElem = document.getElementById('main-container');
             if (!resultElem) return;
