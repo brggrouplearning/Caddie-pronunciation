@@ -75,7 +75,7 @@
 
         .stats-box { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 10px; padding: 14px; margin: 15px 0; text-align: left; font-size: 13.5px; line-height: 1.6; }
         
-        /* KHUNG ĐỀ XUẤT GÓP Ý THU GỌN CHIỀU CAO */
+        /* KHUNG ĐỀ XUẤT GÓP Ý TRÊN */
         .feedback-card { background: #fff8e6; border: 1px solid #ffe8a1; border-radius: 10px; padding: 10px 12px; margin-top: 12px; text-align: left; }
         .feedback-card label { font-size: 12.5px; font-weight: bold; color: #8c6d00; display: block; margin-bottom: 4px; }
         .feedback-card textarea { 
@@ -93,7 +93,7 @@
         }
         .btn-send-feedback { background: #ffc107; color: #000; font-weight: bold; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; margin-top: 6px; width: 100%; font-size: 13px; }
 
-        /* KHUNG CÔNG CỤ BỔ SUNG: CHỤP ẢNH & UPLOAD DRIVE */
+        /* KHUNG LƯU KẾT QUẢ & TIỆN ÍCH BỔ SUNG Ở DƯỚI */
         .extra-tools-card { background: #f0f7ff; border: 1.5px solid #b6d4fe; border-radius: 10px; padding: 12px; margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; text-align: left; }
         .extra-tools-title { width: 100%; font-size: 12.5px; font-weight: bold; color: #0d6efd; margin-bottom: 4px; }
         .btn-tool { flex: 1; min-width: 140px; padding: 10px 8px; font-size: 12.5px; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
@@ -291,7 +291,6 @@
 
     <!-- CORE ENGINE LUYỆN PHÁT ÂM -->
     <script>
-        // URL WEB APP MỚI NHẤT CỦA BÀI PHÁT ÂM
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwloxjbuutvlFPApFCNIuv4he-QkF_9IJx0RYEMpPunsq3PVLyVnaxK7RVdAWwbRQHAyw/exec';
 
         let studentInfo = {
@@ -731,7 +730,7 @@
             sendResultToGoogleSheet(lastSavedPayload, true);
         }
 
-        // CHỨC NĂNG 1: CHỤP ẢNH MÀN HÌNH VỚI ĐUÔI _lstn.jpg (HOẶC _PRNC.JPG)
+        // CHỨC NĂNG 1: CHỤP ẢNH MÀN HÌNH VỚI ĐUÔI _lstn.jpg
         function captureResultScreenshot() {
             const resultElem = document.getElementById('main-container');
             if (!resultElem) return;
@@ -751,7 +750,6 @@
             const hourStr = String(now.getHours()).padStart(2, '0');
             const minStr = String(now.getMinutes()).padStart(2, '0');
 
-            // Định dạng tên file: LH_20260804_1053_daohuuhieu_123_2008_lstn.jpg
             const fileName = `${workPlaceCode}_${yearStr}${monthStr}${dayStr}_${hourStr}${minStr}_${cleanName}_${staffId}_${birthYear}_lstn.jpg`;
 
             html2canvas(resultElem, { scale: 1.2, useCORS: true }).then(canvas => {
@@ -917,17 +915,18 @@
                         • ❌ Số câu CHƯA ĐẠT / BỎ QUA: <b>${finalSkipped} / ${totalItems}</b> câu
                     </div>
 
-                    <!-- KHUNG CÔNG CỤ BỔ SUNG -->
-                    <div class="extra-tools-card">
-                        <div class="extra-tools-title">🛠️ TIỆN ÍCH BỔ SUNG / ADDITIONAL TOOLS:</div>
-                        <button class="btn-tool btn-screenshot" onclick="captureResultScreenshot()">📸 Chụp ảnh kết quả (Save Result Image)</button>
-                        <button class="btn-tool btn-upload-drive" id="btn-drive-status" onclick="uploadResultToDrive()">☁️ Tải ảnh lên Google Drive (Upload to Drive)</button>
-                    </div>
-
+                    <!-- KHUNG ĐỀ XUẤT GÓP Ý TRÊN -->
                     <div class="feedback-card">
                         <label for="user-feedback">✍️ Đề xuất góp ý (nếu có) / Feedbacks & Comments:</label>
                         <textarea id="user-feedback" rows="2" placeholder="Nhập ý kiến đóng góp của bạn về bài học / Enter your comments..."></textarea>
                         <button class="btn-send-feedback" onclick="sendFeedbackOnly()">✉️ Gửi góp ý bổ sung / Submit Feedback</button>
+                    </div>
+
+                    <!-- KHUNG LƯU KẾT QUẢ & TIỆN ÍCH BỔ SUNG Ở DƯỚI -->
+                    <div class="extra-tools-card">
+                        <div class="extra-tools-title">🛠️ LƯU KẾT QUẢ & TIỆN ÍCH BỔ SUNG / SAVE RESULT & ADDITIONAL TOOLS:</div>
+                        <button class="btn-tool btn-screenshot" onclick="captureResultScreenshot()">📸 Chụp ảnh kết quả (Save Result Image)</button>
+                        <button class="btn-tool btn-upload-drive" id="btn-drive-status" onclick="uploadResultToDrive()">☁️ Tải ảnh lên Google Drive (Upload to Drive)</button>
                     </div>
 
                     <div class="action-buttons">
