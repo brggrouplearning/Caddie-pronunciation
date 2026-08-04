@@ -75,7 +75,6 @@
 
         .stats-box { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 10px; padding: 14px; margin: 15px 0; text-align: left; font-size: 13.5px; line-height: 1.6; }
         
-        /* KHUNG ĐỀ XUẤT GÓP Ý THU GỌN CHIỀU CAO */
         .feedback-card { background: #fff8e6; border: 1px solid #ffe8a1; border-radius: 10px; padding: 10px 12px; margin-top: 12px; text-align: left; }
         .feedback-card label { font-size: 12.5px; font-weight: bold; color: #8c6d00; display: block; margin-bottom: 4px; }
         .feedback-card textarea { 
@@ -93,7 +92,6 @@
         }
         .btn-send-feedback { background: #ffc107; color: #000; font-weight: bold; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; margin-top: 6px; width: 100%; font-size: 13px; }
 
-        /* KHUNG CÔNG CỤ BỔ SUNG: CHỤP ẢNH & UPLOAD DRIVE */
         .extra-tools-card { background: #f0f7ff; border: 1.5px solid #b6d4fe; border-radius: 10px; padding: 12px; margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; text-align: left; }
         .extra-tools-title { width: 100%; font-size: 12.5px; font-weight: bold; color: #0d6efd; margin-bottom: 4px; }
         .btn-tool { flex: 1; min-width: 140px; padding: 10px 8px; font-size: 12.5px; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
@@ -291,7 +289,8 @@
 
     <!-- CORE ENGINE LUYỆN PHÁT ÂM -->
     <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwloxjbuutvlFPApFCNIuv4he-QkF_9IJx0RYEMpPunsq3PVLyVnaxK7RVdAWwbRQHAyw/exec';
+        // URL WEB APP MỚI NHẤT CỦA BÀI PHÁT ÂM
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby2eSW83PuRs3zrrAtHWGzaWsWc_En7nP5jRl7NuYE9wXLMCUc-6dfWdbAuLccDArZfZQ/exec';
 
         let studentInfo = {
             workPlace: '',
@@ -707,7 +706,7 @@
         }
 
         function sendFeedbackOnly() {
-            if (!lastSavedPayload) return;
+            if (!studentInfo || !studentInfo.studentName) return;
             const fbTextarea = document.getElementById('user-feedback');
             const fbBtn = document.querySelector('.btn-send-feedback');
             const fbText = fbTextarea ? fbTextarea.value.trim() : '';
@@ -717,7 +716,12 @@
                 return;
             }
 
-            lastSavedPayload.feedback = fbText;
+            const feedbackPayload = {
+                action: "update_feedback",
+                studentName: studentInfo.studentName,
+                staffNumber: studentInfo.staffNumber,
+                feedback: fbText
+            };
 
             if (fbTextarea) fbTextarea.disabled = true;
             if (fbBtn) {
@@ -727,7 +731,17 @@
                 fbBtn.style.cursor = "not-allowed";
             }
 
-            sendResultToGoogleSheet(lastSavedPayload, true);
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(feedbackPayload)
+            }).then(() => {
+                const msgElem = document.getElementById('save-status-msg');
+                if (msgElem) {
+                    msgElem.innerText = "✅ Cảm ơn bạn đã góp ý/đề xuất! / Thank you for your feedback!";
+                }
+            }).catch(err => console.error("Error sending feedback:", err));
         }
 
         // CHỨC NĂNG 1: CHỤP ẢNH MÀN HÌNH VỚI ĐUÔI _lstn.jpg
@@ -811,7 +825,9 @@
                     fileName: fileName,
                     fullWorkPlace: fullWorkPlace,
                     dateFolderStr: dateFolderStr,
-                    rawLessonCode: rawLessonCode
+                    rawLessonCode: rawLessonCode,
+                    studentName: studentInfo.studentName,
+                    staffNumber: studentInfo.staffNumber
                 };
 
                 fetch(GOOGLE_SCRIPT_URL, {
@@ -836,6 +852,7 @@
         function finishSession(message, isFromReview = false) {
             clearInterval(timerInterval);
             isReviewMode = false;
+            lastSessionMessage = message;
 
             let finalPassed = itemStatus.filter(st => st === 'passed').length;
             let finalApprox = itemStatus.filter(st => st === 'approx').length;
@@ -863,7 +880,7 @@
             }
 
             if (!isFromReview) {
-                // CHỈNH SỬA ĐỊNH DẠNG CẢ 3 CỘT I, J, K DẠNG PHÂN SỐ X/TOTAL
+                // ĐỊNH DẠNG CẢ 3 CỘT I, J, K DẠNG PHÂN SỐ X/TOTAL ĐỒNG BỘ
                 lastSavedPayload = {
                     timestamp: startTimeStampText,
                     studentName: studentInfo.studentName,
