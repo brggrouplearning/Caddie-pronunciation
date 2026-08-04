@@ -75,7 +75,7 @@
 
         .stats-box { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 10px; padding: 14px; margin: 15px 0; text-align: left; font-size: 13.5px; line-height: 1.6; }
         
-        /* KHUNG ĐỀ XUẤT GÓP Ý TRÊN */
+        /* KHUNG ĐỀ XUẤT GÓP Ý THU GỌN CHIỀU CAO */
         .feedback-card { background: #fff8e6; border: 1px solid #ffe8a1; border-radius: 10px; padding: 10px 12px; margin-top: 12px; text-align: left; }
         .feedback-card label { font-size: 12.5px; font-weight: bold; color: #8c6d00; display: block; margin-bottom: 4px; }
         .feedback-card textarea { 
@@ -93,7 +93,7 @@
         }
         .btn-send-feedback { background: #ffc107; color: #000; font-weight: bold; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; margin-top: 6px; width: 100%; font-size: 13px; }
 
-        /* KHUNG LƯU KẾT QUẢ & TIỆN ÍCH BỔ SUNG Ở DƯỚI */
+        /* KHUNG CÔNG CỤ BỔ SUNG: CHỤP ẢNH & UPLOAD DRIVE */
         .extra-tools-card { background: #f0f7ff; border: 1.5px solid #b6d4fe; border-radius: 10px; padding: 12px; margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; text-align: left; }
         .extra-tools-title { width: 100%; font-size: 12.5px; font-weight: bold; color: #0d6efd; margin-bottom: 4px; }
         .btn-tool { flex: 1; min-width: 140px; padding: 10px 8px; font-size: 12.5px; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
@@ -863,6 +863,7 @@
             }
 
             if (!isFromReview) {
+                // CHỈNH SỬA ĐỊNH DẠNG CẢ 3 CỘT I, J, K DẠNG PHÂN SỐ X/TOTAL
                 lastSavedPayload = {
                     timestamp: startTimeStampText,
                     studentName: studentInfo.studentName,
@@ -873,9 +874,9 @@
                     rawLessonCode: studentInfo.rawLessonCode,
                     lessonTitle: studentInfo.lessonTitle,
                     score: calculatedScore,
-                    passedCount: `${finalPassed}/${totalItems}`,
-                    approxCount: `${finalApprox} câu`,
-                    skippedCount: `${finalSkipped}`,
+                    passedCount: `${finalPassed}/${totalItems}`,    // Cột I: Số câu đúng / Tổng
+                    approxCount: `${finalApprox}/${totalItems}`,    // Cột J: Số câu gần đúng / Tổng
+                    skippedCount: `${finalSkipped}/${totalItems}`,  // Cột K: Số câu bỏ qua / Tổng
                     elapsedTime: formatTime(Math.max(0, initialSeconds - totalSeconds)),
                     feedback: ""
                 };
