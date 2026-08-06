@@ -764,7 +764,7 @@
             const hourStr = String(now.getHours()).padStart(2, '0');
             const minStr = String(now.getMinutes()).padStart(2, '0');
 
-            const fileName = `${workPlaceCode}_${yearStr}${monthStr}${dayStr}_${hourStr}${minStr}_${cleanName}_${staffId}_${birthYear}_lstn.jpg`;
+            const fileName = `${workPlaceCode}_${yearStr}${monthStr}${dayStr}_${hourStr}${minStr}_${cleanName}_${staffId}_${birthYear}_spk.jpg`;
 
             html2canvas(resultElem, { scale: 1.2, useCORS: true }).then(canvas => {
                 const imageBase64 = canvas.toDataURL("image/jpeg", 0.65);
@@ -812,7 +812,7 @@ function uploadResultToDrive() {
     const hourStr = String(now.getHours()).padStart(2, '0');
     const minStr = String(now.getMinutes()).padStart(2, '0');
 
-    const fileName = `${workPlaceCode}_${yearStr}${monthStr}${dayStr}_${hourStr}${minStr}_${cleanName}_${staffId}_${birthYear}_lstn.jpg`;
+    const fileName = `${workPlaceCode}_${yearStr}${monthStr}${dayStr}_${hourStr}${minStr}_${cleanName}_${staffId}_${birthYear}_spk.jpg`;
     const dateFolderStr = `${yearStr}.${monthStr}.${dayStr}`;
     let rawLessonCode = studentInfo.rawLessonCode ? studentInfo.rawLessonCode.toUpperCase() : "EXAM";
 
