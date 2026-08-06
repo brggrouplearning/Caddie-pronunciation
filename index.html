@@ -776,7 +776,7 @@
             });
         }
 
-        // CHỨC NĂNG 2: TẢI ẢNH LÊN GOOGLE DRIVE & CẬP NHẬT GOOGLE SHEET
+     // CHỨC NĂNG 2: TẢI ẢNH LÊN GOOGLE DRIVE & CẬP NHẬT GOOGLE SHEET
 function uploadResultToDrive() {
     const resultElem = document.getElementById('main-container');
     const statusBtn = document.getElementById('btn-drive-status');
@@ -812,12 +812,13 @@ function uploadResultToDrive() {
     const hourStr = String(now.getHours()).padStart(2, '0');
     const minStr = String(now.getMinutes()).padStart(2, '0');
 
-    // ĐÃ SỬA ĐUÔI FILE THÀNH _spk.jpg ĐỒNG BỘ CHO SPEAKING
+    // ĐÃ CHUẨN HÓA ĐUÔI TÊN FILE THÀNH _spk.jpg CHO SPEAKING
     const fileName = `${workPlaceCode}_${yearStr}${monthStr}${dayStr}_${hourStr}${minStr}_${cleanName}_${staffId}_${birthYear}_spk.jpg`;
     const dateFolderStr = `${yearStr}.${monthStr}.${dayStr}`;
     let rawLessonCode = studentInfo.rawLessonCode ? studentInfo.rawLessonCode.toUpperCase() : "EXAM";
 
     html2canvas(resultElem, { scale: 1.0, useCORS: true }).then(canvas => {
+        // Nén chất lượng ảnh ở mức 0.5 để gói tin gọn nhẹ, tránh quá tải dung lượng
         const imageBase64 = canvas.toDataURL("image/jpeg", 0.5);
 
         const payload = {
@@ -831,14 +832,14 @@ function uploadResultToDrive() {
             staffNumber: studentInfo.staffNumber
         };
 
-        // Sử dụng định dạng text/plain để vượt qua hàng rào CORS preflight của Google Apps Script
+        // Bỏ mode 'no-cors' để Apps Script đọc được nội dung JSON bên trong e.postData.contents
         fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
-            mode: 'no-cors', 
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify(payload)
         })
-        .then(() => {
+        .then(response => response.json())
+        .then(data => {
             if (statusBtn) {
                 statusBtn.innerText = "✅ Đã tải ảnh lên Drive thành công!";
                 statusBtn.style.backgroundColor = "#198754";
@@ -854,7 +855,7 @@ function uploadResultToDrive() {
     }).catch(err => {
         console.error("html2canvas error:", err);
         if (statusBtn) {
-            statusBtn.innerText = "❌ Lỗi chụp ảnh màn hình";
+            statusBtn.innerText = "❌ Lỗi tải ảnh lên Drive";
             statusBtn.disabled = false;
         }
     });
