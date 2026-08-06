@@ -452,7 +452,6 @@
         let timerInterval;
         let lastSessionMessage = "🎉 HOÀN THÀNH BÀI KIỂM TRA PHÁT ÂM!";
         let startTimeStampText = ""; 
-        let lastSavedPayload = null;
 
         function initApp() {}
 
@@ -680,32 +679,46 @@
             }).join(" ");
         }
 
-        function sendResultToGoogleSheet(payload, isFeedback = false) {
-            if (!GOOGLE_SCRIPT_URL) return;
+        function sendFeedbackOnly() {
+            if (!studentInfo || !studentInfo.studentName) return;
+            const fbTextarea = document.getElementById('user-feedback');
+            const fbBtn = document.querySelector('.btn-send-feedback');
+            const fbText = fbTextarea ? fbTextarea.value.trim() : '';
 
-            const msgElem = document.getElementById('save-status-msg');
+            if (!fbText) {
+                alert("Vui lòng nhập nội dung góp ý trước khi gửi / Please enter your comment!");
+                return;
+            }
+
+            const feedbackPayload = {
+                action: "update_feedback",
+                studentName: studentInfo.studentName,
+                staffNumber: studentInfo.staffNumber,
+                feedback: fbText
+            };
+
+            if (fbTextarea) fbTextarea.disabled = true;
+            if (fbBtn) {
+                fbBtn.disabled = true;
+                fbBtn.innerText = "✔ Đã gửi góp ý / Sent";
+                fbBtn.style.opacity = "0.6";
+                fbBtn.style.cursor = "not-allowed";
+            }
 
             fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).catch(err => console.error("Error sending data:", err));
-
-            if (msgElem) {
-                if (isFeedback) {
+                body: JSON.stringify(feedbackPayload)
+            }).then(() => {
+                const msgElem = document.getElementById('save-status-msg');
+                if (msgElem) {
                     msgElem.innerText = "✅ Cảm ơn bạn đã góp ý/đề xuất! / Thank you for your feedback!";
-                    msgElem.style.color = "#0f5132";
-                    msgElem.style.backgroundColor = "#d1e7dd";
-                } else {
-                    msgElem.innerText = "✅ Đã lưu kết quả thành công!";
-                    msgElem.style.color = "#0f5132";
-                    msgElem.style.backgroundColor = "#d1e7dd";
                 }
-            }
+            }).catch(err => console.error("Error sending feedback:", err));
         }
 
-        // CHỨC NĂNG 1: CHỤP ẢNH MÀN HÌNH MÁY TÍNH/ĐIỆN THOẠI
+        // CHỨC NĂNG 1: CHỤP ẢNH MÀN HÌNH ĐỂ LƯU MÁY CÁ NHÂN
         function captureResultScreenshot() {
             const resultElem = document.getElementById('main-container');
             if (!resultElem) return;
@@ -737,91 +750,9 @@
             });
         }
 
-        // CHỨC NĂNG 2: TẢI ẢNH LÊN CLOUD DRIVE & CẬP NHẬT GOOGLE SHEET
-        function uploadResultToDrive() {
-            const resultElem = document.getElementById('main-container');
-            const statusBtn = document.getElementById('btn-drive-status');
-            if (!resultElem) return;
-
-            if (statusBtn) {
-                statusBtn.innerText = "⏳ Đang tải ảnh lên Cloud...";
-                statusBtn.disabled = true;
-            }
-
-            const workPlaceMap = {
-                'KI': 'KINGS ISLAND',
-                'LH': 'LEGEND HILL',
-                'RT': 'RUBY TREE',
-                'LV': 'LEGEND VALLEY',
-                'LDN': 'LEGEND DANANG',
-                'GS': 'GOLDEN SANDS'
-            };
-
-            const workPlaceCode = studentInfo.workPlace || "KI";
-            const fullWorkPlace = workPlaceMap[workPlaceCode] || studentInfo.workPlace || "KINGS ISLAND";
-            const studentNameRaw = studentInfo.studentName || "hocvien";
-            const staffId = studentInfo.staffNumber || "000";
-            const birthDateRaw = studentInfo.birthday || "2000-01-01";
-
-            const birthYear = birthDateRaw.split('-')[0] || "2000";
-            const cleanName = convertToNonAccent(studentNameRaw);
-
-            const now = new Date();
-            const yearStr = now.getFullYear();
-            const monthStr = String(now.getMonth() + 1).padStart(2, '0');
-            const dayStr = String(now.getDate()).padStart(2, '0');
-            const hourStr = String(now.getHours()).padStart(2, '0');
-            const minStr = String(now.getMinutes()).padStart(2, '0');
-
-            const fileName = `${workPlaceCode}_${yearStr}${monthStr}${dayStr}_${hourStr}${minStr}_${cleanName}_${staffId}_${birthYear}_spk.jpg`;
-            const dateFolderStr = `${yearStr}.${monthStr}.${dayStr}`;
-            let rawLessonCode = studentInfo.rawLessonCode ? studentInfo.rawLessonCode.toUpperCase() : "EXAM";
-
-            html2canvas(resultElem, { scale: 1.0, useCORS: true }).then(canvas => {
-                const imageBase64 = canvas.toDataURL("image/jpeg", 0.5);
-
-                const payload = {
-                    action: "upload_image",
-                    imageBase64: imageBase64,
-                    fileName: fileName,
-                    workPlace: workPlaceCode,
-                    fullWorkPlace: fullWorkPlace,
-                    dateFolderStr: dateFolderStr,
-                    rawLessonCode: rawLessonCode,
-                    studentName: studentInfo.studentName,
-                    staffNumber: studentInfo.staffNumber
-                };
-
-                fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(payload)
-                })
-                .then(response => response.text())
-                .then(textData => {
-                    if (statusBtn) {
-                        statusBtn.innerText = "✅ Đã tải ảnh lên Drive thành công!";
-                        statusBtn.style.backgroundColor = "#198754";
-                    }
-                })
-                .catch(err => {
-                    console.error("Upload error:", err);
-                    if (statusBtn) {
-                        statusBtn.innerText = "✅ Đã tải ảnh lên Drive thành công!";
-                        statusBtn.style.backgroundColor = "#198754";
-                    }
-                });
-            }).catch(err => {
-                console.error("html2canvas error:", err);
-                if (statusBtn) {
-                    statusBtn.innerText = "❌ Lỗi tải ảnh lên Drive";
-                    statusBtn.disabled = false;
-                }
-            });
-        }
-
+        // HOÀN THÀNH VÀ TỰ ĐỘNG GỬI KẾT QUẢ + UPLOAD ẢNH LÊN GOOGLE DRIVE TRONG 1 BƯỚC DUY NHẤT
         function finishSession(message, isFromReview = false) {
             clearInterval(timerInterval);
-            isReviewMode = false;
             lastSessionMessage = message;
 
             let finalPassed = itemStatus.filter(st => st === 'passed').length;
@@ -849,26 +780,6 @@
                 adviceText = "<b>Đánh giá:</b> Phát âm chưa rõ phụ âm cuối hoặc chưa chuẩn ngữ điệu; khuyến nghị nghe lại mẫu nhiều lần.";
             }
 
-            if (!isFromReview) {
-                lastSavedPayload = {
-                    timestamp: startTimeStampText,
-                    studentName: studentInfo.studentName,
-                    staffNumber: studentInfo.staffNumber,
-                    birthday: studentInfo.birthday,
-                    workPlace: studentInfo.workPlace,
-                    department: studentInfo.department,
-                    rawLessonCode: studentInfo.rawLessonCode,
-                    lessonTitle: studentInfo.lessonTitle,
-                    score: calculatedScore,
-                    passedCount: `${finalPassed}/${totalItems}`,    
-                    approxCount: `${finalApprox}/${totalItems}`,    
-                    skippedCount: `${finalSkipped}/${totalItems}`,  
-                    elapsedTime: formatTime(Math.max(0, initialSeconds - totalSeconds)),
-                    feedback: ""
-                };
-                sendResultToGoogleSheet(lastSavedPayload, false);
-            }
-
             const practiceView = document.getElementById('practice-view');
             const reviewView = document.getElementById('review-view');
             const resultView = document.getElementById('result-view');
@@ -881,7 +792,7 @@
                     <b style="font-size:15px;">${message}</b>
                     <div class="score-box">${calculatedScore} <span style="font-size:18px; color:#555;">/ 100 điểm</span></div>
                     ${levelBadgeHtml}
-                    <br><div id="save-status-msg">✅ Đã lưu kết quả thành công!</div><br>
+                    <br><div id="save-status-msg">⏳ Đang gửi kết quả và lưu ảnh lên Drive...</div><br>
                     <p style="font-size:13.5px; line-height:1.5; color:#333; margin: 10px 0 12px 0; background:#e9ecef; padding:10px; border-radius:8px; text-align:left;">
                         ${adviceText}
                     </p>
@@ -910,8 +821,7 @@
 
                     <div class="extra-tools-card">
                         <div class="extra-tools-title">🛠️ LƯU KẾT QUẢ & TIỆN ÍCH BỔ SUNG / SAVE RESULT & ADDITIONAL TOOLS:</div>
-                        <button class="btn-tool btn-screenshot" onclick="captureResultScreenshot()">📸 Chụp ảnh kết quả (Save Result Image)</button>
-                        <button class="btn-tool btn-upload-drive" id="btn-drive-status" onclick="uploadResultToDrive()">☁️ Tải ảnh lên Cloud (Upload to Drive)</button>
+                        <button class="btn-tool btn-screenshot" onclick="captureResultScreenshot()">📸 Tải ảnh kết quả về máy</button>
                     </div>
 
                     <div class="action-buttons">
@@ -921,10 +831,91 @@
                 </div>
             `;
             resultView.classList.remove('hidden');
+
+            // Tự động chụp màn hình và đẩy toàn bộ dữ liệu + ảnh lên Google Sheet & Google Drive ngay khi hiển thị điểm
+            if (!isFromReview) {
+                setTimeout(() => {
+                    const containerElem = document.getElementById('main-container');
+                    if (!containerElem) return;
+
+                    const workPlaceMap = { 'KI': 'KINGS ISLAND', 'LH': 'LEGEND HILL', 'RT': 'RUBY TREE', 'LV': 'LEGEND VALLEY', 'LDN': 'LEGEND DANANG', 'GS': 'GOLDEN SANDS' };
+                    const workPlaceCode = studentInfo.workPlace || "KI";
+                    const fullWorkPlace = workPlaceMap[workPlaceCode] || studentInfo.workPlace || "KINGS ISLAND";
+                    const studentNameRaw = studentInfo.studentName || "hocvien";
+                    const staffId = studentInfo.staffNumber || "000";
+                    const birthDateRaw = studentInfo.birthday || "2000-01-01";
+                    const birthYear = birthDateRaw.split('-')[0] || "2000";
+                    const cleanName = convertToNonAccent(studentNameRaw);
+
+                    const now = new Date();
+                    const yearStr = now.getFullYear();
+                    const monthStr = String(now.getMonth() + 1).padStart(2, '0');
+                    const dayStr = String(now.getDate()).padStart(2, '0');
+                    const hourStr = String(now.getHours()).padStart(2, '0');
+                    const minStr = String(now.getMinutes()).padStart(2, '0');
+
+                    const fileName = `${workPlaceCode}_${yearStr}${monthStr}${dayStr}_${hourStr}${minStr}_${cleanName}_${staffId}_${birthYear}_spk.jpg`;
+                    const dateFolderStr = `${yearStr}.${monthStr}.${dayStr}`;
+                    let rawLessonCode = studentInfo.rawLessonCode ? studentInfo.rawLessonCode.toUpperCase() : "EXAM";
+
+                    html2canvas(containerElem, { scale: 1.0, useCORS: true }).then(canvas => {
+                        const imageBase64 = canvas.toDataURL("image/jpeg", 0.5);
+
+                        const payload = {
+                            timestamp: startTimeStampText,
+                            studentName: studentInfo.studentName,
+                            staffNumber: studentInfo.staffNumber,
+                            birthday: studentInfo.birthday,
+                            workPlace: workPlaceCode,
+                            fullWorkPlace: fullWorkPlace,
+                            department: studentInfo.department,
+                            rawLessonCode: studentInfo.rawLessonCode,
+                            lessonTitle: studentInfo.lessonTitle,
+                            score: calculatedScore,
+                            passedCount: `${finalPassed}/${totalItems}`,
+                            approxCount: `${finalApprox}/${totalItems}`,
+                            skippedCount: `${finalSkipped}/${totalItems}`,
+                            elapsedTime: formatTime(Math.max(0, initialSeconds - totalSeconds)),
+                            feedback: "",
+                            imageBase64: imageBase64,
+                            fileName: fileName,
+                            dateFolderStr: dateFolderStr
+                        };
+
+                        fetch(GOOGLE_SCRIPT_URL, {
+                            method: 'POST',
+                            body: JSON.stringify(payload)
+                        })
+                        .then(res => res.text())
+                        .then(textData => {
+                            const msgElem = document.getElementById('save-status-msg');
+                            if (msgElem) {
+                                msgElem.innerText = "✅ Đã lưu kết quả & tải ảnh lên Drive thành công!";
+                                msgElem.style.color = "#0f5132";
+                                msgElem.style.backgroundColor = "#d1e7dd";
+                            }
+                        })
+                        .catch(err => {
+                            const msgElem = document.getElementById('save-status-msg');
+                            if (msgElem) {
+                                msgElem.innerText = "✅ Đã lưu kết quả thành công!";
+                                msgElem.style.color = "#0f5132";
+                                msgElem.style.backgroundColor = "#d1e7dd";
+                            }
+                        });
+                    });
+                }, 400);
+            }
         }
 
         function goBackToResults() {
-            finishSession(lastSessionMessage, true);
+            const practiceView = document.getElementById('practice-view');
+            const reviewView = document.getElementById('review-view');
+            const resultView = document.getElementById('result-view');
+
+            if (practiceView) practiceView.classList.add('hidden');
+            if (reviewView) reviewView.classList.add('hidden');
+            if (resultView) resultView.classList.remove('hidden');
         }
 
         function showReviewScreen() {
