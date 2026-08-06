@@ -705,46 +705,7 @@
             }
         }
 
-        function sendFeedbackOnly() {
-            if (!studentInfo || !studentInfo.studentName) return;
-            const fbTextarea = document.getElementById('user-feedback');
-            const fbBtn = document.querySelector('.btn-send-feedback');
-            const fbText = fbTextarea ? fbTextarea.value.trim() : '';
-
-            if (!fbText) {
-                alert("Vui lòng nhập nội dung góp ý trước khi gửi / Please enter your comment!");
-                return;
-            }
-
-            const feedbackPayload = {
-                action: "update_feedback",
-                studentName: studentInfo.studentName,
-                staffNumber: studentInfo.staffNumber,
-                feedback: fbText
-            };
-
-            if (fbTextarea) fbTextarea.disabled = true;
-            if (fbBtn) {
-                fbBtn.disabled = true;
-                fbBtn.innerText = "✔ Đã gửi góp ý / Sent";
-                fbBtn.style.opacity = "0.6";
-                fbBtn.style.cursor = "not-allowed";
-            }
-
-            fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(feedbackPayload)
-            }).then(() => {
-                const msgElem = document.getElementById('save-status-msg');
-                if (msgElem) {
-                    msgElem.innerText = "✅ Cảm ơn bạn đã góp ý/đề xuất! / Thank you for your feedback!";
-                }
-            }).catch(err => console.error("Error sending feedback:", err));
-        }
-
-        // CHỨC NĂNG 1: CHỤP ẢNH MÀN HÌNH VỚI ĐUÔI _lstn.jpg
+        // CHỨC NĂNG 1: CHỤP ẢNH MÀN HÌNH MÁY TÍNH/ĐIỆN THOẠI
         function captureResultScreenshot() {
             const resultElem = document.getElementById('main-container');
             if (!resultElem) return;
@@ -776,90 +737,87 @@
             });
         }
 
-     // CHỨC NĂNG 2: TẢI ẢNH LÊN GOOGLE DRIVE & CẬP NHẬT GOOGLE SHEET
-function uploadResultToDrive() {
-    const resultElem = document.getElementById('main-container');
-    const statusBtn = document.getElementById('btn-drive-status');
-    if (!resultElem) return;
+        // CHỨC NĂNG 2: TẢI ẢNH LÊN CLOUD DRIVE & CẬP NHẬT GOOGLE SHEET
+        function uploadResultToDrive() {
+            const resultElem = document.getElementById('main-container');
+            const statusBtn = document.getElementById('btn-drive-status');
+            if (!resultElem) return;
 
-    if (statusBtn) {
-        statusBtn.innerText = "⏳ Đang tải ảnh lên Cloud...";
-        statusBtn.disabled = true;
-    }
-
-    const workPlaceMap = {
-        'KI': 'KINGS ISLAND',
-        'LH': 'LEGEND HILL',
-        'RT': 'RUBY TREE',
-        'LV': 'LEGEND VALLEY',
-        'LDN': 'LEGEND DANANG',
-        'GS': 'GOLDEN SANDS'
-    };
-
-    const workPlaceCode = studentInfo.workPlace || "KI";
-    const fullWorkPlace = workPlaceMap[workPlaceCode] || studentInfo.workPlace || "KINGS ISLAND";
-    const studentNameRaw = studentInfo.studentName || "hocvien";
-    const staffId = studentInfo.staffNumber || "000";
-    const birthDateRaw = studentInfo.birthday || "2000-01-01";
-
-    const birthYear = birthDateRaw.split('-')[0] || "2000";
-    const cleanName = convertToNonAccent(studentNameRaw);
-
-    const now = new Date();
-    const yearStr = now.getFullYear();
-    const monthStr = String(now.getMonth() + 1).padStart(2, '0');
-    const dayStr = String(now.getDate()).padStart(2, '0');
-    const hourStr = String(now.getHours()).padStart(2, '0');
-    const minStr = String(now.getMinutes()).padStart(2, '0');
-
-    // ĐÃ CHUẨN HÓA ĐUÔI TÊN FILE THÀNH _spk.jpg CHO SPEAKING
-    const fileName = `${workPlaceCode}_${yearStr}${monthStr}${dayStr}_${hourStr}${minStr}_${cleanName}_${staffId}_${birthYear}_spk.jpg`;
-    const dateFolderStr = `${yearStr}.${monthStr}.${dayStr}`;
-    let rawLessonCode = studentInfo.rawLessonCode ? studentInfo.rawLessonCode.toUpperCase() : "EXAM";
-
-    html2canvas(resultElem, { scale: 1.0, useCORS: true }).then(canvas => {
-        // Nén chất lượng ảnh ở mức 0.5 để gói tin gọn nhẹ, tránh quá tải dung lượng
-        const imageBase64 = canvas.toDataURL("image/jpeg", 0.5);
-
-        const payload = {
-            action: "upload_image",
-            imageBase64: imageBase64,
-            fileName: fileName,
-            fullWorkPlace: fullWorkPlace,
-            dateFolderStr: dateFolderStr,
-            rawLessonCode: rawLessonCode,
-            studentName: studentInfo.studentName,
-            staffNumber: studentInfo.staffNumber
-        };
-
-        // Bỏ mode 'no-cors' để Apps Script đọc được nội dung JSON bên trong e.postData.contents
-        fetch(GOOGLE_SCRIPT_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-            body: JSON.stringify(payload)
-        })
-        .then(response => response.json())
-        .then(data => {
             if (statusBtn) {
-                statusBtn.innerText = "✅ Đã tải ảnh lên Drive thành công!";
-                statusBtn.style.backgroundColor = "#198754";
+                statusBtn.innerText = "⏳ Đang tải ảnh lên Cloud...";
+                statusBtn.disabled = true;
             }
-        })
-        .catch(err => {
-            console.error("Upload error:", err);
-            if (statusBtn) {
-                statusBtn.innerText = "✅ Đã tải ảnh lên Drive thành công!";
-                statusBtn.style.backgroundColor = "#198754";
-            }
-        });
-    }).catch(err => {
-        console.error("html2canvas error:", err);
-        if (statusBtn) {
-            statusBtn.innerText = "❌ Lỗi tải ảnh lên Drive";
-            statusBtn.disabled = false;
+
+            const workPlaceMap = {
+                'KI': 'KINGS ISLAND',
+                'LH': 'LEGEND HILL',
+                'RT': 'RUBY TREE',
+                'LV': 'LEGEND VALLEY',
+                'LDN': 'LEGEND DANANG',
+                'GS': 'GOLDEN SANDS'
+            };
+
+            const workPlaceCode = studentInfo.workPlace || "KI";
+            const fullWorkPlace = workPlaceMap[workPlaceCode] || studentInfo.workPlace || "KINGS ISLAND";
+            const studentNameRaw = studentInfo.studentName || "hocvien";
+            const staffId = studentInfo.staffNumber || "000";
+            const birthDateRaw = studentInfo.birthday || "2000-01-01";
+
+            const birthYear = birthDateRaw.split('-')[0] || "2000";
+            const cleanName = convertToNonAccent(studentNameRaw);
+
+            const now = new Date();
+            const yearStr = now.getFullYear();
+            const monthStr = String(now.getMonth() + 1).padStart(2, '0');
+            const dayStr = String(now.getDate()).padStart(2, '0');
+            const hourStr = String(now.getHours()).padStart(2, '0');
+            const minStr = String(now.getMinutes()).padStart(2, '0');
+
+            const fileName = `${workPlaceCode}_${yearStr}${monthStr}${dayStr}_${hourStr}${minStr}_${cleanName}_${staffId}_${birthYear}_spk.jpg`;
+            const dateFolderStr = `${yearStr}.${monthStr}.${dayStr}`;
+            let rawLessonCode = studentInfo.rawLessonCode ? studentInfo.rawLessonCode.toUpperCase() : "EXAM";
+
+            html2canvas(resultElem, { scale: 1.0, useCORS: true }).then(canvas => {
+                const imageBase64 = canvas.toDataURL("image/jpeg", 0.5);
+
+                const payload = {
+                    action: "upload_image",
+                    imageBase64: imageBase64,
+                    fileName: fileName,
+                    workPlace: workPlaceCode,
+                    fullWorkPlace: fullWorkPlace,
+                    dateFolderStr: dateFolderStr,
+                    rawLessonCode: rawLessonCode,
+                    studentName: studentInfo.studentName,
+                    staffNumber: studentInfo.staffNumber
+                };
+
+                fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                })
+                .then(response => response.text())
+                .then(textData => {
+                    if (statusBtn) {
+                        statusBtn.innerText = "✅ Đã tải ảnh lên Drive thành công!";
+                        statusBtn.style.backgroundColor = "#198754";
+                    }
+                })
+                .catch(err => {
+                    console.error("Upload error:", err);
+                    if (statusBtn) {
+                        statusBtn.innerText = "✅ Đã tải ảnh lên Drive thành công!";
+                        statusBtn.style.backgroundColor = "#198754";
+                    }
+                });
+            }).catch(err => {
+                console.error("html2canvas error:", err);
+                if (statusBtn) {
+                    statusBtn.innerText = "❌ Lỗi tải ảnh lên Drive";
+                    statusBtn.disabled = false;
+                }
+            });
         }
-    });
-}
 
         function finishSession(message, isFromReview = false) {
             clearInterval(timerInterval);
@@ -892,7 +850,6 @@ function uploadResultToDrive() {
             }
 
             if (!isFromReview) {
-                // ĐỊNH DẠNG CẢ 3 CỘT I, J, K DẠNG PHÂN SỐ X/TOTAL ĐỒNG BỘ
                 lastSavedPayload = {
                     timestamp: startTimeStampText,
                     studentName: studentInfo.studentName,
@@ -903,9 +860,9 @@ function uploadResultToDrive() {
                     rawLessonCode: studentInfo.rawLessonCode,
                     lessonTitle: studentInfo.lessonTitle,
                     score: calculatedScore,
-                    passedCount: `${finalPassed}/${totalItems}`,    // Cột I: Số câu đúng / Tổng
-                    approxCount: `${finalApprox}/${totalItems}`,    // Cột J: Số câu gần đúng / Tổng
-                    skippedCount: `${finalSkipped}/${totalItems}`,  // Cột K: Số câu bỏ qua / Tổng
+                    passedCount: `${finalPassed}/${totalItems}`,    
+                    approxCount: `${finalApprox}/${totalItems}`,    
+                    skippedCount: `${finalSkipped}/${totalItems}`,  
                     elapsedTime: formatTime(Math.max(0, initialSeconds - totalSeconds)),
                     feedback: ""
                 };
@@ -945,14 +902,12 @@ function uploadResultToDrive() {
                         • ❌ Số câu CHƯA ĐẠT / BỎ QUA: <b>${finalSkipped} / ${totalItems}</b> câu
                     </div>
 
-                    <!-- KHUNG ĐỀ XUẤT GÓP Ý TRÊN -->
                     <div class="feedback-card">
                         <label for="user-feedback">✍️ Đề xuất góp ý (nếu có) / Feedbacks & Comments:</label>
                         <textarea id="user-feedback" rows="2" placeholder="Nhập ý kiến đóng góp của bạn về bài học / Enter your comments..."></textarea>
                         <button class="btn-send-feedback" onclick="sendFeedbackOnly()">✉️ Gửi góp ý bổ sung / Submit Feedback</button>
                     </div>
 
-                    <!-- KHUNG LƯU KẾT QUẢ & TIỆN ÍCH BỔ SUNG Ở DƯỚI -->
                     <div class="extra-tools-card">
                         <div class="extra-tools-title">🛠️ LƯU KẾT QUẢ & TIỆN ÍCH BỔ SUNG / SAVE RESULT & ADDITIONAL TOOLS:</div>
                         <button class="btn-tool btn-screenshot" onclick="captureResultScreenshot()">📸 Chụp ảnh kết quả (Save Result Image)</button>
