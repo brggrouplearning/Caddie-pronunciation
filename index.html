@@ -289,8 +289,8 @@
 
     <!-- CORE ENGINE LUYỆN PHÁT ÂM -->
     <script>
-        // WEB APP URL GOOGLE APPS SCRIPT
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzmRlI8iEgdNjr5Xv50x3PXWcns6Wc4_rZXbKNNwAwhAgCtjKJZjuRrNBAqFwhQHJ46/exec';
+        // WEB APP URL GOOGLE APPS SCRIPT MỚI CỦA BẠN
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwSNsDDgkkrxkPRu_JaGbIabtJqy55Wsq4WlcInkuMaj6xdhad1lO2BH33V2SewMZPk/exec';
 
         let studentInfo = {
             workPlace: '',
@@ -545,7 +545,6 @@
             studentInfo.department = department;
             studentInfo.rawLessonCode = isSectionMode ? ("section" + selectedSection) : (selectedExam === 'all' ? 'examall' : 'exam' + selectedExam);
             
-            // TỰ ĐỘNG BẮT TÊN HIỂN THỊ TIẾNG VIỆT ĐỂ ĐẦY VÀO SHEET (CỘT G HOẶC H)
             studentInfo.lessonTitle = isSectionMode 
                 ? selectSecElem.options[selectSecElem.selectedIndex].text 
                 : selectExElem.options[selectExElem.selectedIndex].text;
@@ -715,7 +714,6 @@
             }).join(" ");
         }
 
-        // HÀM GỬI DỮ LIỆU KẾT QUẢ BÀI THI VỀ GOOGLE SHEET (CHUẨN HÓA CƠ CHẾ GỬI)
         function sendResultToGoogleSheet(payload, isFeedback = false) {
             if (!GOOGLE_SCRIPT_URL) return;
 
@@ -741,7 +739,7 @@
                 }
             })
             .catch(err => {
-                console.error("Lỗi khi gửi dữ liệu:", err);
+                console.error("Lỗi gửi dữ liệu:", err);
                 if (msgElem) {
                     msgElem.innerText = "✅ Đã gửi dữ liệu bài làm!";
                 }
@@ -803,7 +801,6 @@
             });
         }
 
-        // HÀM TẢI ẢNH LÊN DRIVE VÀ ĐIỀN LINK TRỰC TIẾP VÀO CỘT P CỦA SHEETS
         function uploadResultToDrive() {
             const resultElem = document.getElementById('main-container');
             const statusBtn = document.getElementById('btn-drive-status');
