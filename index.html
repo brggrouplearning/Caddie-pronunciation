@@ -289,7 +289,7 @@
 
     <!-- CORE ENGINE LUYỆN PHÁT ÂM -->
     <script>
-        // CẬP NHẬT WEB APP URL CỦA BẠN
+        // WEB APP URL GOOGLE APPS SCRIPT
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzmRlI8iEgdNjr5Xv50x3PXWcns6Wc4_rZXbKNNwAwhAgCtjKJZjuRrNBAqFwhQHJ46/exec';
 
         let studentInfo = {
@@ -545,7 +545,7 @@
             studentInfo.department = department;
             studentInfo.rawLessonCode = isSectionMode ? ("section" + selectedSection) : (selectedExam === 'all' ? 'examall' : 'exam' + selectedExam);
             
-            // LẤY TEXT TÊN BÀI THI CHUẨN ĐỂ HIỂN THỊ VÀO CỘT G/H SHEET
+            // TỰ ĐỘNG BẮT TÊN HIỂN THỊ TIẾNG VIỆT ĐỂ ĐẦY VÀO SHEET (CỘT G HOẶC H)
             studentInfo.lessonTitle = isSectionMode 
                 ? selectSecElem.options[selectSecElem.selectedIndex].text 
                 : selectExElem.options[selectExElem.selectedIndex].text;
@@ -715,7 +715,7 @@
             }).join(" ");
         }
 
-        // ĐÃ SỬA LỖI LƯU BÀI VÀO GOOGLE SHEET ĐẢM BẢO HOẠT ĐỘNG
+        // HÀM GỬI DỮ LIỆU KẾT QUẢ BÀI THI VỀ GOOGLE SHEET (CHUẨN HÓA CƠ CHẾ GỬI)
         function sendResultToGoogleSheet(payload, isFeedback = false) {
             if (!GOOGLE_SCRIPT_URL) return;
 
@@ -741,7 +741,7 @@
                 }
             })
             .catch(err => {
-                console.error("Error sending data:", err);
+                console.error("Lỗi khi gửi dữ liệu:", err);
                 if (msgElem) {
                     msgElem.innerText = "✅ Đã gửi dữ liệu bài làm!";
                 }
@@ -803,7 +803,7 @@
             });
         }
 
-        // ĐÃ SỬA LỖI TẢI ẢNH LÊN DRIVE VÀ GẮN LINK VÀO CỘT P SHEET
+        // HÀM TẢI ẢNH LÊN DRIVE VÀ ĐIỀN LINK TRỰC TIẾP VÀO CỘT P CỦA SHEETS
         function uploadResultToDrive() {
             const resultElem = document.getElementById('main-container');
             const statusBtn = document.getElementById('btn-drive-status');
@@ -871,7 +871,7 @@
                     }
                 })
                 .catch(err => {
-                    console.error("Drive upload error:", err);
+                    console.error("Lỗi upload Drive:", err);
                     if (statusBtn) {
                         statusBtn.innerText = "✅ Đã hoàn tất tải ảnh!";
                         statusBtn.style.backgroundColor = "#198754";
