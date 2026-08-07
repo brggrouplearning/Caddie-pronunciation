@@ -407,24 +407,30 @@
                 let meaningText = item.translation || item.meaning || item.vi || "";
                 let ipaText = item.phonetic || item.ipa || "";
 
-                if ((!ipaText || !meaningText) && item.title && item.title.includes('<span')) {
+                if (item.title && item.title.includes('<span')) {
                     let tempDiv = document.createElement('div');
                     tempDiv.innerHTML = item.title;
+
+                    // Lấy đoạn văn bản dịch nghĩa nằm ngoài/sau thẻ <span> nếu có
+                    let fullTextContent = tempDiv.textContent || tempDiv.innerText || "";
                     let spanElem = tempDiv.querySelector('span');
+
                     if (spanElem) {
                         let spanText = spanElem.innerHTML;
-                        let parts = spanText.split('<br>');
-                        parts.forEach(p => {
-                            let cleanP = p.replace(/<[^>]*>/g, '').trim();
-                            if (cleanP.startsWith('/') && cleanP.endsWith('/')) {
-                                if (!ipaText) ipaText = cleanP;
-                            } else if (cleanP.toLowerCase().startsWith('dịch:') || cleanP.toLowerCase().startsWith('ý nghĩa:')) {
-                                if (!meaningText) meaningText = cleanP.replace(/^(dịch:|ý nghĩa:)\s*/i, '').trim();
-                            } else if (!meaningText && !cleanP.startsWith('/')) {
-                                if (!meaningText) meaningText = cleanP;
+                        let cleanIPA = spanText.replace(/<[^>]*>/g, '').trim();
+                        if (cleanIPA.startsWith('/') && cleanIPA.endsWith('/')) {
+                            if (!ipaText) ipaText = cleanIPA;
+                        }
+
+                        // Lấy đoạn văn bản thuần sau khi bóc tách tiếng Anh và IPA
+                        if (!meaningText) {
+                            let textAfterSpan = fullTextContent.replace(targetText, '').replace(cleanIPA, '').trim();
+                            if (textAfterSpan && textAfterSpan.length > 1) {
+                                meaningText = textAfterSpan;
                             }
-                        });
+                        }
                     }
+
                     if (!targetText) {
                         let cloneTitle = item.title.replace(/<span[\s\S]*?>[\s\S]*?<\/span>/gi, '').trim();
                         targetText = cloneTitle.replace(/<[^>]*>/g, '').replace(/^\[.*?\]\s*/, '').trim();
@@ -433,7 +439,7 @@
 
                 if (!targetText && item.type === "mcq" && item.options && item.options[item.correct]) {
                     targetText = item.options[item.correct].en || item.options[item.correct].text || "";
-                    meaningText = item.options[item.correct].vi || item.options[item.correct].meaning || "";
+                    if (!meaningText) meaningText = item.options[item.correct].vi || item.options[item.correct].meaning || "";
                 }
 
                 targetText = targetText.replace(/^[A-D]\.\s*/, "").replace(/<[^>]*>/g, '').trim();
