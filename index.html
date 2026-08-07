@@ -75,6 +75,7 @@
 
         .stats-box { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 10px; padding: 14px; margin: 15px 0; text-align: left; font-size: 13.5px; line-height: 1.6; }
         
+        /* KHUNG ĐỀ XUẤT GÓP Ý THU GỌN CHIỀU CAO */
         .feedback-card { background: #fff8e6; border: 1px solid #ffe8a1; border-radius: 10px; padding: 10px 12px; margin-top: 12px; text-align: left; }
         .feedback-card label { font-size: 12.5px; font-weight: bold; color: #8c6d00; display: block; margin-bottom: 4px; }
         .feedback-card textarea { 
@@ -92,6 +93,7 @@
         }
         .btn-send-feedback { background: #ffc107; color: #000; font-weight: bold; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; margin-top: 6px; width: 100%; font-size: 13px; }
 
+        /* KHUNG CÔNG CỤ BỔ SUNG: CHỤP ẢNH & UPLOAD DRIVE */
         .extra-tools-card { background: #f0f7ff; border: 1.5px solid #b6d4fe; border-radius: 10px; padding: 12px; margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; text-align: left; }
         .extra-tools-title { width: 100%; font-size: 12.5px; font-weight: bold; color: #0d6efd; margin-bottom: 4px; }
         .btn-tool { flex: 1; min-width: 140px; padding: 10px 8px; font-size: 12.5px; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
@@ -289,7 +291,6 @@
 
     <!-- CORE ENGINE LUYỆN PHÁT ÂM -->
     <script>
-        // URL WEB APP MỚI NHẤT CỦA BÀI PHÁT ÂM
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxR2eOay_Eb8JU4gAQGWz9xwYmPDgVZqSLPNrNF34CDzkuUJJHxhMKT5B2QGcfWhn2a3g/exec';
 
         let studentInfo = {
@@ -407,7 +408,7 @@
                 let meaningText = item.translation || item.meaning || item.vi || "";
                 let ipaText = item.phonetic || item.ipa || "";
 
-                // TRÍCH XUẤT TỰ ĐỘNG IPA VÀ DỊCH NGHĨA TỪ THUỘC TÍNH TITLE NẾU CÓ DẠNG HTML (NHƯ LESSON 1)
+                // TRÍCH XUẤT TỰ ĐỘNG IPA VÀ DỊCH NGHĨA TỪ THUỘC TÍNH TITLE NẾU CÓ DẠNG HTML (DẠNG LESSON 1)
                 if ((!ipaText || !meaningText) && item.title && item.title.includes('<span')) {
                     let tempDiv = document.createElement('div');
                     tempDiv.innerHTML = item.title;
@@ -731,7 +732,7 @@
         }
 
         function sendFeedbackOnly() {
-            if (!studentInfo || !studentInfo.studentName) return;
+            if (!lastSavedPayload) return;
             const fbTextarea = document.getElementById('user-feedback');
             const fbBtn = document.querySelector('.btn-send-feedback');
             const fbText = fbTextarea ? fbTextarea.value.trim() : '';
@@ -741,12 +742,7 @@
                 return;
             }
 
-            const feedbackPayload = {
-                action: "update_feedback",
-                studentName: studentInfo.studentName,
-                staffNumber: studentInfo.staffNumber,
-                feedback: fbText
-            };
+            lastSavedPayload.feedback = fbText;
 
             if (fbTextarea) fbTextarea.disabled = true;
             if (fbBtn) {
@@ -756,17 +752,7 @@
                 fbBtn.style.cursor = "not-allowed";
             }
 
-            fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(feedbackPayload)
-            }).then(() => {
-                const msgElem = document.getElementById('save-status-msg');
-                if (msgElem) {
-                    msgElem.innerText = "✅ Cảm ơn bạn đã góp ý/đề xuất! / Thank you for your feedback!";
-                }
-            }).catch(err => console.error("Error sending feedback:", err));
+            sendResultToGoogleSheet(lastSavedPayload, true);
         }
 
         function captureResultScreenshot() {
@@ -788,7 +774,7 @@
             const hourStr = String(now.getHours()).padStart(2, '0');
             const minStr = String(now.getMinutes()).padStart(2, '0');
 
-            const fileName = `${workPlaceCode}_${yearStr}${monthStr}${dayStr}_${hourStr}${minStr}_${cleanName}_${staffId}_${birthYear}_spk.jpg`;
+            const fileName = `${workPlaceCode}_${yearStr}${monthStr}${dayStr}_${hourStr}${minStr}_${cleanName}_${staffId}_${birthYear}_lstn.jpg`;
 
             html2canvas(resultElem, { scale: 1.2, useCORS: true }).then(canvas => {
                 const imageBase64 = canvas.toDataURL("image/jpeg", 0.65);
@@ -806,7 +792,7 @@
             if (!resultElem) return;
 
             if (statusBtn) {
-                statusBtn.innerText = "⏳ Đang tải ảnh lên Cloud...";
+                statusBtn.innerText = "⏳ Đang tải ảnh lên Google Drive...";
                 statusBtn.disabled = true;
             }
 
@@ -835,7 +821,7 @@
             const hourStr = String(now.getHours()).padStart(2, '0');
             const minStr = String(now.getMinutes()).padStart(2, '0');
 
-            const fileName = `${workPlaceCode}_${yearStr}${monthStr}${dayStr}_${hourStr}${minStr}_${cleanName}_${staffId}_${birthYear}_spk.jpg`;
+            const fileName = `${workPlaceCode}_${yearStr}${monthStr}${dayStr}_${hourStr}${minStr}_${cleanName}_${staffId}_${birthYear}_lstn.jpg`;
             const dateFolderStr = `${yearStr}.${monthStr}.${dayStr}`;
             let rawLessonCode = studentInfo.rawLessonCode.toUpperCase();
 
@@ -848,9 +834,7 @@
                     fileName: fileName,
                     fullWorkPlace: fullWorkPlace,
                     dateFolderStr: dateFolderStr,
-                    rawLessonCode: rawLessonCode,
-                    studentName: studentInfo.studentName,
-                    staffNumber: studentInfo.staffNumber
+                    rawLessonCode: rawLessonCode
                 };
 
                 fetch(GOOGLE_SCRIPT_URL, {
@@ -874,7 +858,6 @@
 
         function finishSession(message, isFromReview = false) {
             clearInterval(timerInterval);
-            lastSessionMessage = message;
 
             let finalPassed = itemStatus.filter(st => st === 'passed').length;
             let finalApprox = itemStatus.filter(st => st === 'approx').length;
@@ -963,7 +946,7 @@
                     <div class="extra-tools-card">
                         <div class="extra-tools-title">🛠️ LƯU KẾT QUẢ & TIỆN ÍCH BỔ SUNG / SAVE RESULT & ADDITIONAL TOOLS:</div>
                         <button class="btn-tool btn-screenshot" onclick="captureResultScreenshot()">📸 Chụp ảnh kết quả (Save Result Image)</button>
-                        <button class="btn-tool btn-upload-drive" id="btn-drive-status" onclick="uploadResultToDrive()">☁️ Tải ảnh lên Cloud (Upload to Drive)</button>
+                        <button class="btn-tool btn-upload-drive" id="btn-drive-status" onclick="uploadResultToDrive()">☁️ Tải ảnh lên Google Drive (Upload to Drive)</button>
                     </div>
 
                     <div class="action-buttons">
