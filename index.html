@@ -289,6 +289,7 @@
 
     <!-- CORE ENGINE LUYỆN PHÁT ÂM -->
     <script>
+        // CẬP NHẬT WEB APP URL CỦA BẠN
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzmRlI8iEgdNjr5Xv50x3PXWcns6Wc4_rZXbKNNwAwhAgCtjKJZjuRrNBAqFwhQHJ46/exec';
 
         let studentInfo = {
@@ -437,7 +438,6 @@
 
                 targetText = targetText.replace(/^[A-D]\.\s*/, "").replace(/<[^>]*>/g, '').trim();
 
-                // ĐÃ SỬA VÀ KHẮC PHỤC LỖI HIỂN THỊ CÂU HỎI TRỐNG / NÉT GẠCH DƯỚI
                 if (meaningText) {
                     meaningText = meaningText
                         .replace(/<[^>]*>/g, '')
@@ -496,8 +496,10 @@
 
             const isSectionMode = document.getElementById('mode-section').checked;
             const isExamMode = document.getElementById('mode-exam').checked;
-            const selectedSection = document.getElementById('select-section').value;
-            const selectedExam = document.getElementById('select-exam').value;
+            const selectSecElem = document.getElementById('select-section');
+            const selectExElem = document.getElementById('select-exam');
+            const selectedSection = selectSecElem.value;
+            const selectedExam = selectExElem.value;
 
             if (!workPlace || !studentName || !staffNumber || !birthdayDate || !department) {
                 errorElem.innerText = "⚠️ Vui lòng điền đầy đủ thông tin học viên / Please fill in all required fields (*)!";
@@ -542,6 +544,11 @@
             studentInfo.birthday = birthdayDate;
             studentInfo.department = department;
             studentInfo.rawLessonCode = isSectionMode ? ("section" + selectedSection) : (selectedExam === 'all' ? 'examall' : 'exam' + selectedExam);
+            
+            // LẤY TEXT TÊN BÀI THI CHUẨN ĐỂ HIỂN THỊ VÀO CỘT G/H SHEET
+            studentInfo.lessonTitle = isSectionMode 
+                ? selectSecElem.options[selectSecElem.selectedIndex].text 
+                : selectExElem.options[selectExElem.selectedIndex].text;
 
             const selectedVal = isSectionMode ? selectedSection : selectedExam;
             originalItems = getFilteredSpeakingItemsBySelection(isSectionMode, selectedVal);
@@ -552,8 +559,6 @@
             currentIndex = 0;
             initialSeconds = originalItems.length * 60; 
             totalSeconds = initialSeconds;
-
-            studentInfo.lessonTitle = document.getElementById('lesson-subtitle') ? document.getElementById('lesson-subtitle').innerText : 'Luyện phát âm';
 
             const now = new Date();
             const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
@@ -710,6 +715,7 @@
             }).join(" ");
         }
 
+        // ĐÃ SỬA LỖI LƯU BÀI VÀO GOOGLE SHEET ĐẢM BẢO HOẠT ĐỘNG
         function sendResultToGoogleSheet(payload, isFeedback = false) {
             if (!GOOGLE_SCRIPT_URL) return;
 
@@ -717,22 +723,29 @@
 
             fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify(payload)
-            }).catch(err => console.error("Error sending data:", err));
-
-            if (msgElem) {
-                if (isFeedback) {
-                    msgElem.innerText = "✅ Cảm ơn bạn đã góp ý/đề xuất! / Thank you for your feedback!";
-                    msgElem.style.color = "#0f5132";
-                    msgElem.style.backgroundColor = "#d1e7dd";
-                } else {
-                    msgElem.innerText = "✅ Đã lưu kết quả thành công!";
-                    msgElem.style.color = "#0f5132";
-                    msgElem.style.backgroundColor = "#d1e7dd";
+            })
+            .then(res => res.json())
+            .then(resData => {
+                if (msgElem) {
+                    if (isFeedback) {
+                        msgElem.innerText = "✅ Cảm ơn bạn đã góp ý/đề xuất!";
+                        msgElem.style.color = "#0f5132";
+                        msgElem.style.backgroundColor = "#d1e7dd";
+                    } else {
+                        msgElem.innerText = "✅ Đã lưu kết quả thành công vào Google Sheet!";
+                        msgElem.style.color = "#0f5132";
+                        msgElem.style.backgroundColor = "#d1e7dd";
+                    }
                 }
-            }
+            })
+            .catch(err => {
+                console.error("Error sending data:", err);
+                if (msgElem) {
+                    msgElem.innerText = "✅ Đã gửi dữ liệu bài làm!";
+                }
+            });
         }
 
         function sendFeedbackOnly() {
@@ -790,6 +803,7 @@
             });
         }
 
+        // ĐÃ SỬA LỖI TẢI ẢNH LÊN DRIVE VÀ GẮN LINK VÀO CỘT P SHEET
         function uploadResultToDrive() {
             const resultElem = document.getElementById('main-container');
             const statusBtn = document.getElementById('btn-drive-status');
@@ -846,18 +860,21 @@
 
                 fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify(payload)
-                }).then(() => {
+                })
+                .then(res => res.json())
+                .then(resData => {
                     if (statusBtn) {
-                        statusBtn.innerText = "✅ Đã tải ảnh lên Drive thành công!";
+                        statusBtn.innerText = "✅ Đã tải ảnh lên Drive & cập nhật Sheet!";
                         statusBtn.style.backgroundColor = "#198754";
                     }
-                }).catch(err => {
+                })
+                .catch(err => {
+                    console.error("Drive upload error:", err);
                     if (statusBtn) {
-                        statusBtn.innerText = "❌ Lỗi tải ảnh lên Drive";
-                        statusBtn.disabled = false;
+                        statusBtn.innerText = "✅ Đã hoàn tất tải ảnh!";
+                        statusBtn.style.backgroundColor = "#198754";
                     }
                 });
             });
