@@ -1276,4 +1276,851 @@ window.masterQuizData.push(
         ],
         correct: 0
     }
+    // ====================================================================
+// SECTION 1.4: HƯỚNG DẪN & VỊ TRÍ (CÂU 1 - CÂU 35)
+// ====================================================================
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "The ball is on the right side of the fairway bunker.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ðə bɔːl ɪz ɒn ðə raɪt saɪd əv ðə ˈfeə.weɪ ˈbʌŋ.kər/</span> Bóng nằm ở phía bên phải của hố cát trên đường bóng lăn.",
+        audioText: "The ball is on the right side of the fairway bunker.",
+        options: [
+            { en: "A. The ball is on the right side of the fairway bunker.", vi: "Bóng nằm ở phía bên phải của hố cát trên đường bóng lăn." },
+            { en: "B. The ball is on the left side of the fairway bunker.", vi: "Bóng nằm ở phía bên trái của hố cát trên đường bóng lăn." },
+            { en: "C. The ball is inside the fairway bunker.", vi: "Bóng nằm bên trong hố cát." },
+            { en: "D. The ball is behind the fairway bunker.", vi: "Bóng nằm phía sau hố cát." }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "It is between the palm trees and the bunker.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ɪt ɪz bɪˈtwiːn ðə pɑːm triːz ænd ðə ˈbʌŋ.kər/</span> Nó nằm giữa những cây dừa và hố cát.",
+        audioText: "It is between the palm trees and the bunker.",
+        options: [
+            { en: "A. It is next to the palm trees.", vi: "Nó ở bên cạnh những cây dừa." },
+            { en: "B. It is between the palm trees and the bunker.", vi: "Nó nằm giữa những cây dừa và hố cát." },
+            { en: "C. It is behind the bunker.", vi: "Nó ở phía sau hố cát." },
+            { en: "D. It is in front of the trees.", vi: "Nó ở phía trước những cái cây." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "How do I get to the driving range?<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/haʊ duː aɪ ɡet tuː ðə ˈdraɪ.vɪŋ reɪndʒ/</span> Làm thế nào để tôi đi đến sân tập đánh bóng?",
+        audioText: "How do I get to the driving range?",
+        options: [
+            { en: "A. How do I get to the driving range?", vi: "Làm thế nào để tôi đi đến sân tập đánh bóng?" },
+            { en: "B. Where is the clubhouse?", vi: "Nhà câu lạc bộ ở đâu?" },
+            { en: "C. How far is the green?", vi: "Khoảng cách tới green là bao nhiêu?" },
+            { en: "D. Can I go to the locker room?", vi: "Tôi có thể vào phòng đồ không?" }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "Please turn left at the corner of the clubhouse.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/pliːz tɜːn left æt ðə ˈkɔː.nər əv ðə ˈklʌb.haʊs/</span> Xin vui lòng rẽ trái tại góc của nhà câu lạc bộ.",
+        audioText: "Please turn left at the corner of the clubhouse.",
+        options: [
+            { en: "A. Turn right at the clubhouse.", vi: "Rẽ phải ở nhà câu lạc bộ." },
+            { en: "B. Go straight past the clubhouse.", vi: "Đi thẳng qua nhà câu lạc bộ." },
+            { en: "C. Please turn left at the corner of the clubhouse.", vi: "Xin vui lòng rẽ trái tại góc của nhà câu lạc bộ." },
+            { en: "D. Stop in front of the clubhouse.", vi: "Dừng lại trước nhà câu lạc bộ." }
+        ],
+        correct: 2
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "Go past the putting green and cross the cart path.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ɡəʊ pɑːst ðə ˈpʌt.ɪŋ ɡriːn ænd krɒs ðə kɑːt pɑːθ/</span> Đi qua khu vực tập gạt bóng và băng qua đường xe điện.",
+        audioText: "Go past the putting green and cross the cart path.",
+        options: [
+            { en: "A. Stop at the putting green.", vi: "Dừng lại ở green tập gạt." },
+            { en: "B. Go past the putting green and cross the cart path.", vi: "Đi qua khu vực tập gạt bóng và băng qua đường xe điện." },
+            { en: "C. Turn right at the cart path.", vi: "Rẽ phải ở đường xe điện." },
+            { en: "D. Turn left before the putting green.", vi: "Rẽ trái trước green tập gạt." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "Is there any restroom near here?<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ɪz ðeər ˈeni ˈrest.ruːm nɪər hɪər/</span> Có nhà vệ sinh nào gần đây không?",
+        audioText: "Is there any restroom near here?",
+        options: [
+            { en: "A. Is there any restroom near here?", vi: "Có nhà vệ sinh nào gần đây không?" },
+            { en: "B. Where is the pro shop?", vi: "Cửa hàng dụng cụ ở đâu?" },
+            { en: "C. Can I have some water?", vi: "Tôi có thể xin chút nước không?" },
+            { en: "D. Is the green open?", vi: "Green có mở cửa không?" }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "It is opposite the starter station.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ɪt ɪz ˈɒp.ə.zɪt ðə ˈstɑː.tər ˈsteɪ.ʃən/</span> Nó đối diện với trạm điều hành xuất phát (starter).",
+        audioText: "It is opposite the starter station.",
+        options: [
+            { en: "A. It is next to the starter station.", vi: "Nó kế bên trạm xuất phát." },
+            { en: "B. It is behind the starter station.", vi: "Nó ở sau trạm xuất phát." },
+            { en: "C. It is opposite the starter station.", vi: "Nó đối diện với trạm điều hành xuất phát (starter)." },
+            { en: "D. It is inside the starter station.", vi: "Nó ở trong trạm xuất phát." }
+        ],
+        correct: 2
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "The ball is in front of the water hazard.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ðə bɔːl ɪz ɪn frʌnt əv ðə ˈwɔː.tər ˈhæz.əd/</span> Bóng nằm ngay phía trước bẫy nước.",
+        audioText: "The ball is in front of the water hazard.",
+        options: [
+            { en: "A. The ball is in front of the water hazard.", vi: "Bóng nằm ngay phía trước bẫy nước." },
+            { en: "B. The ball is in the water hazard.", vi: "Bóng rơi vào bẫy nước." },
+            { en: "C. The ball is behind the water hazard.", vi: "Bóng nằm phía sau bẫy nước." },
+            { en: "D. The ball is on the green.", vi: "Bóng đã lên green." }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "You should hit straight to the aim pole.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/juː ʃʊd hɪt streɪt tuː ðə eɪm pəʊl/</span> Anh nên đánh thẳng về phía cọc định hướng.",
+        audioText: "You should hit straight to the aim pole.",
+        options: [
+            { en: "A. Hit to the left bunker.", vi: "Đánh vào hố cát bên trái." },
+            { en: "B. You should hit straight to the aim pole.", vi: "Anh nên đánh thẳng về phía cọc định hướng." },
+            { en: "C. Hit over the trees.", vi: "Đánh qua rặng cây." },
+            { en: "D. Lay up before the pole.", vi: "Đánh ngắn trước cọc." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "Your ball flies to the left side of the fairway.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/jɔː bɔːl flaɪz tuː ðə left saɪd əv ðə ˈfeə.weɪ/</span> Bóng của anh bay sang phía bên trái của đường fairway.",
+        audioText: "Your ball flies to the left side of the fairway.",
+        options: [
+            { en: "A. Your ball is in the right bunker.", vi: "Bóng của anh rơi vào hố cát bên phải." },
+            { en: "B. Your ball goes Out of Bounds.", vi: "Bóng của anh ra ngoài biên." },
+            { en: "C. Your ball flies to the left side of the fairway.", vi: "Bóng của anh bay sang phía bên trái của đường fairway." },
+            { en: "D. Your ball is on the green.", vi: "Bóng của anh đã lên green." }
+        ],
+        correct: 2
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "Please aim to the right side of the pin to be safe.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/pliːz eɪm tuː ðə raɪt saɪd əv ðə pɪn tuː biː seɪf/</span> Xin hãy nhắm về phía bên phải cờ để an toàn.",
+        audioText: "Please aim to the right side of the pin to be safe.",
+        options: [
+            { en: "A. Please aim to the right side of the pin to be safe.", vi: "Xin hãy nhắm về phía bên phải cờ để an toàn." },
+            { en: "B. Aim directly at the water hazard.", vi: "Nhắm thẳng vào bẫy nước." },
+            { en: "C. Aim to the left bunker.", vi: "Nhắm vào hố cát bên trái." },
+            { en: "D. Hit it as hard as you can.", vi: "Đánh hết lực có thể." }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "The pin is tucked in the back right corner.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ðə pɪn ɪz tʌkt ɪn ðə bæk raɪt ˈkɔː.nər/</span> Cờ hôm nay nằm giấu ở góc sâu bên phải green.",
+        audioText: "The pin is tucked in the back right corner.",
+        options: [
+            { en: "A. The pin is in the front center.", vi: "Cờ nằm ở phía trước chính giữa." },
+            { en: "B. The pin is tucked in the back right corner.", vi: "Cờ hôm nay nằm giấu ở góc sâu bên phải green." },
+            { en: "C. The pin is on the left edge.", vi: "Cờ nằm ở mép bên trái." },
+            { en: "D. The pin is in the middle of green.", vi: "Cờ nằm ở giữa green." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "I recommend playing to the center of the green.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/aɪ ˌrek.əˈmend ˈpleɪ.ɪŋ tuː ðə ˈsen.tər əv ðə ɡriːn/</span> Em kiến nghị anh nên đánh vào chính giữa green.",
+        audioText: "I recommend playing to the center of the green.",
+        options: [
+            { en: "A. Aim directly for the pin.", vi: "Nhắm thẳng vào cờ." },
+            { en: "B. I recommend playing to the center of the green.", vi: "Em kiến nghị anh nên đánh vào chính giữa green." },
+            { en: "C. Lay up short of the green.", vi: "Đánh an toàn trước green." },
+            { en: "D. Hit towards the bunker.", vi: "Đánh hướng về hố cát." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "Where is the nearest point of complete relief?<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/weər ɪz ðə ˈnɪə.rɪst pɔɪnt əv kəmˈpliːt rɪˈliːf/</span> Điểm giải thoát hoàn toàn gần nhất ở đâu?",
+        audioText: "Where is the nearest point of complete relief?",
+        options: [
+            { en: "A. Where is the nearest point of complete relief?", vi: "Điểm giải thoát hoàn toàn gần nhất ở đâu?" },
+            { en: "B. Where is my golf ball?", vi: "Bóng của tôi ở đâu?" },
+            { en: "C. How many penalty strokes do I get?", vi: "Tôi bị phạt bao nhiêu gậy?" },
+            { en: "D. Is the ball playable?", vi: "Bóng này có đánh được không?" }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "Drop the ball within one club-length from the reference point.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/drɒp ðə bɔːl wɪˈðɪn wʌn klʌb leŋθ frɒm ðə ˈref.ər.əns pɔɪnt/</span> Thả bóng trong phạm vi một chiều dài gậy từ điểm tham chiếu.",
+        audioText: "Drop the ball within one club-length from the reference point.",
+        options: [
+            { en: "A. Place the ball on the green.", vi: "Đặt bóng lên green." },
+            { en: "B. Drop the ball within one club-length from the reference point.", vi: "Thả bóng trong phạm vi một chiều dài gậy từ điểm tham chiếu." },
+            { en: "C. Drop two club-lengths away.", vi: "Thả bóng cách xa 2 chiều dài gậy." },
+            { en: "D. Throw the ball onto fairway.", vi: "Ném bóng ra đường fairway." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "The relief area is two club-lengths no closer to the hole.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ðə rɪˈliːf ˈeə.ri.ə ɪz tuː klʌb leŋθs nəʊ ˈkləʊ.sər tuː ðə həʊl/</span> Khu vực giải thoát là hai chiều dài gậy không gần lỗ hơn.",
+        audioText: "The relief area is two club-lengths no closer to the hole.",
+        options: [
+            { en: "A. The relief area is inside the bunker.", vi: "Khu vực giải thoát ở trong hố cát." },
+            { en: "B. The relief area is closer to the pin.", vi: "Khu vực giải thoát gần cờ hơn." },
+            { en: "C. The relief area is two club-lengths no closer to the hole.", vi: "Khu vực giải thoát là hai chiều dài gậy không gần lỗ hơn." },
+            { en: "D. You can drop anywhere on fairway.", vi: "Anh có thể thả bóng ở bất kỳ đâu trên fairway." }
+        ],
+        correct: 2
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "You can take back-on-the-line relief with one penalty stroke.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/juː kæn teɪk bæk ɒn ðə laɪn rɪˈliːf wɪð wʌn ˈpen.əl.ti strəʊk/</span> Anh có thể giải thoát lùi trên đường kéo dài kèm 1 gậy phạt.",
+        audioText: "You can take back-on-the-line relief with one penalty stroke.",
+        options: [
+            { en: "A. You can take back-on-the-line relief with one penalty stroke.", vi: "Anh có thể giải thoát lùi trên đường kéo dài kèm 1 gậy phạt." },
+            { en: "B. You must play the ball as it lies.", vi: "Anh phải đánh bóng ở vị trí nguyên trạng." },
+            { en: "C. Take free relief without penalty.", vi: "Giải thoát miễn phí không phạt gậy." },
+            { en: "D. Drop the ball on the green.", vi: "Thả bóng trực tiếp lên green." }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "Please maintain a safe distance with the front buggy.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/pliːz meɪnˈteɪn ə seɪf ˈdɪs.təns wɪð ðə frʌnt ˈbʌɡ.i/</span> Xin giữ khoảng cách an toàn với xe điện phía trước.",
+        audioText: "Please maintain a safe distance with the front buggy.",
+        options: [
+            { en: "A. Overtake the front buggy now.", vi: "Vượt xe điện phía trước ngay." },
+            { en: "B. Please maintain a safe distance with the front buggy.", vi: "Xin giữ khoảng cách an toàn với xe điện phía trước." },
+            { en: "C. Drive as fast as possible.", vi: "Lái xe nhanh nhất có thể." },
+            { en: "D. Park the buggy on the green.", vi: "Đỗ xe điện trên mặt green." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "Slow down and mind your speed around this bend.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/sləʊ daʊn ænd maɪnd jɔː spiːd əˈraʊnd ðɪs bend/</span> Giảm tốc độ và chú ý quan sát khi ôm khúc cua này.",
+        audioText: "Slow down and mind your speed around this bend.",
+        options: [
+            { en: "A. Speed up on the curve.", vi: "Tăng tốc ở đoạn đường khúc cua." },
+            { en: "B. Stop the cart immediately.", vi: "Dừng xe ngay lập tức." },
+            { en: "C. Slow down and mind your speed around this bend.", vi: "Giảm tốc độ và chú ý quan sát khi ôm khúc cua này." },
+            { en: "D. Turn off the cart light.", vi: "Tắt đèn xe điện." }
+        ],
+        correct: 2
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "Watch out! There is a cart path crossing ahead.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/wɒtʃ aʊt ðeər ɪz ə kɑːt pɑːθ ˈkrɒs.ɪŋ əˈhed/</span> Coi chừng! Có lối giao cắt đường xe điện phía trước.",
+        audioText: "Watch out! There is a cart path crossing ahead.",
+        options: [
+            { en: "A. Watch out! There is a cart path crossing ahead.", vi: "Coi chừng! Có lối giao cắt đường xe điện phía trước." },
+            { en: "B. Drive fast across the green.", vi: "Lái xe nhanh qua green." },
+            { en: "C. The fairway is completely clear.", vi: "Fairway hoàn toàn thông thoáng." },
+            { en: "D. Stop and play from here.", vi: "Dừng lại và đánh bóng từ đây." }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "Hold on a moment, the ground ahead looks a bit slippery.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/həʊld ɒn ə ˈməʊ.mənt ðə ɡraʊnd əˈhed lʊks ə bɪt ˈslɪp.ər.i/</span> Chờ một chút ạ, mặt đường phía trước trông hơi trơn trượt.",
+        audioText: "Hold on a moment, the ground ahead looks a bit slippery.",
+        options: [
+            { en: "A. Drive faster to cross quickly.", vi: "Lái nhanh hơn để qua cho lẹ." },
+            { en: "B. Hold on a moment, the ground ahead looks a bit slippery.", vi: "Chờ một chút ạ, mặt đường phía trước trông hơi trơn trượt." },
+            { en: "C. You can walk on the green.", vi: "Anh có thể đi bộ lên green." },
+            { en: "D. The road is dry and clear.", vi: "Đường rất khô ráo và sạch sẽ." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "Your ball is under the tree branches on the right.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/jɔː bɔːl ɪz ˈʌn.dər ðə triː brɑːn.tʃɪz ɒn ðə raɪt/</span> Bóng của anh nằm dưới tán cành cây bên phải.",
+        audioText: "Your ball is under the tree branches on the right.",
+        options: [
+            { en: "A. Your ball is on top of the green.", vi: "Bóng của anh nằm trên đỉnh green." },
+            { en: "B. Your ball is under the tree branches on the right.", vi: "Bóng của anh nằm dưới tán cành cây bên phải." },
+            { en: "C. Your ball is in the middle of fairway.", vi: "Bóng của anh nằm giữa fairway." },
+            { en: "D. Your ball is in the water.", vi: "Bóng của anh ở dưới nước." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "The ball lies behind a large stone in the rough.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ðə bɔːl laɪz bɪˈhaɪnd ə lɑːdʒ stəʊn ɪn ðə rʌf/</span> Bóng nằm phía sau một tảng đá lớn trong khu vực cỏ dại (rough).",
+        audioText: "The ball lies behind a large stone in the rough.",
+        options: [
+            { en: "A. The ball lies behind a large stone in the rough.", vi: "Bóng nằm phía sau một tảng đá lớn trong khu vực cỏ dại (rough)." },
+            { en: "B. The ball is resting on the fairway.", vi: "Bóng nằm đẹp trên đường fairway." },
+            { en: "C. The ball is near the cup.", vi: "Bóng nằm sát miệng hố." },
+            { en: "D. The ball is in the sand bunker.", vi: "Bóng nằm trong hố cát." }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "It is next to the yardage marker post.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ɪt ɪz nekst tuː ðə ˈjɑː.dɪdʒ ˈmɑː.kər pəʊst/</span> Nó nằm ngay cạnh cột mốc khoảng cách.",
+        audioText: "It is next to the yardage marker post.",
+        options: [
+            { en: "A. It is inside the bunker.", vi: "Nó nằm trong bẫy cát." },
+            { en: "B. It is next to the yardage marker post.", vi: "Nó nằm ngay cạnh cột mốc khoảng cách." },
+            { en: "C. It is far behind the green.", vi: "Nó nằm tít sau green." },
+            { en: "D. It is in the water hazard.", vi: "Nó nằm trong bẫy nước." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "The reference point is where the ball crossed the margin.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ðə ˈref.ər.əns pɔɪnt ɪz weər ðə bɔːl krɒst ðə ˈmɑː.dʒɪn/</span> Điểm tham chiếu là điểm giao cắt nơi bóng cắt qua ranh giới bẫy.",
+        audioText: "The reference point is where the ball crossed the margin.",
+        options: [
+            { en: "A. The reference point is the pin location.", vi: "Điểm tham chiếu là vị trí cờ." },
+            { en: "B. The reference point is where the ball crossed the margin.", vi: "Điểm tham chiếu là điểm giao cắt nơi bóng cắt qua ranh giới bẫy." },
+            { en: "C. The reference point is the tee box.", vi: "Điểm tham chiếu là khu vực phát bóng." },
+            { en: "D. The reference point is inside the hole.", vi: "Điểm tham chiếu nằm ở trong hố." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "You should aim left of the aim pole because of crosswind.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/juː ʃʊd eɪm left əv ðə eɪm pəʊl bɪˈkɒz əv ˈkrɒs.wɪnd/</span> Anh nên nhắm lệch sang trái cọc tiêu do có gió ngang.",
+        audioText: "You should aim left of the aim pole because of crosswind.",
+        options: [
+            { en: "A. You should aim left of the aim pole because of crosswind.", vi: "Anh nên nhắm lệch sang trái cọc tiêu do có gió ngang." },
+            { en: "B. Aim straight to the right bunker.", vi: "Nhắm thẳng vào hố cát bên phải." },
+            { en: "C. Hit short to lay up.", vi: "Đánh ngắn để lay up." },
+            { en: "D. Do not adjust for the wind.", vi: "Không cần điều chỉnh theo hướng gió." }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "The ball is embedded in its own pitch mark.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ðə bɔːl ɪz ɪmˈbed.ɪd ɪn ɪts əʊn pɪtʃ mɑːk/</span> Bóng bị lún vào vết lún do chính nó tạo ra.",
+        audioText: "The ball is embedded in its own pitch mark.",
+        options: [
+            { en: "A. The ball is sitting up nicely on grass.", vi: "Bóng nổi rất đẹp trên mặt cỏ." },
+            { en: "B. The ball is embedded in its own pitch mark.", vi: "Bóng bị lún vào vết lún do chính nó tạo ra." },
+            { en: "C. The ball rolled into the water.", vi: "Bóng đã lăn xuống nước." },
+            { en: "D. The ball is lost completely.", vi: "Bóng bị mất hoàn toàn." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "Please turn right at the intersection towards hole 10.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/pliːz tɜːn raɪt æt ðə ˌɪn.təˈsek.ʃən təˈwɔːdz həʊl ten/</span> Xin vui lòng rẽ phải tại ngã tư hướng về phía hố số 10.",
+        audioText: "Please turn right at the intersection towards hole 10.",
+        options: [
+            { en: "A. Turn left at the intersection.", vi: "Rẽ trái tại ngã tư." },
+            { en: "B. Go straight to clubhouse.", vi: "Đi thẳng về nhà câu lạc bộ." },
+            { en: "C. Please turn right at the intersection towards hole 10.", vi: "Xin vui lòng rẽ phải tại ngã tư hướng về phía hố số 10." },
+            { en: "D. Stop the cart here.", vi: "Dừng xe điện ở đây." }
+        ],
+        correct: 2
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "The ball stopped on the fringe, just off the green.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ðə bɔːl stɒpt ɒn ðə frɪndʒ dʒʌst ɒf ðə ɡriːn/</span> Bóng đã dừng trên mép fringe, ngay sát bên ngoài green.",
+        audioText: "The ball stopped on the fringe, just off the green.",
+        options: [
+            { en: "A. The ball stopped on the fringe, just off the green.", vi: "Bóng đã dừng trên mép fringe, ngay sát bên ngoài green." },
+            { en: "B. The ball is deep inside the bunker.", vi: "Bóng nằm sâu trong bẫy cát." },
+            { en: "C. The ball is in the center of green.", vi: "Bóng nằm chính giữa green." },
+            { en: "D. The ball is Out of Bounds.", vi: "Bóng nằm ngoài ranh giới cho phép." }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "Is the ball lying in an unplayable position?<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ɪz ðə bɔːl ˈlaɪ.ɪŋ ɪn æn ʌnˈpleɪ.ə.bəl pəˈzɪʃ.ən/</span> Có phải bóng đang nằm ở vị trí không thể đánh được?",
+        audioText: "Is the ball lying in an unplayable position?",
+        options: [
+            { en: "A. Is the ball lying in an unplayable position?", vi: "Có phải bóng đang nằm ở vị trí không thể đánh được?" },
+            { en: "B. Is the ball on the fairway?", vi: "Bóng có ở trên fairway không?" },
+            { en: "C. Did the ball go into the cup?", vi: "Bóng đã vào lỗ chưa?" },
+            { en: "D. Can I change my golf club?", vi: "Tôi có thể đổi gậy đánh bóng không?" }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "The cart path is an immovable obstruction.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ðə kɑːt pɑːθ ɪz æn ɪˈmuː.və.bəl əbˈstrʌk.ʃən/</span> Đường xe điện là vật cản không thể di dời.",
+        audioText: "The cart path is an immovable obstruction.",
+        options: [
+            { en: "A. The cart path is a loose impediment.", vi: "Đường xe điện là vật thể tự nhiên rời." },
+            { en: "B. The cart path is an immovable obstruction.", vi: "Đường xe điện là vật cản không thể di dời." },
+            { en: "C. The cart path is a penalty area.", vi: "Đường xe điện là khu vực bị phạt." },
+            { en: "D. The cart path is part of green.", vi: "Đường xe điện là một phần của green." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "You have full relief from the cart path without penalty.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/juː hæv fʊl rɪˈliːf frɒm ðə kɑːt pɑːθ wɪˈðaʊt ˈpen.əl.ti/</span> Anh được giải thoát hoàn toàn khỏi đường xe điện mà không bị phạt.",
+        audioText: "You have full relief from the cart path without penalty.",
+        options: [
+            { en: "A. You get 1 penalty stroke.", vi: "Anh bị phạt 1 gậy." },
+            { en: "B. You must play off the cart path.", vi: "Anh phải đánh bóng trực tiếp trên đường xe điện." },
+            { en: "C. You have full relief from the cart path without penalty.", vi: "Anh được giải thoát hoàn toàn khỏi đường xe điện mà không bị phạt." },
+            { en: "D. Drop the ball inside bunker.", vi: "Thả bóng vào trong hố cát." }
+        ],
+        correct: 2
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "Where should I position myself to watch the ball?<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/weər ʃʊd aɪ pəˈzɪʃ.ən maɪˈself tuː wɒtʃ ðə bɔːl/</span> Em nên đứng vị trí nào để quan sát hướng bóng tốt nhất?",
+        audioText: "Where should I position myself to watch the ball?",
+        options: [
+            { en: "A. Where should I position myself to watch the ball?", vi: "Em nên đứng vị trí nào để quan sát hướng bóng tốt nhất?" },
+            { en: "B. Where is the nearest ball washer?", vi: "Máy rửa bóng gần nhất ở đâu?" },
+            { en: "C. How much is the caddie tip?", vi: "Tiền tip caddie là bao nhiêu?" },
+            { en: "D. What time is our tee time?", vi: "Giờ xuất phát của chúng ta là mấy giờ?" }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "Always stand on the right side in a V shape to see well.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ˈɔːl.weɪz stænd ɒn ðə raɪt saɪd ɪn ə viː ʃeɪp tuː siː wel/</span> Luôn đứng phía bên phải xếp theo hình chữ V để quan sát tốt.",
+        audioText: "Always stand on the right side in a V shape to see well.",
+        options: [
+            { en: "A. Stand directly behind the golfer.", vi: "Đứng trực tiếp ngay sau lưng golfer." },
+            { en: "B. Always stand on the right side in a V shape to see well.", vi: "Luôn đứng phía bên phải xếp theo hình chữ V để quan sát tốt." },
+            { en: "C. Stand close to the ball.", vi: "Đứng sát cạnh quả bóng." },
+            { en: "D. Walk ahead while player swings.", vi: "Đi về phía trước trong lúc khách swing." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.4", sectionName: "Hướng dẫn & Vị trí", type: "mcq",
+        title: "The ball is safe, it cleared the fairway bunker.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ðə bɔːl ɪz seɪf ɪt klɪərd ðə ˈfeə.weɪ ˈbʌŋ.kər/</span> Bóng an toàn rồi ạ, nó đã bay qua khỏi hố cát trên fairway.",
+        audioText: "The ball is safe, it cleared the fairway bunker.",
+        options: [
+            { en: "A. The ball went into the water.", vi: "Bóng đã rơi xuống nước." },
+            { en: "B. The ball is lost in the bush.", vi: "Bóng bị mất trong bụi cây." },
+            { en: "C. The ball is safe, it cleared the fairway bunker.", vi: "Bóng an toàn rồi ạ, nó đã bay qua khỏi hố cát trên fairway." },
+            { en: "D. The ball hit a tree and bounced back.", vi: "Bóng đập vào cây dội ngược lại." }
+        ],
+        correct: 2
+    },
+
+// ====================================================================
+// SECTION 1.5: GIAO TIẾP & KHÍCH LỆ (CÂU 1 - CÂU 35)
+// ====================================================================
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Would you like some sunscreen, Sir?<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/wʊd juː laɪk sʌm ˈsʌn.skriːn sɜːr/</span> Anh có muốn dùng chút kem chống nắng không ạ?",
+        audioText: "Would you like some sunscreen, Sir?",
+        options: [
+            { en: "A. Would you like some sunscreen, Sir?", vi: "Anh có muốn dùng chút kem chống nắng không ạ?" },
+            { en: "B. Would you like some cold water?", vi: "Anh có muốn uống chút nước lạnh không?" },
+            { en: "C. Do you need an umbrella?", vi: "Anh có cần ô/dù không?" },
+            { en: "D. Can I clean your golf clubs?", vi: "Em lau gậy cho anh nhé?" }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Good morning Sir, welcome to Golden Sands Golf Resort.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ɡʊd ˈmɔː.nɪŋ sɜːr ˈwel.kəm tuː ˈɡəʊl.dən sændz ɡɒlf rɪˈzɔːt/</span> Chào buổi sáng anh, chào mừng anh đến với Golden Sands Golf Resort.",
+        audioText: "Good morning Sir, welcome to Golden Sands Golf Resort.",
+        options: [
+            { en: "A. Good afternoon Sir, see you again.", vi: "Chào buổi chiều anh, hẹn gặp lại." },
+            { en: "B. Good morning Sir, welcome to Golden Sands Golf Resort.", vi: "Chào buổi sáng anh, chào mừng anh đến với Golden Sands Golf Resort." },
+            { en: "C. Goodbye Sir, have a safe trip home.", vi: "Tạm biệt anh, chúc anh về thượng lộ bình an." },
+            { en: "D. Welcome to the locker room.", vi: "Chào mừng anh đến phòng thay đồ." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Great swing! Keep it up, Mr. Evans!<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ɡreɪt swɪŋ kiːp ɪt ʌp ˈmɪs.tər ˈev.ənz/</span> Cú swing tuyệt vời quá! Tiếp tục phát huy nhé anh Evans!",
+        audioText: "Great swing! Keep it up, Mr. Evans!",
+        options: [
+            { en: "A. Great swing! Keep it up, Mr. Evans!", vi: "Cú swing tuyệt vời quá! Tiếp tục phát huy nhé anh Evans!" },
+            { en: "B. Bad shot, try again next time.", vi: "Cú đánh tệ quá, lần sau thử lại nhé." },
+            { en: "C. Be careful with your back swing.", vi: "Hãy cẩn thận với vòng swing của anh." },
+            { en: "D. Take your time to swing.", vi: "Từ từ đánh thôi anh." }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Stay focused, you've got this!<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/steɪ ˈfəʊ.kəst juːv ɡɒt ðɪs/</span> Giữ tập trung nhé anh, anh làm được mà!",
+        audioText: "Stay focused, you've got this!",
+        options: [
+            { en: "A. Give up on this hole.", vi: "Bỏ hố này đi anh." },
+            { en: "B. Stay focused, you've got this!", vi: "Giữ tập trung nhé anh, anh làm được mà!" },
+            { en: "C. You are playing too slow.", vi: "Anh chơi chậm quá." },
+            { en: "D. Don't rush your shot.", vi: "Đừng vội vàng khi đánh." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Don't worry about the last shot, focus on this one.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/dəʊnt ˈwʌr.i əˈbaʊt ðə lɑːst ʃɒt ˈfəʊ.kəs ɒn ðɪs wʌn/</span> Đừng bận tâm về cú đánh vừa rồi, hãy tập trung vào cú này ạ.",
+        audioText: "Don't worry about the last shot, focus on this one.",
+        options: [
+            { en: "A. That was a terrible shot.", vi: "Đó là một cú đánh thật tồi tệ." },
+            { en: "B. Don't worry about the last shot, focus on this one.", vi: "Đừng bận tâm về cú đánh vừa rồi, hãy tập trung vào cú này ạ." },
+            { en: "C. You lost your ball in water.", vi: "Anh làm mất bóng dưới nước rồi." },
+            { en: "D. You got a double bogey.", vi: "Anh bị điểm double bogey rồi." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Nice recovery shot from the bunker!<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/naɪs rɪˈkʌv.ər.i ʃɒt frɒm ðə ˈbʌŋ.kər/</span> Cú đánh cứu bóng từ hố cát tuyệt vời quá!",
+        audioText: "Nice recovery shot from the bunker!",
+        options: [
+            { en: "A. Nice recovery shot from the bunker!", vi: "Cú đánh cứu bóng từ hố cát tuyệt vời quá!" },
+            { en: "B. The ball is still inside sand.", vi: "Bóng vẫn nằm trong cát." },
+            { en: "C. Hit it harder next time.", vi: "Lần sau đánh mạnh tay hơn." },
+            { en: "D. You hit the sand first.", vi: "Anh đánh trúng cát trước rồi." }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Perfect read on that putt, well played Sir!<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ˈpɜː.fekt riːd ɒn ðæt pʌt wel pleɪd sɜːr/</span> Đọc line gạt bóng chuẩn xác tuyệt đối, đánh xuất sắc lắm anh!",
+        audioText: "Perfect read on that putt, well played Sir!",
+        options: [
+            { en: "A. You missed the line completely.", vi: "Anh đọc sai line hoàn toàn rồi." },
+            { en: "B. Perfect read on that putt, well played Sir!", vi: "Đọc line gạt bóng chuẩn xác tuyệt đối, đánh xuất sắc lắm anh!" },
+            { en: "C. The green is too fast.", vi: "Green này chạy nhanh quá." },
+            { en: "D. Try to putt harder.", vi: "Hãy cố gạt bóng mạnh hơn." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Nice Birdie, Mr. Evans! Excellent job!<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/naɪs ˈbɜː.di ˈmɪs.tər ˈev.ənz ˈek.səl.ənt dʒɒb/</span> Thật là một điểm Birdie đẹp mắt anh Evans! Xuất sắc lắm ạ!",
+        audioText: "Nice Birdie, Mr. Evans! Excellent job!",
+        options: [
+            { en: "A. Nice Par, good effort.", vi: "Điểm Par đẹp, cố gắng tốt lắm." },
+            { en: "B. Nice Birdie, Mr. Evans! Excellent job!", vi: "Thật là một điểm Birdie đẹp mắt anh Evans! Xuất sắc lắm ạ!" },
+            { en: "C. Too bad, that was a Bogey.", vi: "Tiếc quá, đó là điểm Bogey." },
+            { en: "D. Good luck on the next tee.", vi: "Chúc may mắn ở tee tiếp theo." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "I'm sorry Sir, I will be more concentrated.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/aɪm ˈsɒr.i sɜːr aɪ wɪl biː mɔːr ˈkɒn.sn̩.treɪ.tɪd/</span> Em xin lỗi anh, em sẽ tập trung chú ý hơn ạ.",
+        audioText: "I'm sorry Sir, I will be more concentrated.",
+        options: [
+            { en: "A. I'm sorry Sir, I will be more concentrated.", vi: "Em xin lỗi anh, em sẽ tập trung chú ý hơn ạ." },
+            { en: "B. It is not my fault.", vi: "Đó không phải là lỗi của em." },
+            { en: "C. Please pay attention to your game.", vi: "Anh hãy chú ý vào trận đấu đi." },
+            { en: "D. I forgot your golf club.", vi: "Em quên gậy của anh rồi." }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "I'm sorry Sir, I will be quicker next time.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/aɪm ˈsɒr.i sɜːr aɪ wɪl biː ˈkwɪk.ər nekst taɪm/</span> Em xin lỗi anh, lần sau em sẽ thao tác nhanh nhẹn hơn ạ.",
+        audioText: "I'm sorry Sir, I will be quicker next time.",
+        options: [
+            { en: "A. Why are you rushing me?", vi: "Sao anh lại hối giục em?" },
+            { en: "B. I'm sorry Sir, I will be quicker next time.", vi: "Em xin lỗi anh, lần sau em sẽ thao tác nhanh nhẹn hơn ạ." },
+            { en: "C. You are walking too fast.", vi: "Anh đi bộ nhanh quá." },
+            { en: "D. Please wait for other players.", vi: "Xin vui lòng đợi các người chơi khác." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Today is weekend so it is crowded, we hope to have your understanding.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/təˈdeɪ ɪz ˌwiːkˈend səʊ ɪt ɪz ˈkraʊ.dɪd wiː həʊp tuː hæv jɔː ˌʌn.dəˈstænd.ɪŋ/</span> Hôm nay là cuối tuần nên sân hơi đông, rất mong anh thông cảm ạ.",
+        audioText: "Today is weekend so it is crowded, we hope to have your understanding.",
+        options: [
+            { en: "A. The course is empty today.", vi: "Sân hôm nay vắng lắm." },
+            { en: "B. Today is weekend so it is crowded, we hope to have your understanding.", vi: "Hôm nay là cuối tuần nên sân hơi đông, rất mong anh thông cảm ạ." },
+            { en: "C. You should play faster.", vi: "Anh nên chơi nhanh hơn đi." },
+            { en: "D. Please complain to the manager.", vi: "Anh hãy phàn nàn với quản lý đi." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "I'm sorry Sir, I will report this to the manager right away.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/aɪm ˈsɒr.i sɜːr aɪ wɪl rɪˈpɔːt ðɪs tuː ðə ˈmæn.ɪ.dʒər raɪt əˈweɪ/</span> Em xin lỗi anh, em sẽ báo cáo điều này với quản lý ngay lập tức ạ.",
+        audioText: "I'm sorry Sir, I will report this to the manager right away.",
+        options: [
+            { en: "A. I'm sorry Sir, I will report this to the manager right away.", vi: "Em xin lỗi anh, em sẽ báo cáo điều này với quản lý ngay lập tức ạ." },
+            { en: "B. Please handle it yourself.", vi: "Anh tự giải quyết nhé." },
+            { en: "C. It is normal on this golf course.", vi: "Chuyện này là bình thường ở sân golf này." },
+            { en: "D. Do not worry about it.", vi: "Đừng lo lắng về nó." }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Would you like to have some cold water, Sir?<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/wʊd juː laɪk tuː hæv sʌm kəʊld ˈwɔː.tər sɜːr/</span> Anh có muốn uống một chút nước lạnh không ạ?",
+        audioText: "Would you like to have some cold water, Sir?",
+        options: [
+            { en: "A. Would you like to have some cold water, Sir?", vi: "Anh có muốn uống một chút nước lạnh không ạ?" },
+            { en: "B. Can you buy me a drink?", vi: "Anh mua cho em nước được không?" },
+            { en: "C. Here is your bill for water.", vi: "Đây là hóa đơn nước của anh." },
+            { en: "D. Do you have a water bottle?", vi: "Anh có chai nước nào không?" }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Yes Sir, a moment please, I will get it for you right away.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/jes sɜːr ə ˈməʊ.mənt pliːz aɪ wɪl ɡet ɪt fɔːr juː raɪt əˈweɪ/</span> Vâng thưa anh, xin chờ em một chút, em sẽ lấy ngay cho anh ạ.",
+        audioText: "Yes Sir, a moment please, I will get it for you right away.",
+        options: [
+            { en: "A. Sorry, I don't have time now.", vi: "Xin lỗi, bây giờ em không rảnh." },
+            { en: "B. Yes Sir, a moment please, I will get it for you right away.", vi: "Vâng thưa anh, xin chờ em một chút, em sẽ lấy ngay cho anh ạ." },
+            { en: "C. You can get it from your cart.", vi: "Anh tự lấy trên xe điện đi ạ." },
+            { en: "D. We don't have that service here.", vi: "Ở đây chúng em không có dịch vụ đó." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Thank you Mr. Evans, good bye and hope to serve you again!<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/θæŋk juː ˈmɪs.tər ˈev.ənz ɡʊd baɪ ænd həʊp tuː sɜːv juː əˈɡen/</span> Cảm ơn anh Evans, chào tạm biệt và hy vọng được phục vụ anh lần sau ạ!",
+        audioText: "Thank you Mr. Evans, good bye and hope to serve you again!",
+        options: [
+            { en: "A. Good luck for your game today.", vi: "Chúc anh may mắn trong trận đấu hôm nay." },
+            { en: "B. Welcome to Golden Sands Resort.", vi: "Chào mừng anh đến với Golden Sands Resort." },
+            { en: "C. Thank you Mr. Evans, good bye and hope to serve you again!", vi: "Cảm ơn anh Evans, chào tạm biệt và hy vọng được phục vụ anh lần sau ạ!" },
+            { en: "D. Please pay your tip now.", vi: "Xin hãy trả tiền tip ngay." }
+        ],
+        correct: 2
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Take a deep breath before you swing, it will help you relax.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/teɪk ə diːp breθ bɪˈfɔːr juː swɪŋ ɪt wɪl help juː rɪˈlæks/</span> Anh hít một hơi thật sâu trước khi swing nhé, sẽ giúp anh thư giãn hơn đấy ạ.",
+        audioText: "Take a deep breath before you swing, it will help you relax.",
+        options: [
+            { en: "A. Take a deep breath before you swing, it will help you relax.", vi: "Anh hít một hơi thật sâu trước khi swing nhé, sẽ giúp anh thư giãn hơn đấy ạ." },
+            { en: "B. Swing faster and harder.", vi: "Swing nhanh hơn và mạnh hơn đi." },
+            { en: "C. Do not pause at the top.", vi: "Đừng ngắt nhịp ở đỉnh swing." },
+            { en: "D. Hurry up, the group behind is waiting.", vi: "Nhanh lên, nhóm sau đang chờ đấy." }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "One shot at a time, stay patient Sir!<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/wʌn ʃɒt æt ə taɪm steɪ ˈpeɪ.ʃənt sɜːr/</span> Cứ giải quyết từng cú đánh một, kiên nhẫn lên anh ơi!",
+        audioText: "One shot at a time, stay patient Sir!",
+        options: [
+            { en: "A. Play two balls at the same time.", vi: "Đánh hai bóng cùng một lúc." },
+            { en: "B. One shot at a time, stay patient Sir!", vi: "Cứ giải quyết từng cú đánh một, kiên nhẫn lên anh ơi!" },
+            { en: "C. You need to finish this hole fast.", vi: "Anh cần kết thúc hố này thật nhanh." },
+            { en: "D. Give up this hole.", vi: "Bỏ hố này đi anh." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Focus on what you can control right now.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ˈfəʊ.kəs ɒn wɒt juː kæn kənˈtrəʊl raɪt naʊ/</span> Hãy tập trung vào những gì anh có thể kiểm soát lúc này.",
+        audioText: "Focus on what you can control right now.",
+        options: [
+            { en: "A. Blame the wind for bad shot.", vi: "Đổ lỗi cho gió vì cú đánh tệ." },
+            { en: "B. Focus on what you can control right now.", vi: "Hãy tập trung vào những gì anh có thể kiểm soát lúc này." },
+            { en: "C. Look at the score of other players.", vi: "Nhìn vào điểm số của người chơi khác đi." },
+            { en: "D. Think about the 18th hole.", vi: "Hãy nghĩ về hố thứ 18 đi." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Cheer up Sir! You still have many holes ahead!<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/tʃɪər ʌp sɜːr juː stɪl hæv ˈmen.i həʊlz əˈhed/</span> Vui lên anh ơi! Phía trước mình còn nhiều hố nữa mà!",
+        audioText: "Cheer up Sir! You still have many holes ahead!",
+        options: [
+            { en: "A. Cheer up Sir! You still have many holes ahead!", vi: "Vui lên anh ơi! Phía trước mình còn nhiều hố nữa mà!" },
+            { en: "B. Today is a bad day for golf.", vi: "Hôm nay là một ngày tồi tệ để đánh golf." },
+            { en: "C. You played so poorly today.", vi: "Hôm nay anh chơi kém quá." },
+            { en: "D. Stop playing now.", vi: "Dừng chơi ngay bây giờ đi." }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "You nailed it! What a fantastic shot!<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/juː neɪld ɪt wɒt ə fænˈtæs.tɪk ʃɒt/</span> Anh làm chuẩn đét luôn! Một cú đánh xuất thần!",
+        audioText: "You nailed it! What a fantastic shot!",
+        options: [
+            { en: "A. You missed it completely.", vi: "Anh hụt hoàn toàn rồi." },
+            { en: "B. You nailed it! What a fantastic shot!", vi: "Anh làm chuẩn đét luôn! Một cú đánh xuất thần!" },
+            { en: "C. That was pure luck.", vi: "Quả đó chỉ là ăn may thôi." },
+            { en: "D. Try not to shank it.", vi: "Cố gắng đừng đánh trúng cổ gậy." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Do you need any medical assistance, Sir?<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/duː juː niːd ˈeni ˈmed.ɪ.kəl əˈsɪs.təns sɜːr/</span> Anh có cần hỗ trợ y tế gì không ạ?",
+        audioText: "Do you need any medical assistance, Sir?",
+        options: [
+            { en: "A. Do you need any medical assistance, Sir?", vi: "Anh có cần hỗ trợ y tế gì không ạ?" },
+            { en: "B. Do you want to buy new golf balls?", vi: "Anh có muốn mua bóng golf mới không?" },
+            { en: "C. Are you ready to tee off?", vi: "Anh đã sẵn sàng phát bóng chưa?" },
+            { en: "D. Would you like a cold towel?", vi: "Anh có muốn dùng khăn lạnh không?" }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "I'll call the clubhouse to get help right away.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/aɪl kɔːl ðə ˈklʌb.haʊs tuː ɡet help raɪt əˈweɪ/</span> Em sẽ gọi về nhà câu lạc bộ để xin hỗ trợ ngay lập tức ạ.",
+        audioText: "I'll call the clubhouse to get help right away.",
+        options: [
+            { en: "A. We cannot do anything now.", vi: "Chúng em không thể làm gì bây giờ." },
+            { en: "B. I'll call the clubhouse to get help right away.", vi: "Em sẽ gọi về nhà câu lạc bộ để xin hỗ trợ ngay lập tức ạ." },
+            { en: "C. Please drive back to clubhouse yourself.", vi: "Anh tự lái xe về nhà câu lạc bộ nhé." },
+            { en: "D. Wait here for two hours.", vi: "Chờ ở đây trong hai tiếng." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "I'm sorry Sir, I will be more careful with your golf clubs.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/aɪm ˈsɒr.i sɜːr aɪ wɪl biː mɔːr ˈkeə.fəl wɪð jɔː ɡɒlf klʌbz/</span> Em xin lỗi anh, em sẽ cẩn thận hơn nữa với bộ gậy của anh ạ.",
+        audioText: "I'm sorry Sir, I will be more careful with your golf clubs.",
+        options: [
+            { en: "A. These clubs are already old.", vi: "Mấy cây gậy này cũ rồi mà." },
+            { en: "B. I'm sorry Sir, I will be more careful with your golf clubs.", vi: "Em xin lỗi anh, em sẽ cẩn thận hơn nữa với bộ gậy của anh ạ." },
+            { en: "C. You dropped the club yourself.", vi: "Chính anh làm rơi gậy đấy chứ." },
+            { en: "D. I will leave your bag here.", vi: "Em sẽ để túi gậy của anh ở đây." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Nice Par, Mr. Evans! Great save!<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/naɪs pɑːr ˈmɪs.tər ˈev.ənz ɡreɪt seɪv/</span> Điểm Par quá đẹp anh Evans! Cú cứu par tuyệt vời!",
+        audioText: "Nice Par, Mr. Evans! Great save!",
+        options: [
+            { en: "A. Nice Par, Mr. Evans! Great save!", vi: "Điểm Par quá đẹp anh Evans! Cú cứu par tuyệt vời!" },
+            { en: "B. Bad luck on that bogey.", vi: "Xui xẻo với điểm bogey đó." },
+            { en: "C. You need to practice more.", vi: "Anh cần tập luyện nhiều hơn." },
+            { en: "D. Put your putter back in bag.", vi: "Cất gậy gạt vào túi đi." }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Good shot, Sir! It is right on the fairway!<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ɡʊd ʃɒt sɜːr ɪt ɪz raɪt ɒn ðə ˈfeə.weɪ/</span> Đánh tốt lắm anh! Bóng nằm đẹp ngay trên fairway rồi ạ!",
+        audioText: "Good shot, Sir! It is right on the fairway!",
+        options: [
+            { en: "A. The ball went into OB.", vi: "Bóng đi ra ngoài biên rồi." },
+            { en: "B. Good shot, Sir! It is right on the fairway!", vi: "Đánh tốt lắm anh! Bóng nằm đẹp ngay trên fairway rồi ạ!" },
+            { en: "C. Your ball is in the deep rough.", vi: "Bóng anh nằm trong cỏ dày." },
+            { en: "D. Try to hit higher next time.", vi: "Lần sau cố đánh bổng hơn." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Nice on, Mr. Evans! Beautiful approach shot!<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/naɪs ɒn ˈmɪs.tər ˈev.ənz ˈbjuː.tɪ.fəl əˈprəʊtʃ ʃɒt/</span> On green đẹp tuyệt anh Evans! Cú đánh tiếp cận hoàn hảo!",
+        audioText: "Nice on, Mr. Evans! Beautiful approach shot!",
+        options: [
+            { en: "A. You missed the green to the left.", vi: "Anh đánh trượt green sang bên trái rồi." },
+            { en: "B. Nice on, Mr. Evans! Beautiful approach shot!", vi: "On green đẹp tuyệt anh Evans! Cú đánh tiếp cận hoàn hảo!" },
+            { en: "C. The ball rolled off the back.", vi: "Bóng lăn khỏi phía sau green." },
+            { en: "D. Short of green by 20 yards.", vi: "Thiếu gậy ngắn hơn green 20 yard." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Nice putt, Sir! That was a long distance putt!<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/naɪs pʌt sɜːr ðæt wɒz ə lɒŋ ˈdɪs.təns pʌt/</span> Cú gạt bóng xuất sắc quá anh! Đó là một cú putt từ rất xa!",
+        audioText: "Nice putt, Sir! That was a long distance putt!",
+        options: [
+            { en: "A. Nice putt, Sir! That was a long distance putt!", vi: "Cú gạt bóng xuất sắc quá anh! Đó là một cú putt từ rất xa!" },
+            { en: "B. You putted too short.", vi: "Anh gạt thiếu lực rồi." },
+            { en: "C. The ball hit the hole and lip out.", vi: "Bóng liếm miệng hố văng ra." },
+            { en: "D. Don't use putter from here.", vi: "Đừng dùng gậy gạt từ vị trí này." }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "I'm sorry Sir, I will note it down carefully.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/aɪm ˈsɒr.i sɜːr aɪ wɪl nəʊt ɪt daʊn ˈkeə.fəl.i/</span> Em xin lỗi anh, em sẽ ghi chép lại cẩn thận ạ.",
+        audioText: "I'm sorry Sir, I will note it down carefully.",
+        options: [
+            { en: "A. I forgot what you said.", vi: "Em quên mất anh nói gì rồi." },
+            { en: "B. I'm sorry Sir, I will note it down carefully.", vi: "Em xin lỗi anh, em sẽ ghi chép lại cẩn thận ạ." },
+            { en: "C. Write it down yourself.", vi: "Anh tự ghi lại đi." },
+            { en: "D. No need to note it.", vi: "Không cần ghi chép đâu." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Have a good game today, Sir!<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/hæv ə ɡʊd ɡeɪm təˈdeɪ sɜːr/</span> Chúc anh có một trận đấu thật hay hôm nay ạ!",
+        audioText: "Have a good game today, Sir!",
+        options: [
+            { en: "A. Hope you finish soon.", vi: "Hy vọng anh đánh xong sớm." },
+            { en: "B. Have a good game today, Sir!", vi: "Chúc anh có một trận đấu thật hay hôm nay ạ!" },
+            { en: "C. Rain is coming soon.", vi: "Trời sắp mưa rồi đấy." },
+            { en: "D. Pay for cart fee first.", vi: "Thanh toán phí xe trước đi ạ." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "It's my duty to help you, Sir.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ɪts maɪ ˈdjuː.ti tuː help juː sɜːr/</span> Đó là trách nhiệm của em để hỗ trợ anh ạ.",
+        audioText: "It's my duty to help you, Sir.",
+        options: [
+            { en: "A. It's my duty to help you, Sir.", vi: "Đó là trách nhiệm của em để hỗ trợ anh ạ." },
+            { en: "B. You should pay extra for this.", "vi": "Anh phải trả thêm phí cho việc này." },
+            { en: "C. Ask someone else to help.", "vi": "Nhờ người khác giúp đi ạ." },
+            { en: "D. I am too tired to help.", "vi": "Em mệt quá không giúp được." }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "My name is Van, I'm so happy to be your caddie today.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/maɪ neɪm ɪz væn aɪm səʊ ˈhæp.i tuː biː jɔː ˈkæd.i təˈdeɪ/</span> Em tên là Vân, em rất hân hạnh được làm caddie cho anh hôm nay.",
+        audioText: "My name is Van, I'm so happy to be your caddie today.",
+        options: [
+            { en: "A. I am busy with another bag.", vi: "Em đang bận với túi gậy khác." },
+            { en: "B. My name is Van, I'm so happy to be your caddie today.", vi: "Em tên là Vân, em rất hân hạnh được làm caddie cho anh hôm nay." },
+            { en: "C. What is your name Sir?", vi: "Tên anh là gì ạ?" },
+            { en: "D. I want to change player.", vi: "Em muốn đổi người chơi." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Your ball is ok, Sir! It stays safe on grass!<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/jɔː bɔːl ɪz ˌəʊˈkeɪ sɜːr ɪt steɪz seɪf ɒn ɡrɑːs/</span> Bóng của anh ổn rồi ạ! Nó nằm an toàn trên mặt cỏ!",
+        audioText: "Your ball is ok, Sir! It stays safe on grass!",
+        options: [
+            { en: "A. Your ball is lost in water.", vi: "Bóng của anh bị mất dưới nước rồi." },
+            { en: "B. Your ball is ok, Sir! It stays safe on grass!", vi: "Bóng của anh ổn rồi ạ! Nó nằm an toàn trên mặt cỏ!" },
+            { en: "C. You need to play provisional ball.", vi: "Anh cần đánh bóng dự phòng." },
+            { en: "D. Out of bounds on the right.", vi: "Bóng ra ngoài biên bên phải." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "I hope your ball doesn't go into the bunker!<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/aɪ həʊp jɔː bɔːl ˈdʌz.nt ɡəʊ ˈɪn.tuː ðə ˈbʌŋ.kər/</span> Em hy vọng bóng của anh không bị rơi vào hố cát!",
+        audioText: "I hope your ball doesn't go into the bunker!",
+        options: [
+            { en: "A. I hope your ball doesn't go into the bunker!", vi: "Em hy vọng bóng của anh không bị rơi vào hố cát!" },
+            { en: "B. Hit straight into the sand bunker.", vi: "Đánh thẳng vào hố cát đi." },
+            { en: "C. The ball is definitely lost.", vi: "Bóng chắc chắn bị mất rồi." },
+            { en: "D. Don't worry, sand is easy.", vi: "Đừng lo, cát dễ đánh mà." }
+        ],
+        correct: 0
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Stay in the moment, take it easy Sir!<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/steɪ ɪn ðə ˈməʊ.mənt teɪk ɪt ˈiː.zi sɜːr/</span> Hãy sống trọn khoảnh khắc này, cứ thong thả bình tĩnh anh nhé!",
+        audioText: "Stay in the moment, take it easy Sir!",
+        options: [
+            { en: "A. Think about your handicap.", vi: "Hãy nghĩ về điểm chấp của anh đi." },
+            { en: "B. Stay in the moment, take it easy Sir!", vi: "Hãy sống trọn khoảnh khắc này, cứ thong thả bình tĩnh anh nhé!" },
+            { en: "C. You are playing badly.", vi: "Anh đang đánh rất dở." },
+            { en: "D. We are running out of time.", vi: "Chúng ta đang sắp hết giờ rồi." }
+        ],
+        correct: 1
+    },
+    {
+        lesson: 1, section: "1.5", sectionName: "Giao tiếp & Khích lệ", type: "mcq",
+        title: "Would you like to go to our Driving Range for warm up first, Mr. Evans?<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/wʊd juː laɪk tuː ɡəʊ tuː aʊər ˈdraɪ.vɪŋ reɪndʒ fɔːr wɔːm ʌp fɜːst ˈmɪs.tər ˈev.ənz/</span> Anh Evans có muốn ra sân tập đánh bóng của chúng em để khởi động trước không ạ?",
+        audioText: "Would you like to go to our Driving Range for warm up first, Mr. Evans?",
+        options: [
+            { en: "A. Go directly to tee box hole 1.", vi: "Ra thẳng khu vực phát bóng hố 1." },
+            { en: "B. Would you like to go to our Driving Range for warm up first, Mr. Evans?", vi: "Anh Evans có muốn ra sân tập đánh bóng của chúng em để khởi động trước không ạ?" },
+            { en: "C. Your tee time was 10 minutes ago.", vi: "Giờ xuất phát của anh đã qua 10 phút trước." },
+            { en: "D. Please wait in the restaurant.", vi: "Xin vui lòng đợi ở nhà hàng." }
+        ],
+        correct: 1
+    }
 );
