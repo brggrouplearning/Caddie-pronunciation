@@ -784,86 +784,77 @@
             });
         }
 
-        function uploadResultToDrive() {
-            const resultElem = document.getElementById('main-container');
-            const statusBtn = document.getElementById('btn-drive-status');
-            if (!resultElem) return;
-
-            if (statusBtn) {
-                statusBtn.innerText = "⏳ Đang tải ảnh lên Google Drive...";
-                statusBtn.disabled = true;
-            }
-
-            const workPlaceMap = {
-                'KI': 'KINGS ISLAND',
-                'LH': 'LEGEND HILL',
-                'RT': 'RUBY TREE',
-                'LV': 'LEGEND VALLEY',
-                'LDN': 'LEGEND DANANG',
-                'GS': 'GOLDEN SANDS'
-            };
-
-            const workPlaceCode = studentInfo.workPlace || "KI";
-            const fullWorkPlace = workPlaceMap[workPlaceCode] || studentInfo.workPlace || "CHƯA PHÂN LOẠI";
-            const studentNameRaw = studentInfo.studentName || "hocvien";
-            const staffId = studentInfo.staffNumber || "000";
-            const birthDateRaw = studentInfo.birthday || "2000-01-01";
-
-            const birthYear = birthDateRaw.split('-')[0] || "2000";
-            const cleanName = convertToNonAccent(studentNameRaw);
-
-            const now = new Date();
-            const yearStr = now.getFullYear();
-            const monthStr = String(now.getMonth() + 1).padStart(2, '0');
-            const dayStr = String(now.getDate()).padStart(2, '0');
-            const hourStr = String(now.getHours()).padStart(2, '0');
-            const minStr = String(now.getMinutes()).padStart(2, '0');
-
-            const fileName = `${workPlaceCode}_${yearStr}${monthStr}${dayStr}_${hourStr}${minStr}_${cleanName}_${staffId}_${birthYear}_spk.jpg`;
-            const dateFolderStr = `${yearStr}.${monthStr}.${dayStr}`;
-            let rawLessonCode = studentInfo.rawLessonCode ? studentInfo.rawLessonCode.toUpperCase() : "EXAM";
-
-            html2canvas(resultElem, { scale: 1.2, useCORS: true }).then(canvas => {
-                const imageBase64 = canvas.toDataURL("image/jpeg", 0.65);
-
-                const payload = {
-                    action: "upload_image",
-                    imageBase64: imageBase64,
-                    fileName: fileName,
-                    workPlace: workPlaceCode,
-                    fullWorkPlace: fullWorkPlace,
-                    dateFolderStr: dateFolderStr,
-                    rawLessonCode: rawLessonCode,
-                    studentName: studentInfo.studentName,
-                    staffNumber: studentInfo.staffNumber
-                };
-
-                fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                }).then(() => {
-                    if (statusBtn) {
-                        statusBtn.innerText = "✅ Đã tải ảnh lên Drive thành công!";
-                        statusBtn.style.backgroundColor = "#198754";
-                    }
-                }).catch(err => {
-                    if (statusBtn) {
-                        statusBtn.innerText = "❌ Lỗi tải ảnh lên Drive";
-                        statusBtn.disabled = false;
-                    }
-                });
-            });
-        }function uploadResultToDrive() {
+       function uploadResultToDrive() {
     const resultElem = document.getElementById('main-container');
     const statusBtn = document.getElementById('btn-drive-status');
     if (!resultElem) return;
 
     if (statusBtn) {
-        statusBtn.innerText = "⏳ Đang tải ảnh lên Google Drive...";
+        statusBtn.innerText = "⏳ Đang tải ảnh lên Cloud (Drive)...";
         statusBtn.disabled = true;
     }
+
+    const workPlaceMap = {
+        'KI': 'KINGS ISLAND',
+        'LH': 'LEGEND HILL',
+        'RT': 'RUBY TREE',
+        'LV': 'LEGEND VALLEY',
+        'LDN': 'LEGEND DANANG',
+        'GS': 'GOLDEN SANDS'
+    };
+
+    const workPlaceCode = studentInfo.workPlace || "KI";
+    const fullWorkPlace = workPlaceMap[workPlaceCode] || "KINGS ISLAND";
+    const studentNameRaw = studentInfo.studentName || "hocvien";
+    const staffId = studentInfo.staffNumber || "000";
+    const birthDateRaw = studentInfo.birthday || "2000-01-01";
+
+    const birthYear = birthDateRaw.split('-')[0] || "2000";
+    const cleanName = convertToNonAccent(studentNameRaw);
+
+    const now = new Date();
+    const yearStr = now.getFullYear();
+    const monthStr = String(now.getMonth() + 1).padStart(2, '0');
+    const dayStr = String(now.getDate()).padStart(2, '0');
+    const hourStr = String(now.getHours()).padStart(2, '0');
+    const minStr = String(now.getMinutes()).padStart(2, '0');
+
+    const fileName = `${workPlaceCode}_${yearStr}${monthStr}${dayStr}_${hourStr}${minStr}_${cleanName}_${staffId}_${birthYear}.jpg`;
+    const dateFolderStr = `${yearStr}.${monthStr}.${dayStr}`;
+    let rawLessonCode = studentInfo.rawLessonCode.toUpperCase();
+
+    html2canvas(resultElem, { scale: 1.2, useCORS: true }).then(canvas => {
+        const imageBase64 = canvas.toDataURL("image/jpeg", 0.65);
+
+        const payload = {
+            action: "upload_image",
+            imageBase64: imageBase64,
+            fileName: fileName,
+            fullWorkPlace: fullWorkPlace,
+            dateFolderStr: dateFolderStr,
+            rawLessonCode: rawLessonCode,
+            studentName: studentInfo.studentName, // Gửi kèm tên để script tìm dòng trong Sheet
+            staffNumber: studentInfo.staffNumber  // Gửi kèm mã NV để định danh chính xác
+        };
+
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        }).then(() => {
+            if (statusBtn) {
+                statusBtn.innerText = "✅ Đã tải ảnh lên Drive & cập nhật Sheet!";
+                statusBtn.style.backgroundColor = "#198754";
+            }
+        }).catch(err => {
+            if (statusBtn) {
+                statusBtn.innerText = "❌ Lỗi tải ảnh lên Drive";
+                statusBtn.disabled = false;
+            }
+        });
+    });
+}
 
     const workPlaceMap = {
         'KI': 'KINGS ISLAND',
