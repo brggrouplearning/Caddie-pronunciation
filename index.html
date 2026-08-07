@@ -78,7 +78,7 @@
         .feedback-card { background: #fff8e6; border: 1px solid #ffe8a1; border-radius: 10px; padding: 10px 12px; margin-top: 12px; text-align: left; }
         .feedback-card label { font-size: 12.5px; font-weight: bold; color: #8c6d00; display: block; margin-bottom: 4px; }
         .feedback-card textarea { 
-            width: 100%; 
+            width: 100px; 
             resize: vertical; 
             min-height: 50px; 
             max-height: 180px;
@@ -438,6 +438,7 @@
                 targetText = targetText.replace(/^[A-D]\.\s*/, "").replace(/<[^>]*>/g, '').trim();
 
                 if (meaningText) {
+                    // ĐÃ SỬA: Giữ lại toàn bộ ý nghĩa câu (bao gồm cả dấu gạch chân, không cắt bỏ phần điền khuyết)
                     meaningText = meaningText.replace(/<[^>]*>/g, '').replace(/\+\]/gi, '').replace(/cite:\s*[\d,\s]+/gi, '').replace(/\[\s*\]/gi, '').trim();
                 }
 
@@ -783,80 +784,78 @@
             });
         }
 
-       // CHỨC NĂNG 2: TẢI ẢNH LÊN GOOGLE DRIVE (ĐÃ RÀ SOÁT VÀ BỔ SUNG ĐẦY ĐỦ THÔNG TIN ĐƠN VỊ)
-function uploadResultToDrive() {
-    const resultElem = document.getElementById('main-container');
-    const statusBtn = document.getElementById('btn-drive-status');
-    if (!resultElem) return;
+        function uploadResultToDrive() {
+            const resultElem = document.getElementById('main-container');
+            const statusBtn = document.getElementById('btn-drive-status');
+            if (!resultElem) return;
 
-    if (statusBtn) {
-        statusBtn.innerText = "⏳ Đang tải ảnh lên Google Drive...";
-        statusBtn.disabled = true;
-    }
-
-    const workPlaceMap = {
-        'KI': 'KINGS ISLAND',
-        'LH': 'LEGEND HILL',
-        'RT': 'RUBY TREE',
-        'LV': 'LEGEND VALLEY',
-        'LDN': 'LEGEND DANANG',
-        'GS': 'GOLDEN SANDS'
-    };
-
-    const workPlaceCode = studentInfo.workPlace || "KI";
-    const fullWorkPlace = workPlaceMap[workPlaceCode] || studentInfo.workPlace || "CHƯA PHÂN LOẠI";
-    const studentNameRaw = studentInfo.studentName || "hocvien";
-    const staffId = studentInfo.staffNumber || "000";
-    const birthDateRaw = studentInfo.birthday || "2000-01-01";
-
-    const birthYear = birthDateRaw.split('-')[0] || "2000";
-    const cleanName = convertToNonAccent(studentNameRaw);
-
-    const now = new Date();
-    const yearStr = now.getFullYear();
-    const monthStr = String(now.getMonth() + 1).padStart(2, '0');
-    const dayStr = String(now.getDate()).padStart(2, '0');
-    const hourStr = String(now.getHours()).padStart(2, '0');
-    const minStr = String(now.getMinutes()).padStart(2, '0');
-
-    const fileName = `${workPlaceCode}_${yearStr}${monthStr}${dayStr}_${hourStr}${minStr}_${cleanName}_${staffId}_${birthYear}_spk.jpg`;
-    const dateFolderStr = `${yearStr}.${monthStr}.${dayStr}`;
-    let rawLessonCode = studentInfo.rawLessonCode ? studentInfo.rawLessonCode.toUpperCase() : "EXAM";
-
-    html2canvas(resultElem, { scale: 1.2, useCORS: true }).then(canvas => {
-        const imageBase64 = canvas.toDataURL("image/jpeg", 0.65);
-
-        // Đảm bảo payload truyền đầy đủ fullWorkPlace để Backend chọn đúng thư mục Đơn Vị
-        const payload = {
-            action: "upload_image",
-            imageBase64: imageBase64,
-            fileName: fileName,
-            workPlace: workPlaceCode,
-            fullWorkPlace: fullWorkPlace,
-            dateFolderStr: dateFolderStr,
-            rawLessonCode: rawLessonCode,
-            studentName: studentInfo.studentName,
-            staffNumber: studentInfo.staffNumber
-        };
-
-        fetch(GOOGLE_SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        }).then(() => {
             if (statusBtn) {
-                statusBtn.innerText = "✅ Đã tải ảnh lên Drive thành công!";
-                statusBtn.style.backgroundColor = "#198754";
+                statusBtn.innerText = "⏳ Đang tải ảnh lên Google Drive...";
+                statusBtn.disabled = true;
             }
-        }).catch(err => {
-            if (statusBtn) {
-                statusBtn.innerText = "❌ Lỗi tải ảnh lên Drive";
-                statusBtn.disabled = false;
-            }
-        });
-    });
-}
+
+            const workPlaceMap = {
+                'KI': 'KINGS ISLAND',
+                'LH': 'LEGEND HILL',
+                'RT': 'RUBY TREE',
+                'LV': 'LEGEND VALLEY',
+                'LDN': 'LEGEND DANANG',
+                'GS': 'GOLDEN SANDS'
+            };
+
+            const workPlaceCode = studentInfo.workPlace || "KI";
+            const fullWorkPlace = workPlaceMap[workPlaceCode] || studentInfo.workPlace || "CHƯA PHÂN LOẠI";
+            const studentNameRaw = studentInfo.studentName || "hocvien";
+            const staffId = studentInfo.staffNumber || "000";
+            const birthDateRaw = studentInfo.birthday || "2000-01-01";
+
+            const birthYear = birthDateRaw.split('-')[0] || "2000";
+            const cleanName = convertToNonAccent(studentNameRaw);
+
+            const now = new Date();
+            const yearStr = now.getFullYear();
+            const monthStr = String(now.getMonth() + 1).padStart(2, '0');
+            const dayStr = String(now.getDate()).padStart(2, '0');
+            const hourStr = String(now.getHours()).padStart(2, '0');
+            const minStr = String(now.getMinutes()).padStart(2, '0');
+
+            const fileName = `${workPlaceCode}_${yearStr}${monthStr}${dayStr}_${hourStr}${minStr}_${cleanName}_${staffId}_${birthYear}_spk.jpg`;
+            const dateFolderStr = `${yearStr}.${monthStr}.${dayStr}`;
+            let rawLessonCode = studentInfo.rawLessonCode ? studentInfo.rawLessonCode.toUpperCase() : "EXAM";
+
+            html2canvas(resultElem, { scale: 1.2, useCORS: true }).then(canvas => {
+                const imageBase64 = canvas.toDataURL("image/jpeg", 0.65);
+
+                const payload = {
+                    action: "upload_image",
+                    imageBase64: imageBase64,
+                    fileName: fileName,
+                    workPlace: workPlaceCode,
+                    fullWorkPlace: fullWorkPlace,
+                    dateFolderStr: dateFolderStr,
+                    rawLessonCode: rawLessonCode,
+                    studentName: studentInfo.studentName,
+                    staffNumber: studentInfo.staffNumber
+                };
+
+                fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).then(() => {
+                    if (statusBtn) {
+                        statusBtn.innerText = "✅ Đã tải ảnh lên Drive thành công!";
+                        statusBtn.style.backgroundColor = "#198754";
+                    }
+                }).catch(err => {
+                    if (statusBtn) {
+                        statusBtn.innerText = "❌ Lỗi tải ảnh lên Drive";
+                        statusBtn.disabled = false;
+                    }
+                });
+            });
+        }
 
         function finishSession(message, isFromReview = false) {
             clearInterval(timerInterval);
