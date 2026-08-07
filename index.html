@@ -934,13 +934,13 @@
             let adviceText = "";
 
             if (calculatedScore >= 90) {
-                levelBadgeHtml = `<div class="level-badge level-excellent">🌟 MỐC NĂNG LỰC: XUẤT SẮC (${calculatedScore}/100)</div>`;
+                levelBadgeHtml = `<div class="level-badge level-excellent">🌟 MỐC NĂNG LỰC: Xuất sắc (${calculatedScore}/100)</div>`;
                 adviceText = "<b>Đánh giá:</b> Phát âm chuẩn xác, khẩu hình và âm điệu tự nhiên.";
             } else if (calculatedScore >= 70) {
-                levelBadgeHtml = `<div class="level-badge level-passed">✅ MỐC NĂNG LỰC: ĐẠT (${calculatedScore}/100)</div>`;
+                levelBadgeHtml = `<div class="level-badge level-passed">✅ MỐC NĂNG LỰC: Đạt (${calculatedScore}/100)</div>`;
                 adviceText = "<b>Đánh giá:</b> Phát âm rõ ràng, giao tiếp tốt; cần rà soát lại các từ chưa đạt chuẩn trọng âm hoặc nối âm.";
             } else {
-                levelBadgeHtml = `<div class="level-badge level-needs-improvement">⚠️ MỐC NĂNG LỰC: CẦN CẢI THIỆN (${calculatedScore}/100)</div>`;
+                levelBadgeHtml = `<div class="level-badge level-needs-improvement">⚠️ MỐC NĂNG LỰC: Chưa đạt (${calculatedScore}/100)</div>`;
                 adviceText = "<b>Đánh giá:</b> Phát âm chưa rõ phụ âm cuối hoặc chưa chuẩn ngữ điệu; khuyến nghị nghe lại mẫu nhiều lần.";
             }
 
