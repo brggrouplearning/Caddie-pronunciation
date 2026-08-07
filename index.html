@@ -78,7 +78,7 @@
         .feedback-card { background: #fff8e6; border: 1px solid #ffe8a1; border-radius: 10px; padding: 10px 12px; margin-top: 12px; text-align: left; }
         .feedback-card label { font-size: 12.5px; font-weight: bold; color: #8c6d00; display: block; margin-bottom: 4px; }
         .feedback-card textarea { 
-            width: 100px; 
+            width: 100%; 
             resize: vertical; 
             min-height: 50px; 
             max-height: 180px;
@@ -437,9 +437,15 @@
 
                 targetText = targetText.replace(/^[A-D]\.\s*/, "").replace(/<[^>]*>/g, '').trim();
 
+                // ĐÃ SỬA VÀ KHẮC PHỤC LỖI HIỂN THỊ CÂU HỎI TRỐNG / NÉT GẠCH DƯỚI
                 if (meaningText) {
-                    // ĐÃ SỬA: Giữ lại toàn bộ ý nghĩa câu (bao gồm cả dấu gạch chân, không cắt bỏ phần điền khuyết)
-                    meaningText = meaningText.replace(/<[^>]*>/g, '').replace(/\+\]/gi, '').replace(/cite:\s*[\d,\s]+/gi, '').replace(/\[\s*\]/gi, '').trim();
+                    meaningText = meaningText
+                        .replace(/<[^>]*>/g, '')
+                        .replace(/cite:\s*[\d,\s]+/gi, '')
+                        .replace(/\+\]/gi, '')
+                        .replace(/_{2,}/g, '')
+                        .replace(/\s+/g, ' ')
+                        .trim();
                 }
 
                 if (targetText && targetText.length > 1) {
