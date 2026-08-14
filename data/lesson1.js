@@ -111,8 +111,8 @@ window.masterQuizData.push(
     },
     {
         lesson: 1, section: "1.1", sectionName: "Bảng chữ cái & Đánh vần", type: "mcq",
-        title: "60 degree wedge.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ˈsɪk.sti dɪˈɡriː wedʒ/</span> Gậy wedge độ loft 60 độ.",
-        audioText: "60 degree wedge.",
+        title: "60 degree.<br><span style='color: #6c757d; font-style: italic; font-size: 0.95rem;'>/ˈsɪk.sti dɪˈɡriː wedʒ/</span> Gậy wedge độ loft 60 độ.",
+        audioText: "60 degree.",
         options: [{ en: "A. /dʒ/", vi: "Bật phụ âm cuối /dʒ/" }, { en: "B. /ʒ/", vi: "Bật phụ âm /ʒ/" }, { en: "C. /tʃ/", vi: "Bật phụ âm /tʃ/" }, { en: "D. /ɡ/", vi: "Bật phụ âm /ɡ/" }],
         correct: 0
     },
