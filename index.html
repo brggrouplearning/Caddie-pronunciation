@@ -73,7 +73,7 @@
         .level-badge { display: inline-block; padding: 3px 10px; border-radius: 14px; font-weight: bold; font-size: 11.5px; }
         .level-excellent { background-color: #d1e7dd; color: #0f5132; border: 1px solid #badbcc; }
         .level-passed { background-color: #cff4fc; color: #055160; border: 1px solid #b6effb; }
-        .level-needs-improvement { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .level-failed { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
 
         .advice-box { font-size: 11.5px; line-height: 1.35; color: #333; margin: 4px 0 5px 0; background: #e9ecef; padding: 6px 8px; border-radius: 6px; text-align: left; }
         .stats-box { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 7px 10px; margin: 5px 0; text-align: left; font-size: 11.5px; line-height: 1.45; }
@@ -1013,13 +1013,13 @@
 
             if (calculatedScore >= 90) {
                 levelBadgeHtml = `<div class="level-badge level-excellent">🌟 Xuất sắc / Excellent (${calculatedScore}/100)</div>`;
-                adviceText = "<b>Đánh giá / Evaluation:</b> Phát âm chuẩn xác, khẩu hình và âm điệu tự nhiên / Accurate pronunciation, natural intonation.";
+                adviceText = "<b>Đánh giá / Evaluation:</b> Xuất sắc! Phát âm chuẩn xác, khẩu hình và âm điệu rất tự nhiên / Excellent pronunciation, natural intonation.";
             } else if (calculatedScore >= 70) {
                 levelBadgeHtml = `<div class="level-badge level-passed">✅ Đạt / Passed (${calculatedScore}/100)</div>`;
-                adviceText = "<b>Đánh giá / Evaluation:</b> Phát âm rõ ràng; cần rà soát lại trọng âm và nối âm / Clear communication; review word stress.";
+                adviceText = "<b>Đánh giá / Evaluation:</b> Đạt yêu cầu! Phát âm rõ ràng, giao tiếp tốt / Clear pronunciation and good communication.";
             } else {
-                levelBadgeHtml = `<div class="level-badge level-needs-improvement">⚠️ Chưa đạt / Needs Improvement (${calculatedScore}/100)</div>`;
-                adviceText = "<b>Đánh giá / Evaluation:</b> Cần luyện tập thêm phụ âm cuối và ngữ điệu câu / Practice ending sounds & sentence rhythm.";
+                levelBadgeHtml = `<div class="level-badge level-failed">❌ Chưa đạt / Failed (${calculatedScore}/100)</div>`;
+                adviceText = "<b>Đánh giá / Evaluation:</b> Chưa đạt yêu cầu; Cần luyện tập thêm phát âm và ngữ điệu câu / Practice more pronunciation & sentence rhythm.";
             }
 
             if (!isFromReview) {
