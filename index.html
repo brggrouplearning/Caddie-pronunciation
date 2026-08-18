@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TIẾNG ANH GIAO TIẾP CƠ BẢN CHO CADDIE - LUYỆN TẬP PHÁT ÂM / BASIC ENGLISH FOR CADDIES - SPEAKING PRACTICE</title>
-    <!-- THƯ VIỆN CHỤP ẢNH MÀN HÌNH HTML2CANVAS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * { box-sizing: border-box; }
@@ -128,7 +127,6 @@
         <div class="sub-type">LUYỆN TẬP KỸ NĂNG PHÁT ÂM / SPEAKING PRACTICE</div>
         <div id="lesson-subtitle">VUI LÒNG CHỌN NỘI DUNG VÀ BẮT ĐẦU / PLEASE SELECT CONTENT & START</div>
         
-        <!-- BƯỚC 1: THÔNG TIN HỌC VIÊN -->
         <div id="user-info-view" class="user-card">
             <div class="user-card-header">📋 THÔNG TIN HỌC VIÊN / STUDENT INFORMATION</div>
             
@@ -173,7 +171,6 @@
                     </select>
                 </div>
 
-                <!-- LỰA CHỌN 1 TRONG 2 -->
                 <div class="form-group full-width">
                     <label style="color: #0d6efd; font-weight: bold; margin-bottom: 4px;">NỘI DUNG THI / EXAM CONTENT (Chọn 1 trong 2 / Select 1 of 2):</label>
 
@@ -232,7 +229,6 @@
             <button class="btn-start-quiz" onclick="startQuizPractice()">BẮT ĐẦU LÀM BÀI / START TEST 🚀</button>
         </div>
 
-        <!-- BƯỚC 2: MÀN HÌNH LÀM BÀI -->
         <div id="practice-view" class="hidden">
             <div class="info-bar" id="top-info-bar">
                 <div id="item-status" class="status-pending">⏳ Trạng thái: Chưa hoàn thành / Status: Pending</div>
@@ -253,14 +249,11 @@
             <p id="error"></p>
         </div>
 
-        <!-- BƯỚC 3: MÀN HÌNH TỔNG KẾT & GÓP Ý -->
         <div id="result-view" class="hidden"></div>
 
-        <!-- BƯỚC 4: MÀN HÌNH XEM LẠI BÀI LÀM -->
         <div id="review-view" class="hidden"></div>
     </div>
 
-    <!-- KHỞI TẠO MẢNG DỮ LIỆU CHUNG -->
     <script> window.masterQuizData = []; </script>
 
     <script>
@@ -294,7 +287,6 @@
         })();
     </script>
 
-    <!-- CORE ENGINE LUYỆN PHÁT ÂM -->
     <script>
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzjxIWr2c3YbcRrybHXlrVsCmrvyuP9Z89zT7a5xMm9rd5s33OecJj5uxeT6kjv-czs/exec';
 
@@ -425,13 +417,14 @@
 
             let text = str.toLowerCase();
             Object.keys(numberMap).forEach(key => {
-                const regex = new RegExp(` ${key} `, 'g');
+                const regex = new RegExp(`\\b${key}\\b`, 'g');
                 text = text.replace(regex, numberMap[key]);
             });
 
             return text.replace(/[^a-z0-9\s]/g, "").replace(/\s+/g, " ").trim();
         }
 
+        // Thuật toán xáo trộn Fisher-Yates Shuffle
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -439,6 +432,7 @@
             }
         }
 
+        // HÀM LẤY ĐỀ THI ĐÃ NÂNG CẤP VỚI CƠ CHẾ ANTI-REPEAT TỪ TOÀN BỘ KHO DỮ LIỆU
         function getFilteredSpeakingItemsBySelection(isSectionMode, selectedVal) {
             let rawPool = (window.masterQuizData && window.masterQuizData.length > 0) ? [...window.masterQuizData] : [];
             let filtered = [];
@@ -539,8 +533,44 @@
                 return [];
             }
 
-            shuffleArray(resultList);
-            return resultList.slice(0, Math.min(targetCount, resultList.length));
+            // Loại bỏ các câu bị trùng lặp hoàn toàn nội dung trong tài nguyên đề
+            const uniqueMap = new Map();
+            resultList.forEach(item => {
+                const normKey = normalizeText(item.text);
+                if (!uniqueMap.has(normKey)) {
+                    uniqueMap.set(normKey, item);
+                }
+            });
+            let uniqueList = Array.from(uniqueMap.values());
+
+            // Xáo trộn ngẫu nhiên toàn bộ danh sách
+            shuffleArray(uniqueList);
+
+            // Thuật toán Anti-Repeat: Đọc lịch sử câu đã làm ở lượt trước từ sessionStorage
+            let lastUsedKey = `last_used_quiz_${isSectionMode ? 'sec_' : 'ex_'}${selectedVal}`;
+            let lastUsedTexts = [];
+            try {
+                lastUsedTexts = JSON.parse(sessionStorage.getItem(lastUsedKey) || '[]');
+            } catch(e) {}
+
+            let unusedItems = uniqueList.filter(item => !lastUsedTexts.includes(normalizeText(item.text)));
+            let usedItems = uniqueList.filter(item => lastUsedTexts.includes(normalizeText(item.text)));
+
+            let selectedSet = [];
+            if (unusedItems.length >= targetCount) {
+                selectedSet = unusedItems.slice(0, targetCount);
+            } else {
+                // Nếu số câu chưa làm ít hơn targetCount, bổ sung thêm các câu đã làm nhưng vẫn xáo trộn mới
+                selectedSet = [...unusedItems, ...usedItems].slice(0, Math.min(targetCount, uniqueList.length));
+            }
+
+            // Cập nhật lại danh sách câu của lượt này để lượt tiếp theo không trùng
+            try {
+                sessionStorage.setItem(lastUsedKey, JSON.stringify(selectedSet.map(i => normalizeText(i.text))));
+            } catch(e) {}
+
+            shuffleArray(selectedSet);
+            return selectedSet;
         }
 
         let originalItems = [];
@@ -667,6 +697,7 @@
             showQuestion();
         }
 
+        // TẠO LẠI ĐỀ THI MỚI KHI BẤM RETAKE
         function retryCurrentQuiz() {
             if (!studentInfo.selectedVal) {
                 goToChooseExercise();
