@@ -3,13 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TIẾNG ANH GIAO TIẾP CƠ BẢN CHO CADDIE - LUYỆN TẬP PHÁT ÂM / BASIC ENGLISH FOR CADDIES - SPEAKING PRACTICE</title>
+    <!-- 1. TIÊU ĐỀ TRÌNH DUYỆT & FAVICON CHO SPEAKING TEST -->
+    <title>Speaking Test - BRG Learning</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎤</text></svg>">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * { box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; padding: 10px 8px; background-color: #f0f2f5; margin: 0; color: #333; }
         .external-brand { color: #B21818; font-size: 18px; font-weight: 800; margin-bottom: 6px; letter-spacing: 1.5px; text-transform: uppercase; }
-        .container { max-width: 630px; margin: 0 auto; background: white; padding: 14px 16px; border-radius: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+        
+        /* CONTAINER THÊM POSITION RELATIVE ĐỂ ĐẶT BADGE GÓC TRÁI */
+        .container { 
+            position: relative;
+            max-width: 630px; 
+            margin: 0 auto; 
+            background: white; 
+            padding: 14px 16px; 
+            border-radius: 14px; 
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06); 
+        }
+
+        /* 2. STYLE BADGE ICON NÓI / SPEAKING GÓC TRÊN TRÁI */
+        .speaking-badge-corner {
+            position: absolute;
+            top: 12px;
+            left: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #e7f1ff;
+            border: 1.5px solid #b6d4fe;
+            color: #0d6efd;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 5px rgba(13, 110, 253, 0.08);
+            user-select: none;
+        }
+        .speaking-badge-corner .icon {
+            font-size: 17px;
+            line-height: 1;
+        }
+        .speaking-badge-corner .text {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            line-height: 1.1;
+        }
+        .speaking-badge-corner .text span:first-child {
+            font-size: 10.5px;
+            color: #0d6efd;
+        }
+        .speaking-badge-corner .text span:last-child {
+            font-size: 8px;
+            color: #6c757d;
+            font-weight: 600;
+        }
         
         h1 { color: #1e7e34; font-size: 15.5px; margin: 0 0 2px 0; font-weight: bold; text-transform: uppercase; line-height: 1.25; }
         .sub-type { color: #666; font-size: 11px; margin: 0 0 4px 0; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -123,6 +175,15 @@
     <div class="external-brand">BRG LEARNING</div>
 
     <div class="container" id="main-container">
+        <!-- 2. LOGO / BADGE BIỂU TƯỢNG NÓI GÓC TRÊN BÊN TRÁI -->
+        <div class="speaking-badge-corner" title="Kỹ năng Phát âm / Speaking Skill">
+            <span class="icon">🎤</span>
+            <div class="text">
+                <span>SPEAKING</span>
+                <span>LUYỆN NÓI</span>
+            </div>
+        </div>
+
         <h1>TIẾNG ANH GIAO TIẾP CƠ BẢN CHO CADDIE</h1>
         <div class="sub-type">LUYỆN TẬP KỸ NĂNG PHÁT ÂM / SPEAKING PRACTICE</div>
         <div id="lesson-subtitle">VUI LÒNG CHỌN NỘI DUNG VÀ BẮT ĐẦU / PLEASE SELECT CONTENT & START</div>
@@ -424,7 +485,6 @@
             return text.replace(/[^a-z0-9\s]/g, "").replace(/\s+/g, " ").trim();
         }
 
-        // Thuật toán xáo trộn Fisher-Yates Shuffle
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -432,7 +492,6 @@
             }
         }
 
-        // HÀM LẤY ĐỀ THI ĐÃ NÂNG CẤP VỚI CƠ CHẾ ANTI-REPEAT TỪ TOÀN BỘ KHO DỮ LIỆU
         function getFilteredSpeakingItemsBySelection(isSectionMode, selectedVal) {
             let rawPool = (window.masterQuizData && window.masterQuizData.length > 0) ? [...window.masterQuizData] : [];
             let filtered = [];
@@ -533,7 +592,6 @@
                 return [];
             }
 
-            // Loại bỏ các câu bị trùng lặp hoàn toàn nội dung trong tài nguyên đề
             const uniqueMap = new Map();
             resultList.forEach(item => {
                 const normKey = normalizeText(item.text);
@@ -543,10 +601,8 @@
             });
             let uniqueList = Array.from(uniqueMap.values());
 
-            // Xáo trộn ngẫu nhiên toàn bộ danh sách
             shuffleArray(uniqueList);
 
-            // Thuật toán Anti-Repeat: Đọc lịch sử câu đã làm ở lượt trước từ sessionStorage
             let lastUsedKey = `last_used_quiz_${isSectionMode ? 'sec_' : 'ex_'}${selectedVal}`;
             let lastUsedTexts = [];
             try {
@@ -560,11 +616,9 @@
             if (unusedItems.length >= targetCount) {
                 selectedSet = unusedItems.slice(0, targetCount);
             } else {
-                // Nếu số câu chưa làm ít hơn targetCount, bổ sung thêm các câu đã làm nhưng vẫn xáo trộn mới
                 selectedSet = [...unusedItems, ...usedItems].slice(0, Math.min(targetCount, uniqueList.length));
             }
 
-            // Cập nhật lại danh sách câu của lượt này để lượt tiếp theo không trùng
             try {
                 sessionStorage.setItem(lastUsedKey, JSON.stringify(selectedSet.map(i => normalizeText(i.text))));
             } catch(e) {}
@@ -697,7 +751,6 @@
             showQuestion();
         }
 
-        // TẠO LẠI ĐỀ THI MỚI KHI BẤM RETAKE
         function retryCurrentQuiz() {
             if (!studentInfo.selectedVal) {
                 goToChooseExercise();
