@@ -82,7 +82,7 @@
         .feedback-card label { font-size: 11px; font-weight: bold; color: #8c6d00; display: block; margin-bottom: 2px; }
         .feedback-input-group { display: flex; gap: 6px; }
         .feedback-card input[type="text"] { 
-            flex: 1;
+            flex: 1; 
             padding: 5px 8px; 
             border: 1.2px solid #ffe082; 
             border-radius: 5px; 
@@ -1010,14 +1010,18 @@
 
             let levelBadgeHtml = "";
             let adviceText = "";
+            let evalResultText = "Chưa đạt";
 
             if (calculatedScore >= 90) {
+                evalResultText = "Xuất sắc";
                 levelBadgeHtml = `<div class="level-badge level-excellent">🌟 Xuất sắc / Excellent (${calculatedScore}/100)</div>`;
                 adviceText = "<b>Đánh giá / Evaluation:</b> Xuất sắc! Phát âm chuẩn xác, khẩu hình và âm điệu rất tự nhiên / Excellent pronunciation, natural intonation.";
             } else if (calculatedScore >= 70) {
+                evalResultText = "Đạt";
                 levelBadgeHtml = `<div class="level-badge level-passed">✅ Đạt / Passed (${calculatedScore}/100)</div>`;
                 adviceText = "<b>Đánh giá / Evaluation:</b> Đạt yêu cầu! Phát âm rõ ràng, giao tiếp tốt / Clear pronunciation and good communication.";
             } else {
+                evalResultText = "Chưa đạt";
                 levelBadgeHtml = `<div class="level-badge level-failed">❌ Chưa đạt / Failed (${calculatedScore}/100)</div>`;
                 adviceText = "<b>Đánh giá / Evaluation:</b> Chưa đạt yêu cầu; Cần luyện tập thêm phát âm và ngữ điệu câu / Practice more pronunciation & sentence rhythm.";
             }
@@ -1033,6 +1037,7 @@
                     rawLessonCode: studentInfo.rawLessonCode,
                     lessonTitle: studentInfo.lessonTitle,
                     score: calculatedScore,
+                    evaluationText: evalResultText,
                     passedCount: `${finalPassed}/${totalItems}`,
                     approxCount: `${finalApprox}/${totalItems}`,
                     skippedCount: `${finalSkipped}/${totalItems}`,
