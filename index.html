@@ -13,7 +13,7 @@
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; padding: 12px 8px; background-color: #f0f2f5; margin: 0; color: #333; }
         .external-brand { color: #B21818; font-size: 18px; font-weight: 800; margin-bottom: 6px; letter-spacing: 1.5px; text-transform: uppercase; }
         
-        /* CONTAINER THÊM POSITION RELATIVE ĐỂ ĐẶT BADGE GÓC TRÁI */
+        /* CONTAINER CHÍNH */
         .container { 
             position: relative;
             max-width: 630px; 
@@ -24,7 +24,7 @@
             box-shadow: 0 4px 16px rgba(0,0,0,0.06); 
         }
 
-        /* STYLE BADGE ICON NÓI / SPEAKING GÓC TRÊN TRÁI */
+        /* 2. STYLE BADGE ICON NÓI - TÔNG ĐỎ BRG */
         .speaking-badge-corner {
             position: absolute;
             top: 12px;
@@ -32,15 +32,15 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            background: #e7f1ff;
-            border: 1.5px solid #b6d4fe;
-            color: #0d6efd;
+            background: #ffebee;
+            border: 1.5px solid #ffcdd2;
+            color: #B21818;
             padding: 4px 8px;
             border-radius: 8px;
             font-size: 11px;
             font-weight: 800;
             letter-spacing: 0.5px;
-            box-shadow: 0 2px 5px rgba(13, 110, 253, 0.08);
+            box-shadow: 0 2px 5px rgba(178, 24, 24, 0.08);
             user-select: none;
         }
         .speaking-badge-corner .icon {
@@ -55,19 +55,19 @@
         }
         .speaking-badge-corner .text span:first-child {
             font-size: 10.5px;
-            color: #0d6efd;
+            color: #B21818;
         }
         .speaking-badge-corner .text span:last-child {
             font-size: 8px;
-            color: #6c757d;
+            color: #8c1c1c;
             font-weight: 600;
         }
         
         h1 { color: #1e7e34; font-size: 15.5px; margin: 0 0 2px 0; font-weight: bold; text-transform: uppercase; line-height: 1.25; }
         .sub-type { color: #666; font-size: 11px; margin: 0 0 4px 0; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
-        #lesson-subtitle { color: #0d6efd; font-size: 12px; margin: 0 0 10px 0; font-weight: bold; text-transform: uppercase; }
+        #lesson-subtitle { color: #B21818; font-size: 12px; margin: 0 0 10px 0; font-weight: bold; text-transform: uppercase; }
         
-        /* GIAO DIỆN KHUNG CHỈ DẪN VÀ TÀI LIỆU (RESOURCE LINKS & NAV) */
+        /* GIAO DIỆN KHUNG CHỈ DẪN VÀ TÀI LIỆU */
         .portal-section-title {
             font-size: 11px;
             font-weight: bold;
@@ -105,9 +105,9 @@
         }
         .resource-card:hover {
             transform: translateY(-2px);
-            border-color: #0d6efd;
-            box-shadow: 0 4px 10px rgba(13, 110, 253, 0.12);
-            background: #f8fbff;
+            border-color: #B21818;
+            box-shadow: 0 4px 10px rgba(178, 24, 24, 0.12);
+            background: #fffafa;
         }
         .resource-icon {
             font-size: 18px;
@@ -176,20 +176,20 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        /* GIAO DIỆN THÔNG TIN HỌC VIÊN SONG NGỮ */
-        .user-card { background: #ffffff; border: 1.5px solid #e7f1ff; border-radius: 10px; padding: 14px; text-align: left; box-shadow: 0 2px 8px rgba(13, 110, 253, 0.05); }
-        .user-card-header { font-size: 13px; font-weight: bold; color: #0d6efd; border-bottom: 1.5px solid #e7f1ff; padding-bottom: 6px; margin-bottom: 10px; text-align: center; text-transform: uppercase; }
+        /* GIAO DIỆN THÔNG TIN HỌC VIÊN - TÔNG ĐỎ BRG */
+        .user-card { background: #ffffff; border: 1.5px solid #ffebee; border-radius: 10px; padding: 14px; text-align: left; box-shadow: 0 2px 8px rgba(178, 24, 24, 0.05); }
+        .user-card-header { font-size: 13px; font-weight: bold; color: #B21818; border-bottom: 1.5px solid #ffebee; padding-bottom: 6px; margin-bottom: 10px; text-align: center; text-transform: uppercase; }
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 10px; }
         .form-group { margin-bottom: 4px; }
         .form-group.full-width { grid-column: span 2; }
         .form-group label { display: block; font-weight: 600; font-size: 11.5px; color: #495057; margin-bottom: 3px; }
         .form-group input, .form-group select { width: 100%; padding: 7px 10px; border: 1.2px solid #ced4da; border-radius: 6px; font-size: 12px; transition: all 0.2s ease; outline: none; background-color: #fff; }
-        .form-group input:focus, .form-group select:focus { border-color: #0d6efd; box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.15); }
+        .form-group input:focus, .form-group select:focus { border-color: #B21818; box-shadow: 0 0 0 2px rgba(178, 24, 24, 0.15); }
         
-        .selection-box { background: #f8f9fa; border: 1.2px dashed #b6d4fe; border-radius: 8px; padding: 8px 10px; margin-bottom: 6px; transition: border-color 0.2s; }
-        .selection-box.active { border-color: #0d6efd; background: #f0f7ff; }
-        .selection-header { display: flex; align-items: center; gap: 6px; font-weight: bold; font-size: 12px; color: #0d6efd; margin-bottom: 4px; cursor: pointer; }
-        .selection-header input[type="radio"] { width: 14px; height: 14px; cursor: pointer; accent-color: #0d6efd; margin: 0; }
+        .selection-box { background: #f8f9fa; border: 1.2px dashed #ffcdd2; border-radius: 8px; padding: 8px 10px; margin-bottom: 6px; transition: border-color 0.2s; }
+        .selection-box.active { border-color: #B21818; background: #fff8f8; }
+        .selection-header { display: flex; align-items: center; gap: 6px; font-weight: bold; font-size: 12px; color: #B21818; margin-bottom: 4px; cursor: pointer; }
+        .selection-header input[type="radio"] { width: 14px; height: 14px; cursor: pointer; accent-color: #B21818; margin: 0; }
 
         .btn-start-quiz { width: 100%; padding: 10px; font-size: 13.5px; font-weight: bold; color: white; background: #198754; border: none; border-radius: 6px; cursor: pointer; margin-top: 8px; box-shadow: 0 3px 8px rgba(25, 135, 84, 0.2); transition: background 0.2s; }
         .btn-start-quiz:hover { background: #146c43; }
@@ -202,7 +202,7 @@
         .status-skipped { background-color: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
         .status-pending { background-color: #fff3cd; color: #664d03; border: 1px solid #ffecb5; }
 
-        #timer-box { font-size: 11.5px; font-weight: bold; background: #e7f1ff; padding: 4px 10px; border-radius: 16px; display: inline-block; color: #0d6efd; border: 1px solid #b6d4fe; }
+        #timer-box { font-size: 11.5px; font-weight: bold; background: #ffebee; padding: 4px 10px; border-radius: 16px; display: inline-block; color: #B21818; border: 1px solid #ffcdd2; }
         .blink-red { background-color: #f8d7da !important; color: #721c24 !important; border-color: #f5c6cb !important; animation: blink 1s infinite; }
         @keyframes blink { 50% { opacity: 0.5; } }
 
@@ -215,14 +215,14 @@
         button:hover { opacity: 0.9; }
         #prev-btn { background: #fd7e14; color: white; }
         #listen-btn { background: #17a2b8; color: white; }
-        #speak-btn { background: #0d6efd; color: white; }
+        #speak-btn { background: #B21818; color: white; } /* NÚT NÓI MÀU ĐỎ */
         #skip-btn { background: #6c757d; color: white; }
         
         #question { font-size: 16px; font-weight: bold; color: #212529; margin: 10px 0 8px 0; min-height: 60px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.35; background: #f8f9fa; padding: 10px; border-radius: 8px; border: 1px solid #e9ecef; }
         .ipa-phonetic { font-size: 12px; color: #6c757d; font-style: italic; margin-top: 3px; font-weight: normal; }
         .vietnamese-translation { font-size: 12.5px; font-style: italic; color: #555; margin-top: 4px; font-weight: normal; }
         
-        #status { font-size: 12px; font-weight: bold; color: #0d6efd; margin-top: 8px; }
+        #status { font-size: 12px; font-weight: bold; color: #B21818; margin-top: 8px; }
         #error { color: #dc3545; font-weight: bold; margin-top: 4px; font-size: 11.5px; }
         
         /* RESULT CARD */
@@ -252,10 +252,10 @@
         }
         .btn-send-feedback { background: #ffc107; color: #000; font-weight: bold; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 11px; white-space: nowrap; }
 
-        .extra-tools-card { background: #f0f7ff; border: 1px solid #b6d4fe; border-radius: 6px; padding: 5px 8px; margin-top: 5px; display: flex; gap: 6px; flex-wrap: wrap; text-align: left; align-items: center; }
-        .extra-tools-title { width: 100%; font-size: 11px; font-weight: bold; color: #0d6efd; margin-bottom: 2px; }
+        .extra-tools-card { background: #fff8f8; border: 1px solid #ffcdd2; border-radius: 6px; padding: 5px 8px; margin-top: 5px; display: flex; gap: 6px; flex-wrap: wrap; text-align: left; align-items: center; }
+        .extra-tools-title { width: 100%; font-size: 11px; font-weight: bold; color: #B21818; margin-bottom: 2px; }
         .btn-tool { flex: 1; min-width: 120px; padding: 6px 6px; font-size: 11px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; transition: background 0.2s; }
-        .btn-screenshot { background: #0d6efd; color: white; }
+        .btn-screenshot { background: #B21818; color: white; }
         .btn-upload-drive { background: #198754; color: white; }
 
         /* NÚT ĐIỀU HƯỚNG */
@@ -263,7 +263,7 @@
         .group-title { font-size: 11px; font-weight: bold; color: #495057; text-transform: uppercase; letter-spacing: 0.4px; text-align: left; margin-bottom: -2px; }
         .action-row-a { display: flex; gap: 6px; justify-content: center; }
         .btn-review { background: #17a2b8; color: white; flex: 1; padding: 8px 6px; border-radius: 6px; font-weight: bold; border: none; cursor: pointer; font-size: 11.5px; }
-        .btn-retry-same { background: #0d6efd; color: white; flex: 1; padding: 8px 6px; border-radius: 6px; font-weight: bold; border: none; cursor: pointer; font-size: 11.5px; }
+        .btn-retry-same { background: #B21818; color: white; flex: 1; padding: 8px 6px; border-radius: 6px; font-weight: bold; border: none; cursor: pointer; font-size: 11.5px; }
         .btn-next-exercise { width: 100%; background: #198754; color: white; padding: 8.5px 8px; border-radius: 6px; font-weight: bold; border: none; cursor: pointer; font-size: 12px; box-shadow: 0 2px 6px rgba(25, 135, 84, 0.2); }
         .btn-next-exercise:hover { background: #146c43; }
         .user-switch-note { font-size: 11px; color: #6c757d; margin-top: 2px; }
@@ -284,7 +284,7 @@
     <div class="external-brand">BRG LEARNING</div>
 
     <div class="container" id="main-container">
-        <!-- LOGO / BADGE BIỂU TƯỢNG NÓI GÓC TRÊN BÊN TRÁI -->
+        <!-- LOGO / BADGE BIỂU TƯỢNG NÓI GÓC TRÊN BÊN TRÁI - TÔNG ĐỎ -->
         <div class="speaking-badge-corner" title="Kỹ năng Phát âm / Speaking Skill">
             <span class="icon">🎤</span>
             <div class="text">
@@ -293,7 +293,7 @@
             </div>
         </div>
 
-        <h1>TIẾNG ANH GIAO TIẾP CƠ BẢN CHO CADDIE</h1>
+        <h1>TIẾNG ANH GIAO TIẾP CƠ BẢN</h1>
         <div class="sub-type">LUYỆN TẬP KỸ NĂNG PHÁT ÂM / SPEAKING PRACTICE</div>
         <div id="lesson-subtitle">VUI LÒNG CHỌN NỘI DUNG VÀ BẮT ĐẦU / PLEASE SELECT CONTENT & START</div>
         
@@ -305,7 +305,7 @@
                     <div class="banner-icon">🎧</div>
                     <div>
                         <div class="banner-title">Luyện tập Kỹ năng Nghe / Listening</div>
-                        <div class="banner-desc">Chuyển sang cổng bài tập & đề thi Nghe hiểu Caddie</div>
+                        <div class="banner-desc">Chuyển sang cổng bài tập & đề thi Nghe hiểu</div>
                     </div>
                 </div>
                 <div class="banner-btn-tag">Học ngay ➔</div>
@@ -331,7 +331,7 @@
                 </a>
             </div>
 
-            <!-- FORM THÔNG TIN HỌC VIÊN -->
+            <!-- FORM THÔNG TIN HỌC VIÊN - TÔNG ĐỎ BRG -->
             <div class="user-card" style="margin-top: 10px;">
                 <div class="user-card-header">📋 THÔNG TIN HỌC VIÊN / STUDENT INFORMATION</div>
                 
@@ -377,7 +377,7 @@
                     </div>
 
                     <div class="form-group full-width">
-                        <label style="color: #0d6efd; font-weight: bold; margin-bottom: 4px;">NỘI DUNG THI / EXAM CONTENT (Chọn 1 trong 2 / Select 1 of 2):</label>
+                        <label style="color: #B21818; font-weight: bold; margin-bottom: 4px;">NỘI DUNG THI / EXAM CONTENT (Chọn 1 trong 2 / Select 1 of 2):</label>
 
                         <div class="selection-box" id="box-section">
                             <label class="selection-header">
@@ -724,7 +724,7 @@
                 if (targetText && targetText.length > 1) {
                     resultList.push({ 
                         text: targetText, 
-                        meaning: meaningText || "Mẫu câu giao tiếp Caddie chuẩn", 
+                        meaning: meaningText || "Mẫu câu giao tiếp chuẩn", 
                         ipa: ipaText,
                         section: item.section || "",
                         sectionName: item.sectionName || ""
@@ -1286,7 +1286,7 @@
             if (practiceView) practiceView.classList.add('hidden');
             if (reviewView) reviewView.classList.add('hidden');
 
-            /* HIỂN THỊ KẾT QUẢ & CÁC CHỈ DẪN / TÀI LIỆU Ở TRANG CUỐI CÙNG */
+            /* HIỂN THỊ KẾT QUẢ TẠI TRANG CUỐI */
             resultView.innerHTML = `
                 <div class="result-card">
                     <div class="result-title-banner">🎉 ${message}</div>
