@@ -215,7 +215,7 @@
         button:hover { opacity: 0.9; }
         #prev-btn { background: #fd7e14; color: white; }
         #listen-btn { background: #17a2b8; color: white; }
-        #speak-btn { background: #B21818; color: white; } /* NÚT NÓI MÀU ĐỎ */
+        #speak-btn { background: #B21818; color: white; }
         #skip-btn { background: #6c757d; color: white; }
         
         #question { font-size: 16px; font-weight: bold; color: #212529; margin: 10px 0 8px 0; min-height: 60px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.35; background: #f8f9fa; padding: 10px; border-radius: 8px; border: 1px solid #e9ecef; }
@@ -1511,7 +1511,13 @@
                 itemTranscripts[currentIndex] = rawTranscript; 
                 const similarity = getSimilarityScore(normTarget, normSpoken);
 
-                if (normSpoken.includes(normTarget) || normTarget.includes(normSpoken) || similarity >= 0.80) {
+                // 1. ĐẠT CHUẨN: Similarity >= 80% hoặc nói đầy đủ câu mẫu (độ dài tương đương >= 80%)
+                const isExactMatch = similarity >= 0.80 || (normSpoken.includes(normTarget) && normSpoken.length >= normTarget.length * 0.8);
+                
+                // 2. GẦN ĐÚNG: Similarity >= 50% và câu phát âm bắt được phải đạt ít nhất 40% chiều dài câu mẫu (ngăn tiếng ồn ngắn)
+                const isPartialMatch = similarity >= 0.50 && normSpoken.length >= normTarget.length * 0.4;
+
+                if (isExactMatch) {
                     itemStatus[currentIndex] = 'passed';
                     document.getElementById('status').innerText = "✅ Chính xác! Phát âm rất tốt / Excellent! Correct pronunciation.";
                     const statusTag = document.getElementById('item-status');
@@ -1527,7 +1533,7 @@
                         }
                     }, 1500);
 
-                } else if (similarity >= 0.45) {
+                } else if (isPartialMatch) {
                     itemStatus[currentIndex] = 'approx';
                     document.getElementById('status').innerText = `🟡 Bạn nói / You said: "${rawTranscript}". Gần đúng / Almost correct.`;
                     const statusTag = document.getElementById('item-status');
