@@ -293,7 +293,7 @@
         .advice-box { font-size: 10.5px; line-height: 1.3; color: #333; margin: 3px 0 4px 0; background: #e9ecef; padding: 5px 6px; border-radius: 5px; text-align: left; }
         .stats-box { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; padding: 5px 6px; margin: 3px 0; text-align: left; font-size: 10px; line-height: 1.35; }
 
-        /* DANH SÁCH CHI TIẾT TỪNG CÂU */
+        /* DANH SÁCH CHI TIẾT TỪNG CÂU ĐÃ ĐƯỢC TÍCH HỢP TRONG ACCORDION */
         .overview-card-container {
             margin-top: 8px;
             text-align: left;
@@ -301,6 +301,7 @@
             border-radius: 8px;
             background: #fff;
             padding: 8px;
+            transition: all 0.3s ease;
         }
         .overview-header {
             display: flex;
@@ -337,7 +338,7 @@
         .overview-text-en { font-size: 11.5px; font-weight: 700; color: #111; line-height: 1.3; }
         .overview-text-vi { font-size: 10px; color: #555; margin-bottom: 4px; }
         
-        .overview-audio-group { display: flex; gap: 5px; margin-bottom: 4px; }
+        .overview-audio-group { display: flex; gap: 5px; margin-bottom: 4px; flex-wrap: wrap; }
         .btn-audio-mini {
             background: #e2e8f0;
             border: 1px solid #cbd5e1;
@@ -360,7 +361,6 @@
             line-height: 1.35;
         }
         .word-wrong { color: #dc3545; font-weight: 800; text-decoration: underline; background: #ffebee; padding: 0 2px; }
-        .word-missing { color: #d63384; font-weight: 800; text-decoration: line-through; }
 
         .feedback-card { background: #fff8e6; border: 1px solid #ffe8a1; border-radius: 5px; padding: 4px 6px; margin-top: 4px; text-align: left; }
         .feedback-card label { font-size: 10px; font-weight: bold; color: #8c6d00; display: block; margin-bottom: 2px; }
@@ -374,9 +374,10 @@
         .btn-screenshot { background: #dc3545; color: white; }
         .btn-upload-drive { background: #198754; color: white; }
 
-        .action-container { margin-top: 4px; display: flex; flex-direction: column; gap: 4px; }
+        .action-container { margin-top: 6px; display: flex; flex-direction: column; gap: 5px; }
         .group-title { font-size: 10px; font-weight: bold; color: #495057; text-transform: uppercase; letter-spacing: 0.3px; text-align: left; margin-bottom: -1px; }
         .action-row-a { display: flex; gap: 4px; justify-content: center; }
+        .btn-review-toggle { background: #0d6efd; color: white; width: 100%; min-height: 36px; padding: 6px; border-radius: 5px; font-weight: bold; font-size: 11px; border: none; cursor: pointer; }
         .btn-review { background: #17a2b8; color: white; flex: 1; min-height: 34px; padding: 5px; border-radius: 4px; font-weight: bold; font-size: 10.5px; border: none; cursor: pointer; }
         .btn-retry-same { background: #dc3545; color: white; flex: 1; min-height: 34px; padding: 5px; border-radius: 4px; font-weight: bold; font-size: 10.5px; border: none; cursor: pointer; }
         .btn-next-exercise { width: 100%; min-height: 36px; background: #198754; color: white; padding: 6px; border-radius: 4px; font-weight: bold; font-size: 11px; border: none; cursor: pointer; }
@@ -754,26 +755,34 @@
             return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
         }
 
+        // ĐIỀU CHỈNH SỐ CÂU: CHUYÊN ĐỀ: 20 CÂU, REVIEW & PRACTICE: 25 CÂU, EXAM: 30 CÂU
         function getFilteredSpeakingItemsBySelection(isSectionMode, selectedVal) {
             let rawPool = (window.masterQuizData && window.masterQuizData.length > 0) ? JSON.parse(JSON.stringify(window.masterQuizData)) : [];
             let filtered = [];
-            let targetCount = 30;
+            let targetCount = 20;
+
+            const reviewCodes = ["1.5", "2.3", "3.4", "4.3", "5.5", "6.4"];
 
             if (isSectionMode && selectedVal) {
                 let cleanTarget = cleanSectionCode(selectedVal);
                 filtered = rawPool.filter(q => q.section && cleanSectionCode(q.section) === cleanTarget);
-                targetCount = 30;
+                
+                // Phân loại số lượng câu
+                if (reviewCodes.includes(cleanTarget) || (studentInfo.lessonTitle && /review|thực hành/i.test(studentInfo.lessonTitle))) {
+                    targetCount = 25; // Bài luyện tập / Review
+                } else {
+                    targetCount = 20; // Chuyên đề thông thường
+                }
             } else if (!isSectionMode && selectedVal) {
+                targetCount = 30; // Bài kiểm tra Exam / Final Exam
                 if (selectedVal === 'all') {
                     filtered = [...rawPool];
-                    targetCount = 50;
                 } else {
                     let examLessons = selectedVal.replace('exam','').split('-').map(n => n.trim());
                     filtered = rawPool.filter(q => {
                         let qLes = (q.lesson || "").toString().replace(/[^\d]/g, '');
                         return examLessons.includes(qLes);
                     });
-                    targetCount = 50;
                 }
             }
 
@@ -1219,6 +1228,21 @@
             };
         }
 
+        // BẬT / TẮT BẢNG TỔNG QUAN TỪNG CÂU
+        function toggleOverviewSection() {
+            const container = document.getElementById('overview-container-box');
+            const btn = document.getElementById('btn-toggle-overview');
+            if (container) {
+                if (container.classList.contains('hidden')) {
+                    container.classList.remove('hidden');
+                    if (btn) btn.innerHTML = "📑 Ẩn bớt Bảng tổng quan từng câu ▲";
+                } else {
+                    container.classList.add('hidden');
+                    if (btn) btn.innerHTML = "🔍 Xem lại bài làm (Bảng tổng quan & phát âm từng câu) ▼";
+                }
+            }
+        }
+
         function finishSession(msg) {
             clearInterval(timerInterval);
 
@@ -1336,15 +1360,22 @@
                     <div class="advice-box">${adviceText}</div>
 
                     <div class="stats-box">
-                        <b>📊 CHI TIẾT:</b><br>
+                        <b>📊 CHI TIẾT KẾT QUẢ:</b><br>
                         • 👤 Học viên: <b>${studentInfo.studentName}</b> (${studentInfo.staffNumber}) - <b>${studentInfo.workPlace}</b><br>
                         • 📚 Chuyên đề: <b>${studentInfo.lessonTitle}</b><br>
                         • ⏱️ Thời gian: <b>${formatDuration(elapsedSeconds)}</b> | 🕒 Bắt đầu: <b>${startTimeFormatted}</b><br>
                         • 📊 Kết quả: ✅ Chuẩn: <b>${correctCount}/${totalItems}</b> | ❌ Cần cải thiện: <b>${totalItems - correctCount}/${totalItems}</b>
                     </div>
 
-                    <!-- BẢNG CHI TIẾT TOÀN BỘ CÂU VÀ ÂM THANH MẪU -->
-                    <div class="overview-card-container">
+                    <!-- NÚT XEM LẠI BÀI LÀM ĐỂ MỞ BẢNG TỔNG QUAN -->
+                    <div style="margin-top: 6px;">
+                        <button id="btn-toggle-overview" class="btn-review-toggle" onclick="toggleOverviewSection()">
+                            🔍 Xem lại bài làm (Bảng tổng quan & phát âm từng câu) ▼
+                        </button>
+                    </div>
+
+                    <!-- BẢNG CHI TIẾT TOÀN BỘ CÂU (ẨN MẶC ĐỊNH, BẤM NÚT ĐỂ HIỆN) -->
+                    <div id="overview-container-box" class="overview-card-container hidden">
                         <div class="overview-header">
                             <span>📝 BẢNG TỔNG QUAN TỪNG CÂU & PHÁT ÂM</span>
                             <span style="font-size:10px; color:#6c757d;">(Xem chi tiết & Nghe lại)</span>
