@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Speaking Test - BRG Learning</title>
-    <!-- Favicon chuẩn kích thước không bị cắt -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%2275%22 x=%2210%22 font-size=%2270%22>🎙️</text></svg>">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -38,7 +37,6 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.06); 
         }
 
-        /* HEADER & BADGE */
         .header-section {
             display: flex;
             flex-direction: column;
@@ -106,7 +104,6 @@
         .resource-name { font-size: 9.5px; font-weight: 700; color: #1a202c; line-height: 1.2; }
         .resource-sub { font-size: 8px; color: #718096; margin-top: 1px; }
 
-        /* BANNER CHUYỂN NGHE - THIẾT KẾ NHỎ GỌN */
         .listening-switch-banner-compact {
             background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
             border-radius: 6px;
@@ -125,7 +122,6 @@
         .banner-desc-compact { font-size: 8px; opacity: 0.9; }
         .banner-btn-tag-compact { background: #ffffff; color: #0d6efd; font-weight: 800; font-size: 9px; padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
 
-        /* FORM THÔNG TIN */
         .user-card { background: #ffffff; border: 1.2px solid #f8d7da; border-radius: 8px; padding: 8px; text-align: left; }
         .user-card-header { font-size: 11px; font-weight: bold; color: #dc3545; border-bottom: 1px solid #f8d7da; padding-bottom: 3px; margin-bottom: 6px; text-align: center; text-transform: uppercase; }
         .form-grid { display: flex; flex-direction: column; gap: 5px; }
@@ -155,7 +151,6 @@
         
         .btn-check-progress { width: 100%; min-height: 36px; padding: 6px; font-size: 11px; font-weight: bold; color: white; background: #dc3545; border: none; border-radius: 5px; cursor: pointer; margin-top: 5px; }
 
-        /* MA TRẬN TIẾN ĐỘ */
         .roadmap-container { background: #fffaf0; border: 1px solid #fed7aa; border-radius: 8px; padding: 7px; margin-top: 6px; text-align: left; }
         .roadmap-title { font-size: 10.5px; font-weight: bold; color: #c2410c; margin-bottom: 3px; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }
         
@@ -234,18 +229,62 @@
         .progress-box span { color: #dc3545; }
         .section-tag { font-size: 9.5px; color: #1e7e34; font-weight: 600; }
 
-        .pronounce-card { background: #fff5f5; border: 1.2px dashed #dc3545; padding: 8px 6px; border-radius: 7px; margin: 5px 0; }
-        .target-sentence { font-size: 13.5px; font-weight: 700; color: #b02a37; line-height: 1.35; margin-bottom: 3px; }
-        .target-ipa { font-size: 10.5px; color: #6c757d; font-family: monospace; margin-bottom: 3px; }
-        .target-vi { font-size: 10.5px; color: #495057; line-height: 1.25; }
+        /* KHUNG CÂU MẪU KÈM THANH ĐIỀU CHỈNH ÂM THANH TINH TẾ */
+        .pronounce-card { 
+            position: relative;
+            background: #fff5f5; 
+            border: 1.2px dashed #dc3545; 
+            padding: 8px 6px 6px 6px; 
+            border-radius: 8px; 
+            margin: 5px 0; 
+        }
+        .target-sentence { font-size: 13.5px; font-weight: 700; color: #b02a37; line-height: 1.35; margin-bottom: 2px; }
+        .target-ipa { font-size: 10.5px; color: #6c757d; font-family: monospace; margin-bottom: 2px; }
+        .target-vi { font-size: 10.5px; color: #495057; line-height: 1.25; margin-bottom: 6px; }
 
-        .record-control-box { display: flex; flex-direction: column; align-items: center; gap: 5px; margin: 6px 0; }
+        /* BỘ ĐIỀU KHIỂN ÂM THANH TINH TẾ TÍCH HỢP GỌN GÀNG */
+        .audio-sub-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #ffffff;
+            border: 1px solid #f1c7cb;
+            border-radius: 6px;
+            padding: 3px 6px;
+            margin-top: 4px;
+            gap: 4px;
+        }
+        .audio-sub-group {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+        .audio-sub-label {
+            font-size: 8.5px;
+            font-weight: 700;
+            color: #721c24;
+            white-space: nowrap;
+        }
+        .audio-sub-select {
+            height: 22px;
+            padding: 0 4px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 8.5px;
+            font-weight: 600;
+            background: #fff;
+            color: #333;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .record-control-box { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 5px 0; }
         .btn-record { 
             background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%); 
             color: white; 
-            min-height: 40px; 
-            padding: 6px 14px; 
-            font-size: 12px; 
+            min-height: 38px; 
+            padding: 5px 12px; 
+            font-size: 11.5px; 
             font-weight: bold; 
             border: none; 
             border-radius: 20px; 
@@ -261,7 +300,21 @@
         .btn-record.recording { background: #dc3545; animation: pulse-red 1.2s infinite; }
         @keyframes pulse-red { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
 
-        .btn-sample-audio { background: #6c757d; color: white; min-height: 30px; padding: 3px 8px; font-size: 10px; font-weight: 600; border: none; border-radius: 15px; cursor: pointer; }
+        .btn-sample-audio { 
+            background: #475569; 
+            color: white; 
+            min-height: 28px; 
+            padding: 3px 10px; 
+            font-size: 9.5px; 
+            font-weight: 600; 
+            border: none; 
+            border-radius: 14px; 
+            cursor: pointer; 
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .btn-sample-audio:hover { background: #334155; }
 
         .speech-recognized-box { 
             background: #ffffff; 
@@ -281,7 +334,6 @@
         #next-btn { background: #198754; color: white; }
         .btn-back-result-quick { background: #6c757d; color: white; margin-bottom: 5px; }
         
-        /* VIEW KẾT QUẢ & DANH SÁCH TỔNG QUAN */
         .result-card { text-align: center; }
         .result-title-banner { font-size: 11.5px; font-weight: bold; color: #1e7e34; margin-bottom: 2px; }
         .score-row { display: flex; align-items: center; justify-content: center; gap: 5px; margin: 2px 0 3px 0; }
@@ -294,7 +346,6 @@
         .advice-box { font-size: 10px; line-height: 1.25; color: #333; margin: 3px 0; background: #e9ecef; padding: 4px 6px; border-radius: 4px; text-align: left; }
         .stats-box { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; padding: 4px 6px; margin: 3px 0; text-align: left; font-size: 9.5px; line-height: 1.35; }
 
-        /* DANH SÁCH CHI TIẾT TỪNG CÂU */
         .overview-card-container {
             margin-top: 6px;
             text-align: left;
@@ -387,7 +438,6 @@
         .hidden { display: none !important; }
         #save-status-msg { font-size: 9.5px; font-weight: bold; color: #0f5132; margin: 1px 0 2px 0; background: #d1e7dd; padding: 2px 5px; border-radius: 6px; display: inline-block; border: 1px solid #badbcc; }
 
-        /* MODAL */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 999; }
         .modal-box { background: white; border-radius: 7px; max-width: 340px; width: 92%; padding: 10px; text-align: left; }
         .modal-title { font-size: 11.5px; font-weight: bold; color: #dc3545; margin-bottom: 3px; }
@@ -402,7 +452,6 @@
     <div class="brand-header">BRG LEARNING</div>
 
     <div class="container" id="main-container">
-        <!-- HEADER TRUNG TÂM PHẦN PHÁT ÂM -->
         <div class="header-section">
             <div class="speaking-badge-corner" title="Kỹ năng Phát âm / Speaking Skill">
                 <span class="icon">🎙️</span>
@@ -416,9 +465,8 @@
             <div id="lesson-subtitle">VUI LÒNG CHỌN NỘI DUNG VÀ BẮT ĐẦU / PLEASE SELECT CONTENT & START</div>
         </div>
         
-        <!-- VIEW 1: FORM & MA TRẬN TIẾN ĐỘ -->
+        <!-- VIEW 1: FORM & TIẾN ĐỘ -->
         <div id="user-info-view">
-            <!-- BANNER ĐIỀU HƯỚNG VỀ PHẦN NGHE (THIẾT KẾ NHỎ GỌN) -->
             <a href="https://brggrouplearning.github.io/Caddie-listening/" target="_blank" class="listening-switch-banner-compact" title="Chuyển sang làm bài Luyện nghe / Listening">
                 <div class="banner-left-compact">
                     <div class="banner-icon-compact">🎧</div>
@@ -430,7 +478,6 @@
                 <div class="banner-btn-tag-compact">Học ngay ➔</div>
             </a>
 
-            <!-- TÀI LIỆU -->
             <div class="portal-section-title">📚 TÀI NGUYÊN & HƯỚNG DẪN ĐÀO TẠO / RESOURCES:</div>
             <div class="resource-grid">
                 <a href="https://brggrouplearning.github.io/caddie-videoenglish/" target="_blank" class="resource-card">
@@ -450,7 +497,6 @@
                 </a>
             </div>
 
-            <!-- FORM NHẬP LIỆU -->
             <div class="user-card" style="margin-top: 4px;">
                 <div class="user-card-header">📋 THÔNG TIN HỌC VIÊN / STUDENT INFORMATION</div>
                 
@@ -500,7 +546,6 @@
                 <button class="btn-check-progress" onclick="fetchProgressFromSheet()">🔍 KIỂM TRA THÔNG TIN & TIẾN ĐỘ PHÁT ÂM</button>
             </div>
 
-            <!-- MA TRẬN TIẾN ĐỘ -->
             <div id="roadmap-box" class="roadmap-container hidden">
                 <div class="roadmap-title">
                     <span>📊 TIẾN ĐỘ 29 CHUYÊN ĐỀ (SPEAKING)</span>
@@ -537,10 +582,31 @@
 
             <div id="progress" class="progress-box"></div>
 
+            <!-- KHUNG CÂU MẪU CÙNG THANH CÔNG CỤ ÂM THANH TINH TẾ -->
             <div class="pronounce-card">
                 <div id="target-sentence" class="target-sentence">Loading...</div>
                 <div id="target-ipa" class="target-ipa"></div>
                 <div id="target-vi" class="target-vi"></div>
+                
+                <div class="audio-sub-toolbar">
+                    <div class="audio-sub-group">
+                        <span class="audio-sub-label">🎙️ Giọng:</span>
+                        <select id="voice-select" class="audio-sub-select">
+                            <option value="auto">🇺🇸 Chuẩn US Tự nhiên</option>
+                            <option value="female">🇺🇸 Giọng Nữ (US)</option>
+                            <option value="male">🇺🇸 Giọng Nam (US)</option>
+                        </select>
+                    </div>
+                    <div class="audio-sub-group">
+                        <span class="audio-sub-label">⚡ Tốc độ:</span>
+                        <select id="rate-select" class="audio-sub-select">
+                            <option value="0.75">0.75x</option>
+                            <option value="0.85" selected>0.85x</option>
+                            <option value="1">1.0x</option>
+                            <option value="1.25">1.25x</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
             <div class="record-control-box">
@@ -562,7 +628,7 @@
             <p id="status" style="font-size: 10.5px; font-weight: bold; color: #dc3545; margin-top: 3px;"></p>
         </div>
 
-        <!-- VIEW 3: KẾT QUẢ & BẢNG TỔNG QUAN -->
+        <!-- VIEW 3: KẾT QUẢ -->
         <div id="result-view" class="hidden"></div>
     </div>
 
@@ -580,7 +646,6 @@
         </div>
     </div>
 
-    <!-- NẠP DỮ LIỆU & ENGINE PHÁT ÂM -->
     <script> window.masterQuizData = []; </script>
     <script>
         (function loadAllDataFiles() {
@@ -647,7 +712,7 @@
             selectedVal: '1.1'
         };
 
-        // BỘ NẠP GIỌNG ĐỌC ANH MỸ (US NATIVE)
+        // BỘ NẠP GIỌNG ĐỌC ANH-MỸ CAO CẤP
         let cachedVoices = [];
         function populateVoices() {
             if ('speechSynthesis' in window) {
@@ -719,17 +784,12 @@
 
         function normalizeEnglishText(str) {
             if (!str) return "";
-            return str.toLowerCase()
-                      .replace(/[^a-z0-9\s]/g, "")
-                      .replace(/\s+/g, " ")
-                      .trim();
+            return str.toLowerCase().replace(/[^a-z0-9\s]/g, "").replace(/\s+/g, " ").trim();
         }
 
         function convertToNonAccent(str) {
             if (!str) return "";
-            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-                      .replace(/đ/g, "d").replace(/Đ/g, "D")
-                      .replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D").replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
         }
 
         function formatShortDate(dateString) {
@@ -766,7 +826,6 @@
             return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
         }
 
-        // SỐ CÂU: CHUYÊN ĐỀ: 20 CÂU, REVIEW: 25 CÂU, EXAM: 30 CÂU
         function getFilteredSpeakingItemsBySelection(isSectionMode, selectedVal) {
             let rawPool = (window.masterQuizData && window.masterQuizData.length > 0) ? JSON.parse(JSON.stringify(window.masterQuizData)) : [];
             let filtered = [];
@@ -966,7 +1025,6 @@
             selectLessonFromMatrix(LESSON_ROADMAP[0]);
         }
 
-        // QUIZ LOGIC
         let quizData = [];
         let userAnswers = [];
         let currentIndex = 0;
@@ -1165,25 +1223,40 @@
             document.getElementById('status').innerText = matchScore >= 70 ? "🌟 Phát âm rất chuẩn!" : "💡 Hãy cố gắng phát âm rõ từng từ hơn nhé!";
         }
 
-        // GIỌNG PHÁT ÂM CHUẨN NATIVE US (ANH - MỸ)
+        // BỘ ENGINE PHÁT ÂM ANH-MỸ CAO CẤP (CHỌN GIỌNG & SPEED TỰ NHIÊN)
         function speakCustomText(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'en-US';
-                utterance.rate = 0.88; // Tốc độ tự nhiên, rõ từng âm tiết
+
+                const rateElem = document.getElementById('rate-select');
+                let selectedRate = 0.85;
+                if (rateElem) {
+                    selectedRate = parseFloat(rateElem.value) || 0.85;
+                }
+                utterance.rate = selectedRate;
+
+                const voiceElem = document.getElementById('voice-select');
+                const voiceChoice = voiceElem ? voiceElem.value : 'auto';
 
                 if (cachedVoices.length === 0) {
                     populateVoices();
                 }
 
-                // Ưu tiên các giọng Anh-Mỹ chất lượng cao nhất của hệ thống
-                const usVoice = cachedVoices.find(v => (v.lang === 'en-US' || v.lang === 'en_US') && 
-                    (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Samantha') || v.name.includes('Jenny') || v.name.includes('Guy') || v.name.includes('Aria'))) 
-                    || cachedVoices.find(v => v.lang === 'en-US' || v.lang === 'en_US');
+                const usVoices = cachedVoices.filter(v => v.lang === 'en-US' || v.lang === 'en_US');
 
-                if (usVoice) {
-                    utterance.voice = usVoice;
+                let targetVoice = null;
+                if (voiceChoice === 'female') {
+                    targetVoice = usVoices.find(v => /female|samantha|jenny|aria|zira|victoria|karen/i.test(v.name)) || usVoices[0];
+                } else if (voiceChoice === 'male') {
+                    targetVoice = usVoices.find(v => /male|guy|david|mark|george|alex/i.test(v.name)) || usVoices[0];
+                } else {
+                    targetVoice = usVoices.find(v => /google|natural|samantha|jenny|guy|aria/i.test(v.name)) || usVoices[0] || cachedVoices.find(v => v.lang.startsWith('en'));
+                }
+
+                if (targetVoice) {
+                    utterance.voice = targetVoice;
                 }
 
                 window.speechSynthesis.speak(utterance);
@@ -1253,7 +1326,6 @@
             };
         }
 
-        // BẬT / TẮT BẢNG TỔNG QUAN TỪNG CÂU
         function toggleOverviewSection() {
             const container = document.getElementById('overview-container-box');
             const btn = document.getElementById('btn-toggle-overview');
@@ -1298,7 +1370,6 @@
             let levelBadgeHtml = `<div class="level-badge ${finalScore >= 90 ? 'level-excellent' : (finalScore >= 70 ? 'level-passed' : 'level-failed')}">${evalText} (${finalScore}/100)</div>`;
             let adviceText = finalScore >= 70 ? "<b>Đánh giá:</b> Phát âm rõ ràng, chuẩn ngữ điệu và trọng âm!" : "<b>Đánh giá:</b> Cần luyện tập thêm độ bật âm cuối và phát âm các nguyên âm dài.";
 
-            // TẠO DANH SÁCH TỔNG QUAN TẤT CẢ CÂU (ĐÃ BỎ NÚT NGHE DỊCH TIẾNG VIỆT)
             let questionsListHtml = "";
             quizData.forEach((item, index) => {
                 const ans = userAnswers[index];
@@ -1324,7 +1395,7 @@
                         <div class="overview-text-vi">👉 ${viText}</div>
                         
                         <div class="overview-audio-group">
-                            <button class="btn-audio-mini" onclick="speakCustomText('${escapedTarget}')">🔊 Nghe câu mẫu (US Native)</button>
+                            <button class="btn-audio-mini" onclick="speakCustomText('${escapedTarget}')">🔊 Nghe mẫu</button>
                             <button class="btn-audio-mini" style="background:#fff3cd; border-color:#ffeeba;" onclick="jumpToQuestionForPractice(${index})">🎤 Luyện lại câu này</button>
                         </div>
 
@@ -1390,14 +1461,12 @@
                         • 📊 Kết quả: ✅ Chuẩn: <b>${correctCount}/${totalItems}</b> | ❌ Cần cải thiện: <b>${totalItems - correctCount}/${totalItems}</b>
                     </div>
 
-                    <!-- NÚT XEM LẠI BÀI LÀM -->
                     <div style="margin-top: 5px;">
                         <button id="btn-toggle-overview" class="btn-review-toggle" onclick="toggleOverviewSection()">
                             🔍 Xem lại bài làm (Bảng tổng quan & phát âm từng câu) ▼
                         </button>
                     </div>
 
-                    <!-- BẢNG CHI TIẾT TOÀN BỘ CÂU (ẨN MẶC ĐỊNH) -->
                     <div id="overview-container-box" class="overview-card-container hidden">
                         <div class="overview-header">
                             <span>📝 BẢNG TỔNG QUAN TỪNG CÂU & PHÁT ÂM</span>
@@ -1420,7 +1489,6 @@
                         <button class="btn-tool btn-upload-drive" id="btn-drive-status" onclick="uploadResultToDrive()">☁️ Tải lên Cloud</button>
                     </div>
 
-                    <!-- 3 ICON TÀI LIỆU & HƯỚNG DẪN BỔ SUNG PHÍA DƯỚI -->
                     <div class="portal-section-title" style="margin-top: 6px;">📚 TÀI NGUYÊN & HƯỚNG DẪN HỌC THÊM:</div>
                     <div class="resource-grid">
                         <a href="https://brggrouplearning.github.io/caddie-videoenglish/" target="_blank" class="resource-card">
@@ -1447,7 +1515,6 @@
                         <div class="group-title" style="margin-top: 3px;">🚀 CHUYỂN TIẾP</div>
                         <button class="btn-next-exercise" onclick="returnToRoadmapView()">📊 Xem tiến độ 29 bài</button>
 
-                        <!-- BANNER LUYỆN NGHE NHỎ GỌN -->
                         <a href="https://brggrouplearning.github.io/Caddie-listening/" target="_blank" class="listening-switch-banner-compact" style="margin-top: 2px;">
                             <div class="banner-left-compact">
                                 <div class="banner-icon-compact">🎧</div>
