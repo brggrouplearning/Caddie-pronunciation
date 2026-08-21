@@ -41,27 +41,30 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3px;
+            justify-content: center;
+            gap: 4px;
             margin-bottom: 6px;
+            text-align: center;
         }
         .speaking-badge-corner {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            justify-content: center;
+            gap: 6px;
             background: #fff5f5;
             border: 1px solid #f8d7da;
             color: #dc3545;
-            padding: 3px 8px;
+            padding: 4px 10px;
             border-radius: 16px;
             font-size: 10px;
             font-weight: 800;
             user-select: none;
-            margin-bottom: 2px;
+            margin: 0 auto 2px auto;
         }
-        .speaking-badge-corner .icon { font-size: 13px; line-height: 1; }
+        .speaking-badge-corner .icon { font-size: 14px; line-height: 1; display: flex; align-items: center; }
         .speaking-badge-corner .text { display: flex; align-items: center; gap: 4px; line-height: 1; }
-        .speaking-badge-corner .text span:first-child { font-size: 10px; color: #dc3545; font-weight: bold; }
-        .speaking-badge-corner .text span:last-child { font-size: 8.5px; color: #6c757d; font-weight: 600; }
+        .speaking-badge-corner .text span:first-child { font-size: 10px; color: #dc3545; font-weight: 800; }
+        .speaking-badge-corner .text span:last-child { font-size: 9px; color: #6c757d; font-weight: 600; }
         
         h1 { color: #1e7e34; font-size: 14px; margin: 0 0 2px 0; font-weight: bold; text-transform: uppercase; line-height: 1.3; }
         .sub-type { color: #666; font-size: 9.5px; margin: 0 0 3px 0; font-weight: bold; text-transform: uppercase; letter-spacing: 0.2px; }
@@ -216,9 +219,10 @@
 
         /* VIEW LUYỆN NÓI */
         .meta-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; gap: 4px; }
-        #item-status { font-size: 9.5px; font-weight: bold; padding: 2px 5px; border-radius: 8px; }
-        .status-pending { background-color: #fff3cd; color: #664d03; border: 1px solid #ffecb5; }
+        #item-status { font-size: 9.5px; font-weight: bold; padding: 2px 7px; border-radius: 8px; }
+        .status-pending { background-color: #f8f9fa; color: #6c757d; border: 1px solid #ced4da; }
         .status-correct { background-color: #d1e7dd; color: #0f5132; border: 1px solid #badbcc; }
+        .status-approx { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
         .status-incorrect { background-color: #f8d7da; color: #842029; border: 1px solid #f5c6cb; }
 
         #timer-box { font-size: 10px; font-weight: bold; color: #dc3545; background: #fff5f5; padding: 2px 6px; border-radius: 8px; border: 1px solid #f8d7da; white-space: nowrap; }
@@ -229,7 +233,7 @@
         .progress-box span { color: #dc3545; }
         .section-tag { font-size: 9.5px; color: #1e7e34; font-weight: 600; }
 
-        /* KHUNG CÂU MẪU KÈM THANH ĐIỀU CHỈNH ÂM THANH TINH TẾ */
+        /* KHUNG CÂU MẪU */
         .pronounce-card { 
             position: relative;
             background: #fff5f5; 
@@ -242,7 +246,6 @@
         .target-ipa { font-size: 10.5px; color: #6c757d; font-family: monospace; margin-bottom: 2px; }
         .target-vi { font-size: 10.5px; color: #495057; line-height: 1.25; margin-bottom: 6px; }
 
-        /* BỘ ĐIỀU KHIỂN ÂM THANH TINH TẾ TÍCH HỢP GỌN GÀNG */
         .audio-sub-toolbar {
             display: flex;
             align-items: center;
@@ -373,6 +376,7 @@
             background: #fafafa;
         }
         .overview-item.item-pass { border-left: 3.5px solid #198754; }
+        .overview-item.item-approx { border-left: 3.5px solid #fd7e14; background: #fffcf5; }
         .overview-item.item-fail { border-left: 3.5px solid #dc3545; background: #fff8f8; }
         
         .overview-top-row {
@@ -384,7 +388,9 @@
         .overview-q-num { font-size: 9.5px; font-weight: bold; color: #495057; }
         .overview-status-tag { font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 8px; }
         .tag-pass { background: #d1e7dd; color: #0f5132; }
+        .tag-approx { background: #fff3cd; color: #856404; }
         .tag-fail { background: #f8d7da; color: #842029; }
+        .tag-skipped { background: #e2e3e5; color: #41464b; }
         
         .overview-text-en { font-size: 11px; font-weight: 700; color: #111; line-height: 1.25; }
         .overview-text-vi { font-size: 9.5px; color: #555; margin-bottom: 3px; }
@@ -576,13 +582,13 @@
             <button id="btn-back-to-result-nav" class="action-btn btn-back-result-quick hidden" onclick="returnToResultView()">📋 Quay lại Bảng Kết Quả</button>
 
             <div class="meta-bar" id="top-meta-bar">
-                <div id="item-status" class="status-pending">⏳ Chưa phát âm</div>
+                <div id="item-status" class="status-pending">⏳ Bỏ qua / Chưa đọc</div>
                 <div id="timer-box">⏳ Thời gian: <span id="time-left">00:00</span></div>
             </div>
 
             <div id="progress" class="progress-box"></div>
 
-            <!-- KHUNG CÂU MẪU CÙNG THANH CÔNG CỤ ÂM THANH TINH TẾ -->
+            <!-- KHUNG CÂU MẪU -->
             <div class="pronounce-card">
                 <div id="target-sentence" class="target-sentence">Loading...</div>
                 <div id="target-ipa" class="target-ipa"></div>
@@ -712,7 +718,6 @@
             selectedVal: '1.1'
         };
 
-        // BỘ NẠP GIỌNG ĐỌC ANH-MỸ CAO CẤP
         let cachedVoices = [];
         function populateVoices() {
             if ('speechSynthesis' in window) {
@@ -784,7 +789,30 @@
 
         function normalizeEnglishText(str) {
             if (!str) return "";
-            return str.toLowerCase().replace(/[^a-z0-9\s]/g, "").replace(/\s+/g, " ").trim();
+            let s = str.toLowerCase();
+            
+            const numWords = {
+                '0': 'zero', '1': 'one', '2': 'two', '3': 'three', '4': 'four',
+                '5': 'five', '6': 'six', '7': 'seven', '8': 'eight', '9': 'nine',
+                '10': 'ten', '11': 'eleven', '12': 'twelve', '13': 'thirteen', '14': 'fourteen',
+                '15': 'fifteen', '16': 'sixteen', '17': 'seventeen', '18': 'eighteen', '19': 'nineteen',
+                '20': 'twenty', '30': 'thirty', '40': 'forty', '50': 'fifty', '60': 'sixty',
+                '70': 'seventy', '80': 'eighty', '90': 'ninety', '100': 'hundred'
+            };
+            
+            s = s.replace(/&/g, " and ")
+                 .replace(/%/g, " percent ")
+                 .replace(/\+/g, " plus ")
+                 .replace(/@/g, " at ")
+                 .replace(/\$/g, " dollar ")
+                 .replace(/°c/g, " degrees celsius ")
+                 .replace(/°/g, " degrees ");
+
+            s = s.replace(/\b([0-9]+)\b/g, (match) => {
+                return numWords[match] || match;
+            });
+
+            return s.replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
         }
 
         function convertToNonAccent(str) {
@@ -1143,12 +1171,20 @@
 
                 if (currentAns) {
                     recDisplay.innerText = `🗣️ Bạn đã nói: "${currentAns.userSaid}" (Độ chính xác: ${currentAns.score}%)`;
-                    statusTag.className = currentAns.isCorrect ? "status-correct" : "status-incorrect";
-                    statusTag.innerText = currentAns.isCorrect ? "✅ Đạt chuẩn" : "❌ Chưa đạt";
+                    if (currentAns.status === 'correct') {
+                        statusTag.className = "status-correct";
+                        statusTag.innerText = "✅ Đúng (100% điểm)";
+                    } else if (currentAns.status === 'approx') {
+                        statusTag.className = "status-approx";
+                        statusTag.innerText = "⚡ Gần đúng (50% điểm)";
+                    } else {
+                        statusTag.className = "status-incorrect";
+                        statusTag.innerText = "❌ Chưa đạt (0 điểm)";
+                    }
                 } else {
                     recDisplay.innerText = "Chưa nhận diện được giọng nói...";
                     statusTag.className = "status-pending";
-                    statusTag.innerText = "⏳ Chưa phát âm";
+                    statusTag.innerText = "⏳ Bỏ qua / Chưa đọc";
                 }
 
                 document.getElementById('prev-btn').style.display = (currentIndex === 0) ? 'none' : 'block';
@@ -1203,27 +1239,49 @@
                 if (cleanTarget === cleanUser || cleanTarget.includes(cleanUser) || cleanUser.includes(cleanTarget)) {
                     matchScore = 100;
                 } else {
-                    const targetWords = cleanTarget.split(" ");
-                    const userWords = new Set(cleanUser.split(" "));
+                    const targetWords = cleanTarget.split(" ").filter(Boolean);
+                    const userWords = new Set(cleanUser.split(" ").filter(Boolean));
                     let matchedCount = 0;
                     targetWords.forEach(w => {
                         if (userWords.has(w)) matchedCount++;
                     });
-                    matchScore = Math.round((matchedCount / targetWords.length) * 100);
+                    matchScore = targetWords.length > 0 ? Math.round((matchedCount / targetWords.length) * 100) : 0;
+                }
+            }
+
+            let status = 'skipped';
+            let pointEarned = 0; // Tỷ lệ điểm tính cho câu
+
+            if (transcript.trim() !== '') {
+                if (matchScore >= 90) {
+                    status = 'correct';
+                    pointEarned = 1.0; // 100% điểm
+                } else if (matchScore >= 40) {
+                    status = 'approx';
+                    pointEarned = 0.5; // 50% điểm
+                } else {
+                    status = 'incorrect';
+                    pointEarned = 0; // 0 điểm
                 }
             }
 
             userAnswers[currentIndex] = {
                 userSaid: transcript,
-                isCorrect: matchScore >= 70,
-                score: matchScore
+                status: status,
+                score: matchScore,
+                pointEarned: pointEarned
             };
 
             loadQuestion();
-            document.getElementById('status').innerText = matchScore >= 70 ? "🌟 Phát âm rất chuẩn!" : "💡 Hãy cố gắng phát âm rõ từng từ hơn nhé!";
+            if (status === 'correct') {
+                document.getElementById('status').innerText = "🌟 Phát âm rất chuẩn (Đạt 100% điểm)!";
+            } else if (status === 'approx') {
+                document.getElementById('status').innerText = "⚡ Gần đúng (Đạt 50% điểm câu). Hãy luyện thêm ngữ điệu!";
+            } else {
+                document.getElementById('status').innerText = "💡 Phát âm chưa đạt (0 điểm). Hãy cố gắng phát âm rõ hơn!";
+            }
         }
 
-        // BỘ ENGINE PHÁT ÂM ANH-MỸ CAO CẤP (CHỌN GIỌNG & SPEED TỰ NHIÊN)
         function speakCustomText(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
@@ -1288,10 +1346,10 @@
         }
 
         function analyzeSentenceError(target, userSaid) {
-            if (!userSaid) {
+            if (!userSaid || userSaid.trim() === "") {
                 return {
-                    summaryHtml: `<span class="word-wrong">Chưa ghi nhận giọng nói</span> (Chưa phát âm hoặc mic chưa thu được).`,
-                    reason: "Học viên chưa phát âm hoặc bỏ qua câu này."
+                    summaryHtml: `<span class="word-wrong">Chưa ghi nhận giọng nói</span> (Chưa phát âm hoặc bỏ qua).`,
+                    reason: "Học viên bỏ qua câu này hoặc mic chưa thu được âm thanh."
                 };
             }
 
@@ -1344,14 +1402,27 @@
             clearInterval(timerInterval);
 
             let correctCount = 0;
+            let approxCount = 0;
+            let skippedCount = 0;
+            let totalEarnedPoints = 0;
             let totalItems = quizData.length;
 
             quizData.forEach((item, index) => {
                 const ans = userAnswers[index];
-                if (ans && ans.isCorrect) correctCount++;
+                if (!ans || !ans.userSaid || ans.userSaid.trim() === '') {
+                    skippedCount++;
+                } else if (ans.score >= 90) {
+                    correctCount++;
+                    totalEarnedPoints += 1.0;
+                } else if (ans.score >= 40) {
+                    approxCount++;
+                    totalEarnedPoints += 0.5;
+                } else {
+                    skippedCount++; // Chưa đạt / Sai hoàn toàn
+                }
             });
 
-            let finalScore = totalItems > 0 ? Math.round((correctCount / totalItems) * 100) : 0;
+            let finalScore = totalItems > 0 ? Math.round((totalEarnedPoints / totalItems) * 100) : 0;
             const now = new Date();
             const dateShort = `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
 
@@ -1373,22 +1444,43 @@
             let questionsListHtml = "";
             quizData.forEach((item, index) => {
                 const ans = userAnswers[index];
-                const isPassed = ans && ans.isCorrect;
-                const score = ans ? ans.score : 0;
-                const userSaid = ans ? ans.userSaid : "";
                 const targetText = item.targetSentence || item.text || item.audioText || "";
                 const viText = item.vi || item.translation || "";
                 const ipaText = item.ipa ? `[ ${item.ipa} ]` : "";
-                const errorAnalysis = analyzeSentenceError(targetText, userSaid);
+                const userSaid = ans ? ans.userSaid : "";
+                const score = ans ? ans.score : 0;
+                
+                let itemClass = "item-fail";
+                let tagClass = "tag-skipped";
+                let statusLabel = "❌ Chưa đạt / Bỏ qua (0đ)";
 
+                if (!ans || !userSaid || userSaid.trim() === '') {
+                    itemClass = "item-fail";
+                    tagClass = "tag-skipped";
+                    statusLabel = "⏳ Bỏ qua (0đ)";
+                } else if (score >= 90) {
+                    itemClass = "item-pass";
+                    tagClass = "tag-pass";
+                    statusLabel = `✅ Đúng (${score}% - 100% đ)`;
+                } else if (score >= 40) {
+                    itemClass = "item-approx";
+                    tagClass = "tag-approx";
+                    statusLabel = `⚡ Gần đúng (${score}% - 50% đ)`;
+                } else {
+                    itemClass = "item-fail";
+                    tagClass = "tag-fail";
+                    statusLabel = `❌ Chưa đạt (${score}% - 0đ)`;
+                }
+
+                const errorAnalysis = analyzeSentenceError(targetText, userSaid);
                 const escapedTarget = targetText.replace(/'/g, "\\'").replace(/"/g, '&quot;');
 
                 questionsListHtml += `
-                    <div class="overview-item ${isPassed ? 'item-pass' : 'item-fail'}">
+                    <div class="overview-item ${itemClass}">
                         <div class="overview-top-row">
                             <span class="overview-q-num">Câu ${index + 1}/${totalItems} ${ipaText ? `<span style="color:#6c757d; font-weight:normal; font-family:monospace;">${ipaText}</span>` : ''}</span>
-                            <span class="overview-status-tag ${isPassed ? 'tag-pass' : 'tag-fail'}">
-                                ${isPassed ? `✅ Đạt (${score}%)` : `❌ Cần luyện (${score}%)`}
+                            <span class="overview-status-tag ${tagClass}">
+                                ${statusLabel}
                             </span>
                         </div>
                         <div class="overview-text-en">${targetText}</div>
@@ -1399,11 +1491,11 @@
                             <button class="btn-audio-mini" style="background:#fff3cd; border-color:#ffeeba;" onclick="jumpToQuestionForPractice(${index})">🎤 Luyện lại câu này</button>
                         </div>
 
-                        ${!isPassed ? `
+                        ${score < 90 ? `
                             <div class="overview-error-box">
-                                <b>🗣️ Bạn đã nói:</b> "${userSaid || '<i>Chưa nói</i>'}"<br>
-                                <b>🔍 Lỗi sai / Bôi đỏ:</b> ${errorAnalysis.summaryHtml}<br>
-                                <b>📌 Nhận xét:</b> ${errorAnalysis.reason}
+                                <b>🗣️ Bạn đã nói:</b> "${userSaid || '<i>Chưa phát âm</i>'}"<br>
+                                <b>🔍 Nhận xét chi tiết:</b> ${errorAnalysis.summaryHtml}<br>
+                                <b>📌 Ghi chú:</b> ${errorAnalysis.reason}
                             </div>
                         ` : `
                             <div style="font-size:8.5px; color:#0f5132; margin-top:2px;">
@@ -1426,8 +1518,8 @@
                 score: finalScore,
                 evaluationText: evalText,
                 passedCount: `${correctCount}/${totalItems}`,
-                approxCount: `${totalItems - correctCount}/${totalItems}`,
-                skippedCount: `0/${totalItems}`,
+                approxCount: `${approxCount}/${totalItems}`,
+                skippedCount: `${skippedCount}/${totalItems}`,
                 elapsedTime: formatDuration(elapsedSeconds),
                 feedback: ""
             };
@@ -1458,7 +1550,7 @@
                         • 👤 Học viên: <b>${studentInfo.studentName}</b> (${studentInfo.staffNumber}) - <b>${studentInfo.workPlace}</b><br>
                         • 📚 Chuyên đề: <b>${studentInfo.lessonTitle}</b><br>
                         • ⏱️ Thời gian: <b>${formatDuration(elapsedSeconds)}</b> | 🕒 Bắt đầu: <b>${startTimeFormatted}</b><br>
-                        • 📊 Kết quả: ✅ Chuẩn: <b>${correctCount}/${totalItems}</b> | ❌ Cần cải thiện: <b>${totalItems - correctCount}/${totalItems}</b>
+                        • 📊 Thống kê: ✅ Đúng (90-100%): <b>${correctCount}/${totalItems}</b> | ⚡ Gần đúng (40-89%): <b>${approxCount}/${totalItems}</b> | ❌ Chưa đạt/Bỏ qua: <b>${skippedCount}/${totalItems}</b>
                     </div>
 
                     <div style="margin-top: 5px;">
