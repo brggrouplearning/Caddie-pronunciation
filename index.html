@@ -157,6 +157,20 @@
         .roadmap-container { background: #fffaf0; border: 1px solid #fed7aa; border-radius: 8px; padding: 7px; margin-top: 6px; text-align: left; }
         .roadmap-title { font-size: 10.5px; font-weight: bold; color: #c2410c; margin-bottom: 3px; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }
         
+        /* BANNER THÔNG BÁO GIAI ĐOẠN 2 */
+        .stage-notice-banner {
+            background: linear-gradient(135deg, #198754 0%, #20c997 100%);
+            color: white;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 10.5px;
+            line-height: 1.35;
+            margin-bottom: 6px;
+            text-align: left;
+            box-shadow: 0 1px 4px rgba(25, 135, 84, 0.2);
+        }
+        .stage-notice-banner b { font-size: 11px; }
+
         .progress-remark-box {
             font-size: 10px;
             font-weight: 600;
@@ -443,14 +457,6 @@
 
         .hidden { display: none !important; }
         #save-status-msg { font-size: 9.5px; font-weight: bold; color: #0f5132; margin: 1px 0 2px 0; background: #d1e7dd; padding: 2px 5px; border-radius: 6px; display: inline-block; border: 1px solid #badbcc; }
-
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 999; }
-        .modal-box { background: white; border-radius: 7px; max-width: 340px; width: 92%; padding: 10px; text-align: left; }
-        .modal-title { font-size: 11.5px; font-weight: bold; color: #dc3545; margin-bottom: 3px; }
-        .modal-btn-group { display: flex; flex-direction: column; gap: 4px; margin-top: 6px; }
-        .btn-modal { padding: 5px 7px; border-radius: 4px; font-size: 10px; font-weight: bold; border: none; cursor: pointer; text-align: center; }
-        .btn-modal-new { background: #198754; color: white; }
-        .btn-modal-recheck { background: #6c757d; color: white; }
     </style>
 </head>
 <body>
@@ -549,10 +555,17 @@
                 </div>
 
                 <p id="user-info-error" style="color: #dc3545; font-size: 10.5px; font-weight: bold; margin: 3px 0 0 0; display: none;"></p>
-                <button class="btn-check-progress" onclick="fetchProgressFromSheet()">🔍 KIỂM TRA THÔNG TIN & TIẾN ĐỘ PHÁT ÂM</button>
+                <button class="btn-check-progress" onclick="fetchProgressFromSheet()">🔍 KIỂM TRA THÔNG TIN & BẮT ĐẦU</button>
             </div>
 
             <div id="roadmap-box" class="roadmap-container hidden">
+                
+                <!-- THÔNG BÁO ĐỘNG CHO HỌC VIÊN KHI VÀO GIAI ĐOẠN 2 -->
+                <div class="stage-notice-banner">
+                    🌟 <b>Chào mừng bạn đã bước sang Giai đoạn 2 của khóa học!</b><br>
+                    Bạn có thể thoải mái lựa chọn và luyện tập các chuyên đề bên dưới mà không cần bận tâm về tiến độ Giai đoạn trước.
+                </div>
+
                 <div class="roadmap-title">
                     <span>📊 TIẾN ĐỘ 29 CHUYÊN ĐỀ (SPEAKING)</span>
                     <span id="progress-percent" style="color:#198754;">0%</span>
@@ -562,8 +575,8 @@
                     <div class="progress-bar-fill" id="progress-bar-fill"></div>
                 </div>
 
-                <div id="progress-remark" class="progress-remark-box remark-warning">
-                    ⏳ Đang tính toán mức độ bám sát kế hoạch đào tạo...
+                <div id="progress-remark" class="progress-remark-box remark-good">
+                    🟢 <b>Hướng dẫn:</b> Bấm chọn bất kỳ chuyên đề nào từ Giai đoạn 2 trở đi để bắt đầu học ngay!
                 </div>
                 
                 <div class="matrix-grid" id="matrix-grid-view"></div>
@@ -638,20 +651,6 @@
         <div id="result-view" class="hidden"></div>
     </div>
 
-    <!-- MODAL -->
-    <div id="new-user-modal" class="modal-overlay hidden">
-        <div class="modal-box">
-            <div class="modal-title">🔍 KHÔNG TÌM THẤY LỊCH SỬ HỌC TẬP</div>
-            <div style="font-size:10px; color:#444; line-height:1.35;">
-                Hệ thống chưa tìm thấy hồ sơ đào tạo khớp với thông tin vừa nhập. Vui lòng xác nhận:
-            </div>
-            <div class="modal-btn-group">
-                <button class="btn-modal btn-modal-new" onclick="setupNewStudentFlow()">🌱 Tôi là Học viên mới (Bắt đầu từ Section 1.1)</button>
-                <button class="btn-modal btn-modal-recheck" onclick="closeNewUserModal()">🔄 Tôi đã học rồi (Muốn kiểm tra lại thông tin)</button>
-            </div>
-        </div>
-    </div>
-
     <script> window.masterQuizData = []; </script>
     <script>
         (function loadAllDataFiles() {
@@ -715,7 +714,7 @@
             rawLessonCode: '',
             lessonTitle: '',
             isSectionMode: true,
-            selectedVal: '1.1'
+            selectedVal: '2.1'
         };
 
         let cachedVoices = [];
@@ -917,8 +916,16 @@
             studentInfo.staffNumber = staffNumber;
 
             const checkBtn = document.querySelector('.btn-check-progress');
-            checkBtn.innerText = "⏳ Đang tra cứu thông tin...";
+            checkBtn.innerText = "⏳ Đang kết nối...";
             checkBtn.disabled = true;
+
+            const localKey = `progress_${workPlace}_${staffNumber}`;
+            try {
+                const localSaved = localStorage.getItem(localKey);
+                if (localSaved) {
+                    studentProgressMap = JSON.parse(localSaved);
+                }
+            } catch (e) {}
 
             const url = `${GOOGLE_SCRIPT_URL}?action=get_student_progress_speaking` +
                         `&workPlace=${encodeURIComponent(workPlace)}` +
@@ -931,21 +938,25 @@
             fetch(url)
             .then(res => res.json())
             .then(data => {
-                checkBtn.innerText = "🔍 KIỂM TRA THÔNG TIN & TIẾN ĐỘ PHÁT ÂM";
+                checkBtn.innerText = "🔍 KIỂM TRA THÔNG TIN & BẮT ĐẦU";
                 checkBtn.disabled = false;
 
-                if (data && data.found) {
-                    studentProgressMap = data.progress || {};
-                    renderRoadmapMatrix();
-                } else {
-                    document.getElementById('new-user-modal').classList.remove('hidden');
+                if (data && data.found && data.progress) {
+                    studentProgressMap = { ...studentProgressMap, ...data.progress };
                 }
+                
+                let defaultItem = LESSON_ROADMAP.find(i => i.code === "2.1") || LESSON_ROADMAP[6];
+                selectLessonFromMatrix(defaultItem);
+                renderRoadmapMatrix();
             })
             .catch(err => {
-                console.error("Lỗi tra cứu:", err);
-                checkBtn.innerText = "🔍 KIỂM TRA THÔNG TIN & TIẾN ĐỘ PHÁT ÂM";
+                console.warn("Lỗi kết nối:", err);
+                checkBtn.innerText = "🔍 KIỂM TRA THÔNG TIN & BẮT ĐẦU";
                 checkBtn.disabled = false;
-                document.getElementById('new-user-modal').classList.remove('hidden');
+                
+                let defaultItem = LESSON_ROADMAP.find(i => i.code === "2.1") || LESSON_ROADMAP[6];
+                selectLessonFromMatrix(defaultItem);
+                renderRoadmapMatrix();
             });
         }
 
@@ -1012,21 +1023,6 @@
             document.getElementById('progress-percent').innerText = `${percent}% (${passedCount}/29)`;
             document.getElementById('progress-bar-fill').style.width = `${percent}%`;
 
-            const remarkElem = document.getElementById('progress-remark');
-            if (passedCount === LESSON_ROADMAP.length) {
-                remarkElem.className = "progress-remark-box remark-good";
-                remarkElem.innerHTML = "🏆 <b>Xuất sắc!</b> Đã hoàn thành trọn vẹn 29 chuyên đề Phát âm!";
-            } else if (overdueCount === 0) {
-                remarkElem.className = "progress-remark-box remark-good";
-                remarkElem.innerHTML = "🟢 <b>Tiến độ tốt:</b> Bạn đang hoàn thành đúng kế hoạch đào tạo!";
-            } else if (overdueCount <= 2) {
-                remarkElem.className = "progress-remark-box remark-warning";
-                remarkElem.innerHTML = `⚠️ <b>Cần tăng tốc:</b> Chậm <b>${overdueCount} bài</b> so với kế hoạch!`;
-            } else {
-                remarkElem.className = "progress-remark-box remark-danger";
-                remarkElem.innerHTML = `🔴 <b>Dưới kế hoạch:</b> Trễ <b>${overdueCount} bài</b>. Hãy luyện nói ngay!`;
-            }
-
             document.getElementById('roadmap-box').classList.remove('hidden');
         }
 
@@ -1040,17 +1036,6 @@
             document.querySelectorAll('.matrix-item').forEach(el => el.classList.remove('active-selected'));
             const activeEl = document.getElementById(`matrix-item-${item.code}`);
             if (activeEl) activeEl.classList.add('active-selected');
-        }
-
-        function closeNewUserModal() {
-            document.getElementById('new-user-modal').classList.add('hidden');
-        }
-
-        function setupNewStudentFlow() {
-            closeNewUserModal();
-            studentProgressMap = {};
-            renderRoadmapMatrix();
-            selectLessonFromMatrix(LESSON_ROADMAP[0]);
         }
 
         let quizData = [];
@@ -1236,32 +1221,38 @@
             
             let matchScore = 0;
             if (cleanTarget && cleanUser) {
-                if (cleanTarget === cleanUser || cleanTarget.includes(cleanUser) || cleanUser.includes(cleanTarget)) {
-                    matchScore = 100;
+                const targetWords = cleanTarget.split(" ").filter(Boolean);
+                const userWords = cleanUser.split(" ").filter(Boolean);
+                
+                if (targetWords.length > 3 && userWords.length < 2) {
+                    matchScore = 0;
                 } else {
-                    const targetWords = cleanTarget.split(" ").filter(Boolean);
-                    const userWords = new Set(cleanUser.split(" ").filter(Boolean));
+                    const userSet = new Set(userWords);
                     let matchedCount = 0;
                     targetWords.forEach(w => {
-                        if (userWords.has(w)) matchedCount++;
+                        if (userSet.has(w)) matchedCount++;
                     });
                     matchScore = targetWords.length > 0 ? Math.round((matchedCount / targetWords.length) * 100) : 0;
+                    
+                    if (userWords.length < Math.floor(targetWords.length / 2)) {
+                        matchScore = Math.min(matchScore, 30);
+                    }
                 }
             }
 
             let status = 'skipped';
-            let pointEarned = 0; // Tỷ lệ điểm tính cho câu
+            let pointEarned = 0; 
 
             if (transcript.trim() !== '') {
                 if (matchScore >= 90) {
                     status = 'correct';
-                    pointEarned = 1.0; // 100% điểm
+                    pointEarned = 1.0; 
                 } else if (matchScore >= 40) {
                     status = 'approx';
-                    pointEarned = 0.5; // 50% điểm
+                    pointEarned = 0.5; 
                 } else {
                     status = 'incorrect';
-                    pointEarned = 0; // 0 điểm
+                    pointEarned = 0; 
                 }
             }
 
@@ -1418,7 +1409,7 @@
                     approxCount++;
                     totalEarnedPoints += 0.5;
                 } else {
-                    skippedCount++; // Chưa đạt / Sai hoàn toàn
+                    skippedCount++; 
                 }
             });
 
@@ -1436,6 +1427,11 @@
                     status: finalScore >= 70 ? 'passed' : 'failed'
                 };
             }
+
+            const localKey = `progress_${studentInfo.workPlace}_${studentInfo.staffNumber}`;
+            try {
+                localStorage.setItem(localKey, JSON.stringify(studentProgressMap));
+            } catch (e) {}
 
             let evalText = finalScore >= 90 ? "Xuất sắc" : (finalScore >= 70 ? "Đạt" : "Chưa đạt");
             let levelBadgeHtml = `<div class="level-badge ${finalScore >= 90 ? 'level-excellent' : (finalScore >= 70 ? 'level-passed' : 'level-failed')}">${evalText} (${finalScore}/100)</div>`;
@@ -1542,7 +1538,7 @@
                         ${levelBadgeHtml}
                     </div>
                     
-                    <div id="save-status-msg">✅ Đã lưu kết quả Phát âm</div>
+                    <div id="save-status-msg">✅ Đã lưu kết quả Phát âm an toàn</div>
                     <div class="advice-box">${adviceText}</div>
 
                     <div class="stats-box">
@@ -1559,7 +1555,7 @@
                         </button>
                     </div>
 
-                    <div id="overview-container-box" class="overview-card-container hidden">
+                    <div id="overview-container-box" class="overview-container-container hidden">
                         <div class="overview-header">
                             <span>📝 BẢNG TỔNG QUAN TỪNG CÂU & PHÁT ÂM</span>
                             <span style="font-size:9.5px; color:#6c757d;">(Xem chi tiết & Nghe lại)</span>
@@ -1605,7 +1601,7 @@
                         <button class="btn-retry-same" onclick="runQuizEngine(studentInfo.isSectionMode, studentInfo.selectedVal)">🔄 Luyện lại toàn bộ bài này</button>
 
                         <div class="group-title" style="margin-top: 3px;">🚀 CHUYỂN TIẾP</div>
-                        <button class="btn-next-exercise" onclick="returnToRoadmapView()">📊 Xem tiến độ 29 bài</button>
+                        <button class="btn-next-exercise" onclick="returnToRoadmapView()">📊 Trở về bảng chọn bài</button>
 
                         <a href="https://brggrouplearning.github.io/Caddie-listening/" target="_blank" class="listening-switch-banner-compact" style="margin-top: 2px;">
                             <div class="banner-left-compact">
