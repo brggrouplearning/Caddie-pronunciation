@@ -157,7 +157,6 @@
         .roadmap-container { background: #fffaf0; border: 1px solid #fed7aa; border-radius: 8px; padding: 7px; margin-top: 6px; text-align: left; }
         .roadmap-title { font-size: 10.5px; font-weight: bold; color: #c2410c; margin-bottom: 3px; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }
         
-        /* BANNER THÔNG BÁO GIAI ĐOẠN 2 */
         .stage-notice-banner {
             background: linear-gradient(135deg, #198754 0%, #20c997 100%);
             color: white;
@@ -560,7 +559,6 @@
 
             <div id="roadmap-box" class="roadmap-container hidden">
                 
-                <!-- THÔNG BÁO ĐỘNG CHO HỌC VIÊN KHI VÀO GIAI ĐOẠN 2 -->
                 <div class="stage-notice-banner">
                     🌟 <b>Chào mừng bạn đã bước sang Giai đoạn 2 của khóa học!</b><br>
                     Bạn có thể thoải mái lựa chọn và luyện tập các chuyên đề tiếp theo.
@@ -941,7 +939,13 @@
                 checkBtn.innerText = "🔍 KIỂM TRA THÔNG TIN & BẮT ĐẦU";
                 checkBtn.disabled = false;
 
-                if (data && data.found && data.progress) {
+                // THAY ĐỔI: Nếu không tìm thấy dữ liệu trên server, thông báo yêu cầu đóng/mở lại trình duyệt
+                if (!data || !data.found) {
+                    alert("⚠️ Không tìm thấy dữ liệu học viên trên hệ thống.\nVui lòng đóng lại trình duyệt và mở lại để thử kết nối lại!");
+                    return;
+                }
+
+                if (data.progress) {
                     studentProgressMap = { ...studentProgressMap, ...data.progress };
                 }
                 
@@ -954,9 +958,8 @@
                 checkBtn.innerText = "🔍 KIỂM TRA THÔNG TIN & BẮT ĐẦU";
                 checkBtn.disabled = false;
                 
-                let defaultItem = LESSON_ROADMAP.find(i => i.code === "2.1") || LESSON_ROADMAP[6];
-                selectLessonFromMatrix(defaultItem);
-                renderRoadmapMatrix();
+                // THAY ĐỔI: Báo lỗi mạng/không tìm thấy dữ liệu theo đúng ý bạn
+                alert("⚠️ Không thể kết nối tới máy chủ dữ liệu.\nVui lòng đóng lại trình duyệt và mở lại để tiếp tục!");
             });
         }
 
