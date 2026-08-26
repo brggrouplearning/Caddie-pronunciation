@@ -939,13 +939,8 @@
                 checkBtn.innerText = "🔍 KIỂM TRA THÔNG TIN & BẮT ĐẦU";
                 checkBtn.disabled = false;
 
-                // THAY ĐỔI: Nếu không tìm thấy dữ liệu trên server, thông báo yêu cầu đóng/mở lại trình duyệt
-                if (!data || !data.found) {
-                    alert("⚠️ Không tìm thấy dữ liệu học viên trên hệ thống.\nVui lòng đóng lại trình duyệt và mở lại để thử kết nối lại!");
-                    return;
-                }
-
-                if (data.progress) {
+                // THAY ĐỔI: Hoàn toàn bỏ cảnh báo, nếu tìm thấy dữ liệu server thì gộp vào, không thấy thì chạy tiếp bình thường
+                if (data && data.progress) {
                     studentProgressMap = { ...studentProgressMap, ...data.progress };
                 }
                 
@@ -954,12 +949,14 @@
                 renderRoadmapMatrix();
             })
             .catch(err => {
-                console.warn("Lỗi kết nối:", err);
+                console.warn("Lỗi kết nối, chuyển sang chế độ tự do:", err);
                 checkBtn.innerText = "🔍 KIỂM TRA THÔNG TIN & BẮT ĐẦU";
                 checkBtn.disabled = false;
                 
-                // THAY ĐỔI: Báo lỗi mạng/không tìm thấy dữ liệu theo đúng ý bạn
-                alert("⚠️ Không thể kết nối tới máy chủ dữ liệu.\nVui lòng đóng lại trình duyệt và mở lại để tiếp tục!");
+                // Vẫn cho học viên vào học bình thường mà không hiện bảng lỗi nào cả
+                let defaultItem = LESSON_ROADMAP.find(i => i.code === "2.1") || LESSON_ROADMAP[6];
+                selectLessonFromMatrix(defaultItem);
+                renderRoadmapMatrix();
             });
         }
 
