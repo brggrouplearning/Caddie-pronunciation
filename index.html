@@ -246,17 +246,60 @@
         .progress-box span { color: #dc3545; }
         .section-tag { font-size: 9.5px; color: #1e7e34; font-weight: 600; }
 
-        /* KHUNG CÂU MẪU */
+        /* KHUNG CÂU MẪU & PHIÊN ÂM IPA */
         .pronounce-card { 
             position: relative;
             background: #fff5f5; 
             border: 1.2px dashed #dc3545; 
-            padding: 8px 6px 6px 6px; 
+            padding: 10px 8px 6px 8px; 
             border-radius: 8px; 
             margin: 5px 0; 
         }
-        .target-sentence { font-size: 13.5px; font-weight: 700; color: #b02a37; line-height: 1.35; margin-bottom: 2px; }
-        .target-ipa { font-size: 10.5px; color: #6c757d; font-family: monospace; margin-bottom: 2px; }
+        
+        .target-sentence-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 6px 8px;
+            margin-bottom: 4px;
+            line-height: 1.2;
+        }
+
+        .word-ipa-block {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .word-en {
+            font-size: 14.5px;
+            font-weight: 700;
+            color: #b02a37;
+            line-height: 1.15;
+        }
+
+        .word-ipa-sub {
+            font-size: 10px;
+            color: #0d6efd;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .fallback-ipa-banner {
+            font-size: 10.5px;
+            color: #0d6efd;
+            background: #e7f1ff;
+            border-radius: 4px;
+            padding: 2px 8px;
+            display: inline-block;
+            margin-bottom: 4px;
+            font-weight: 600;
+            font-family: monospace;
+        }
+
         .target-vi { font-size: 10.5px; color: #495057; line-height: 1.25; margin-bottom: 6px; }
 
         .audio-sub-toolbar {
@@ -599,10 +642,10 @@
 
             <div id="progress" class="progress-box"></div>
 
-            <!-- KHUNG CÂU MẪU -->
+            <!-- KHUNG CÂU MẪU KÈM PHIÊN ÂM IPA DƯỚI TỪNG TỪ -->
             <div class="pronounce-card">
-                <div id="target-sentence" class="target-sentence">Loading...</div>
-                <div id="target-ipa" class="target-ipa"></div>
+                <div id="target-sentence-box" class="target-sentence-container"></div>
+                <div id="fallback-ipa-box" class="fallback-ipa-banner hidden"></div>
                 <div id="target-vi" class="target-vi"></div>
                 
                 <div class="audio-sub-toolbar">
@@ -836,7 +879,7 @@
             return matrix[a.length][b.length];
         }
 
-        // So khớp mềm thích ứng: Hỗ trợ phát âm thiếu âm đuôi nhưng không nhầm từ ngắn
+        // So khớp mềm thích ứng: Hỗ trợ học viên phát âm thiếu âm đuôi nhưng không nhầm từ ngắn
         function isWordFuzzyMatch(w1, w2) {
             if (w1 === w2) return true;
             if (Math.abs(w1.length - w2.length) > 2) return false;
@@ -1180,8 +1223,43 @@
                 document.getElementById('progress').innerHTML = `Câu <span>${currentIndex + 1}</span> / ${quizData.length}${sectionText}`;
 
                 const targetText = currentItem.targetSentence || currentItem.text || currentItem.audioText || "";
-                document.getElementById('target-sentence').innerText = targetText;
-                document.getElementById('target-ipa').innerText = currentItem.ipa ? `[ ${currentItem.ipa} ]` : "";
+                const rawIpa = currentItem.ipa || "";
+                const sentenceBox = document.getElementById('target-sentence-box');
+                const fallbackIpaBox = document.getElementById('fallback-ipa-box');
+
+                sentenceBox.innerHTML = "";
+
+                // Tách từ và âm IPA tương ứng
+                const words = targetText.split(/\s+/).filter(Boolean);
+                const ipaWords = rawIpa ? rawIpa.replace(/[\[\]\/]/g, '').trim().split(/\s+/).filter(Boolean) : [];
+
+                if (words.length > 0 && ipaWords.length === words.length) {
+                    fallbackIpaBox.classList.add('hidden');
+                    words.forEach((w, idx) => {
+                        const block = document.createElement('div');
+                        block.className = 'word-ipa-block';
+                        block.innerHTML = `
+                            <span class="word-en">${w}</span>
+                            <span class="word-ipa-sub">/${ipaWords[idx]}/</span>
+                        `;
+                        sentenceBox.appendChild(block);
+                    });
+                } else {
+                    words.forEach(w => {
+                        const block = document.createElement('div');
+                        block.className = 'word-ipa-block';
+                        block.innerHTML = `<span class="word-en">${w}</span>`;
+                        sentenceBox.appendChild(block);
+                    });
+
+                    if (rawIpa) {
+                        fallbackIpaBox.innerText = `Phiên âm: / ${rawIpa.replace(/[\[\]\/]/g, '').trim()} /`;
+                        fallbackIpaBox.classList.remove('hidden');
+                    } else {
+                        fallbackIpaBox.classList.add('hidden');
+                    }
+                }
+
                 document.getElementById('target-vi').innerText = currentItem.vi || currentItem.translation || "";
 
                 const currentAns = userAnswers[currentIndex];
