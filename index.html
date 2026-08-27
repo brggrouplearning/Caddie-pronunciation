@@ -246,7 +246,7 @@
         .progress-box span { color: #dc3545; }
         .section-tag { font-size: 9.5px; color: #1e7e34; font-weight: 600; }
 
-        /* KHUNG CÂU MẪU & PHIÊN ÂM IPA */
+        /* KHUNG CÂU MẪU & PHIÊN ÂM PHÍA DƯỚI TỪNG TỪ */
         .pronounce-card { 
             position: relative;
             background: #fff5f5; 
@@ -261,7 +261,7 @@
             flex-wrap: wrap;
             justify-content: center;
             align-items: flex-end;
-            gap: 6px 8px;
+            gap: 6px 10px;
             margin-bottom: 4px;
             line-height: 1.2;
         }
@@ -879,7 +879,6 @@
             return matrix[a.length][b.length];
         }
 
-        // So khớp mềm thích ứng: Hỗ trợ học viên phát âm thiếu âm đuôi nhưng không nhầm từ ngắn
         function isWordFuzzyMatch(w1, w2) {
             if (w1 === w2) return true;
             if (Math.abs(w1.length - w2.length) > 2) return false;
@@ -1223,24 +1222,25 @@
                 document.getElementById('progress').innerHTML = `Câu <span>${currentIndex + 1}</span> / ${quizData.length}${sectionText}`;
 
                 const targetText = currentItem.targetSentence || currentItem.text || currentItem.audioText || "";
-                const rawIpa = currentItem.ipa || "";
+                
+                // Lấy dữ liệu phonetic từ bài học (hỗ trợ cả phonetic và ipa)
+                const rawPhonetic = currentItem.phonetic || currentItem.ipa || "";
                 const sentenceBox = document.getElementById('target-sentence-box');
                 const fallbackIpaBox = document.getElementById('fallback-ipa-box');
 
                 sentenceBox.innerHTML = "";
 
-                // Tách từ và âm IPA tương ứng
                 const words = targetText.split(/\s+/).filter(Boolean);
-                const ipaWords = rawIpa ? rawIpa.replace(/[\[\]\/]/g, '').trim().split(/\s+/).filter(Boolean) : [];
+                const phoneticWords = rawPhonetic ? rawPhonetic.replace(/[\[\]\/]/g, '').trim().split(/\s+/).filter(Boolean) : [];
 
-                if (words.length > 0 && ipaWords.length === words.length) {
+                if (words.length > 0 && phoneticWords.length === words.length) {
                     fallbackIpaBox.classList.add('hidden');
                     words.forEach((w, idx) => {
                         const block = document.createElement('div');
                         block.className = 'word-ipa-block';
                         block.innerHTML = `
                             <span class="word-en">${w}</span>
-                            <span class="word-ipa-sub">/${ipaWords[idx]}/</span>
+                            <span class="word-ipa-sub">/${phoneticWords[idx]}/</span>
                         `;
                         sentenceBox.appendChild(block);
                     });
@@ -1252,8 +1252,8 @@
                         sentenceBox.appendChild(block);
                     });
 
-                    if (rawIpa) {
-                        fallbackIpaBox.innerText = `Phiên âm: / ${rawIpa.replace(/[\[\]\/]/g, '').trim()} /`;
+                    if (rawPhonetic) {
+                        fallbackIpaBox.innerText = `Phiên âm: / ${rawPhonetic.replace(/[\[\]\/]/g, '').trim()} /`;
                         fallbackIpaBox.classList.remove('hidden');
                     } else {
                         fallbackIpaBox.classList.add('hidden');
@@ -1324,7 +1324,7 @@
             }
         }
 
-        /* THUẬT TOÁN CHẤM ĐIỂM: THÂN THIỆN NHÂN VIÊN MỚI & CHỐNG LỖI ĐỌC TỪ PHỤ ('THE', 'A'...) */
+        /* THUẬT TOÁN CHẤM ĐIỂM THÂN THIỆN & CHỐNG GIAN LẬN 1 TỪ */
         function processRecognizedSpeech(transcript) {
             const currentItem = quizData[currentIndex];
             const targetText = currentItem.targetSentence || currentItem.text || currentItem.audioText || "";
@@ -1338,7 +1338,6 @@
                 const targetWords = cleanTarget.split(" ").filter(Boolean);
                 const userWords = cleanUser.split(" ").filter(Boolean);
                 
-                // Chặn lỗi: Nếu câu gốc >= 3 từ mà học viên chỉ nói 1-2 từ và toàn là từ phụ
                 const hasContentWord = userWords.some(w => !STOP_WORDS_SET.has(w));
                 if (targetWords.length >= 3 && userWords.length <= 2 && !hasContentWord) {
                     matchScore = 0;
@@ -1371,7 +1370,6 @@
             let pointEarned = 0; 
 
             if (transcript.trim() !== '') {
-                // Ngưỡng điểm nới lỏng cho học viên: Đạt từ 50%, Gần đúng từ 30%
                 if (matchScore >= 50) {
                     status = 'correct';
                     pointEarned = 1.0; 
@@ -1566,7 +1564,8 @@
                 const ans = userAnswers[index];
                 const targetText = item.targetSentence || item.text || item.audioText || "";
                 const viText = item.vi || item.translation || "";
-                const ipaText = item.ipa ? `[ ${item.ipa} ]` : "";
+                const rawPhonetic = item.phonetic || item.ipa || "";
+                const ipaText = rawPhonetic ? `[ ${rawPhonetic} ]` : "";
                 const userSaid = ans ? ans.userSaid : "";
                 const score = ans ? ans.score : 0;
                 
