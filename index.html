@@ -280,6 +280,12 @@
             line-height: 1.15;
         }
 
+        .word-en.is-keyword {
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            text-underline-offset: 3px;
+        }
+
         .word-ipa-sub {
             font-size: 10px;
             color: #0d6efd;
@@ -1223,7 +1229,6 @@
 
                 const targetText = currentItem.targetSentence || currentItem.text || currentItem.audioText || "";
                 
-                // Đọc đúng trường "phonetic" hoặc "ipa" từ dữ liệu bài học
                 const rawPhonetic = currentItem.phonetic || currentItem.ipa || "";
                 const sentenceBox = document.getElementById('target-sentence-box');
                 const fallbackIpaBox = document.getElementById('fallback-ipa-box');
@@ -1236,19 +1241,25 @@
                 if (words.length > 0 && phoneticWords.length === words.length) {
                     fallbackIpaBox.classList.add('hidden');
                     words.forEach((w, idx) => {
+                        const cleanW = w.toLowerCase().replace(/[^a-z]/g, "");
+                        const isKw = !STOP_WORDS_SET.has(cleanW) && cleanW.length >= 2;
+
                         const block = document.createElement('div');
                         block.className = 'word-ipa-block';
                         block.innerHTML = `
-                            <span class="word-en">${w}</span>
+                            <span class="word-en ${isKw ? 'is-keyword' : ''}">${w}</span>
                             <span class="word-ipa-sub">/${phoneticWords[idx]}/</span>
                         `;
                         sentenceBox.appendChild(block);
                     });
                 } else {
                     words.forEach(w => {
+                        const cleanW = w.toLowerCase().replace(/[^a-z]/g, "");
+                        const isKw = !STOP_WORDS_SET.has(cleanW) && cleanW.length >= 2;
+
                         const block = document.createElement('div');
                         block.className = 'word-ipa-block';
-                        block.innerHTML = `<span class="word-en">${w}</span>`;
+                        block.innerHTML = `<span class="word-en ${isKw ? 'is-keyword' : ''}">${w}</span>`;
                         sentenceBox.appendChild(block);
                     });
 
@@ -1324,7 +1335,7 @@
             }
         }
 
-        /* THUẬT TOÁN CHẤM ĐIỂM THÂN THIỆN & CHỐNG GIAN LẬN 1 TỪ */
+        /* THUẬT TOÁN CHẤM ĐIỂM THỬ THÁCH: TẬP TRUNG TỪ KHÓA CHÍNH (KEYWORDS) */
         function processRecognizedSpeech(transcript) {
             const currentItem = quizData[currentIndex];
             const targetText = currentItem.targetSentence || currentItem.text || currentItem.audioText || "";
@@ -1338,42 +1349,55 @@
                 const targetWords = cleanTarget.split(" ").filter(Boolean);
                 const userWords = cleanUser.split(" ").filter(Boolean);
                 
-                const hasContentWord = userWords.some(w => !STOP_WORDS_SET.has(w));
-                if (targetWords.length >= 3 && userWords.length <= 2 && !hasContentWord) {
-                    matchScore = 0;
-                } else {
-                    let usedUserIndices = new Set();
-                    let matchedCount = 0;
-                    
-                    targetWords.forEach(tw => {
-                        for (let i = 0; i < userWords.length; i++) {
-                            if (!usedUserIndices.has(i) && isWordFuzzyMatch(tw, userWords[i])) {
-                                matchedCount++;
-                                usedUserIndices.add(i);
-                                break;
-                            }
+                const keywords = targetWords.filter(w => !STOP_WORDS_SET.has(w) && w.length >= 2);
+                
+                let matchedKeywordsCount = 0;
+                let usedUserIndices = new Set();
+                
+                keywords.forEach(kw => {
+                    for (let i = 0; i < userWords.length; i++) {
+                        if (!usedUserIndices.has(i) && isWordFuzzyMatch(kw, userWords[i])) {
+                            matchedKeywordsCount++;
+                            usedUserIndices.add(i);
+                            break;
                         }
-                    });
-                    
-                    let baseScore = targetWords.length > 0 ? (matchedCount / targetWords.length) * 100 : 0;
-                    
-                    const lengthRatio = userWords.length / targetWords.length;
-                    if (targetWords.length >= 4 && lengthRatio < 0.35) {
-                        baseScore = baseScore * 0.7;
                     }
-                    
-                    matchScore = Math.round(Math.min(100, baseScore));
+                });
+                
+                const keywordRatio = keywords.length > 0 ? (matchedKeywordsCount / keywords.length) : 1;
+                
+                let totalMatched = 0;
+                let generalUsedIndices = new Set();
+                targetWords.forEach(tw => {
+                    for (let i = 0; i < userWords.length; i++) {
+                        if (!generalUsedIndices.has(i) && isWordFuzzyMatch(tw, userWords[i])) {
+                            totalMatched++;
+                            generalUsedIndices.add(i);
+                            break;
+                        }
+                    }
+                });
+                
+                const generalRatio = targetWords.length > 0 ? (totalMatched / targetWords.length) : 0;
+                
+                let calculatedScore = (keywordRatio * 70) + (generalRatio * 30);
+                
+                if (keywords.length > 0 && keywordRatio === 0) {
+                    calculatedScore = 15;
                 }
+                
+                matchScore = Math.round(Math.min(100, calculatedScore));
             }
 
             let status = 'skipped';
             let pointEarned = 0; 
 
             if (transcript.trim() !== '') {
-                if (matchScore >= 50) {
+                // Ngưỡng thử thách: Đạt từ 75% trở lên
+                if (matchScore >= 75) {
                     status = 'correct';
                     pointEarned = 1.0; 
-                } else if (matchScore >= 30) {
+                } else if (matchScore >= 45) {
                     status = 'approx';
                     pointEarned = 0.5; 
                 } else {
@@ -1391,15 +1415,14 @@
 
             loadQuestion();
             if (status === 'correct') {
-                document.getElementById('status').innerText = "🌟 Phát âm tốt (Đạt 100% điểm)!";
+                document.getElementById('status').innerText = "🌟 Tuyệt vời! Phát âm chuẩn xác các từ khóa chính (Đạt 100%).";
             } else if (status === 'approx') {
-                document.getElementById('status').innerText = "⚡ Gần đúng (Đạt 50% điểm). Hãy cố gắng phát âm thêm các từ còn lại!";
+                document.getElementById('status').innerText = "⚡ Gần đạt yêu cầu. Cần nhấn mạnh và phát âm rõ các từ khóa hơn!";
             } else {
-                document.getElementById('status').innerText = "💡 Phát âm chưa đạt (0 điểm). Hãy cố gắng đọc đầy đủ cả câu!";
+                document.getElementById('status').innerText = "💡 Chưa đạt. Bạn đã bỏ sót các từ khóa quan trọng trong câu!";
             }
         }
 
-        /* HÀM PHÁT ÂM CẢI TIẾN: HỖ TRỢ ĐỔI GIỌNG & TỐC ĐỘ CHUẨN XÁC HƠN */
         function speakCustomText(text, forceSlow = false) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
@@ -1530,10 +1553,10 @@
                 const ans = userAnswers[index];
                 if (!ans || !ans.userSaid || ans.userSaid.trim() === '') {
                     skippedCount++;
-                } else if (ans.score >= 50) {
+                } else if (ans.score >= 75) {
                     correctCount++;
                     totalEarnedPoints += 1.0;
-                } else if (ans.score >= 30) {
+                } else if (ans.score >= 45) {
                     approxCount++;
                     totalEarnedPoints += 0.5;
                 } else {
@@ -1563,7 +1586,7 @@
 
             let evalText = finalScore >= 90 ? "Xuất sắc" : (finalScore >= 70 ? "Đạt" : "Chưa đạt");
             let levelBadgeHtml = `<div class="level-badge ${finalScore >= 90 ? 'level-excellent' : (finalScore >= 70 ? 'level-passed' : 'level-failed')}">${evalText} (${finalScore}/100)</div>`;
-            let adviceText = finalScore >= 70 ? "<b>Đánh giá:</b> Phát âm rõ ràng, chuẩn ngữ điệu và trọng âm!" : "<b>Đánh giá:</b> Cần luyện tập thêm độ bật âm cuối và phát âm đầy đủ các từ trong câu.";
+            let adviceText = finalScore >= 70 ? "<b>Đánh giá:</b> Phát âm rõ ràng, chuẩn ngữ điệu và trọng âm từ khóa!" : "<b>Đánh giá:</b> Cần luyện tập thêm độ bật âm cuối và phát âm đầy đủ các từ khóa chính.";
 
             let questionsListHtml = "";
             quizData.forEach((item, index) => {
@@ -1583,11 +1606,11 @@
                     itemClass = "item-fail";
                     tagClass = "tag-skipped";
                     statusLabel = "⏳ Bỏ qua (0đ)";
-                } else if (score >= 50) {
+                } else if (score >= 75) {
                     itemClass = "item-pass";
                     tagClass = "tag-pass";
                     statusLabel = `✅ Đúng (${score}% - 100% đ)`;
-                } else if (score >= 30) {
+                } else if (score >= 45) {
                     itemClass = "item-approx";
                     tagClass = "tag-approx";
                     statusLabel = `⚡ Gần đúng (${score}% - 50% đ)`;
@@ -1617,7 +1640,7 @@
                             <button class="btn-audio-mini" style="background:#fff3cd; border-color:#ffeeba;" onclick="jumpToQuestionForPractice(${index})">🎤 Luyện lại câu này</button>
                         </div>
 
-                        ${score < 50 ? `
+                        ${score < 75 ? `
                             <div class="overview-error-box">
                                 <b>🗣️ Bạn đã nói:</b> "${userSaid || '<i>Chưa phát âm</i>'}"<br>
                                 <b>🔍 Nhận xét chi tiết:</b> ${errorAnalysis.summaryHtml}<br>
