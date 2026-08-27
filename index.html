@@ -642,7 +642,7 @@
 
             <div id="progress" class="progress-box"></div>
 
-            <!-- KHUNG CÂU MẪU KÈM PHIÊN ÂM IPA DƯỚI TỪNG TỪ -->
+            <!-- KHUNG CÂU MẪU & PHIÊN ÂM IPA DƯỚI TỪNG TỪ -->
             <div class="pronounce-card">
                 <div id="target-sentence-box" class="target-sentence-container"></div>
                 <div id="fallback-ipa-box" class="fallback-ipa-banner hidden"></div>
@@ -1223,7 +1223,7 @@
 
                 const targetText = currentItem.targetSentence || currentItem.text || currentItem.audioText || "";
                 
-                // Lấy dữ liệu phonetic từ bài học (hỗ trợ cả phonetic và ipa)
+                // Đọc đúng trường "phonetic" hoặc "ipa" từ dữ liệu bài học
                 const rawPhonetic = currentItem.phonetic || currentItem.ipa || "";
                 const sentenceBox = document.getElementById('target-sentence-box');
                 const fallbackIpaBox = document.getElementById('fallback-ipa-box');
@@ -1399,36 +1399,42 @@
             }
         }
 
+        /* HÀM PHÁT ÂM CẢI TIẾN: HỖ TRỢ ĐỔI GIỌNG & TỐC ĐỘ CHUẨN XÁC HƠN */
         function speakCustomText(text, forceSlow = false) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
+                
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'en-US';
 
                 const rateElem = document.getElementById('rate-select');
                 let selectedRate = forceSlow ? 0.65 : (rateElem ? parseFloat(rateElem.value) || 0.75 : 0.75);
                 utterance.rate = selectedRate;
-                utterance.pitch = 1.05;
-
-                const voiceElem = document.getElementById('voice-select');
-                const voiceChoice = voiceElem ? voiceElem.value : 'auto';
+                utterance.pitch = 1.0;
 
                 if (cachedVoices.length === 0) {
                     populateVoices();
                 }
 
-                const usVoices = cachedVoices.filter(v => v.lang === 'en-US' || v.lang === 'en_US');
+                const englishVoices = cachedVoices.filter(v => v.lang.startsWith('en'));
+                const usVoices = englishVoices.filter(v => v.lang === 'en-US' || v.lang === 'en_US');
+
+                const voiceElem = document.getElementById('voice-select');
+                const voiceChoice = voiceElem ? voiceElem.value : 'auto';
 
                 let targetVoice = null;
                 if (voiceChoice === 'female') {
-                    targetVoice = usVoices.find(v => /female|samantha|jenny|aria|zira|victoria|karen/i.test(v.name)) || usVoices[0];
+                    targetVoice = usVoices.find(v => /female|samantha|jenny|aria|zira|victoria|karen|catherine/i.test(v.name)) || usVoices[0];
                 } else if (voiceChoice === 'male') {
-                    targetVoice = usVoices.find(v => /male|guy|david|mark|george|alex/i.test(v.name)) || usVoices[0];
+                    targetVoice = usVoices.find(v => /male|guy|david|mark|george|alex|oliver|brian/i.test(v.name)) || usVoices[1] || usVoices[0];
                 } else {
-                    targetVoice = usVoices.find(v => /google|natural|samantha|jenny|guy|aria/i.test(v.name)) || usVoices[0] || cachedVoices.find(v => v.lang.startsWith('en'));
+                    targetVoice = usVoices.find(v => /google|natural|microsoft/i.test(v.name)) || usVoices[0] || englishVoices[0];
                 }
 
-                if (targetVoice) utterance.voice = targetVoice;
+                if (targetVoice) {
+                    utterance.voice = targetVoice;
+                }
+
                 window.speechSynthesis.speak(utterance);
             } else {
                 alert("Trình duyệt không hỗ trợ phát âm thanh!");
