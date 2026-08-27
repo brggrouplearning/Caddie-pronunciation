@@ -294,7 +294,7 @@
             cursor: pointer;
         }
 
-        .record-control-box { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 5px 0; }
+        .record-control-box { display: flex; flex-direction: column; align-items: center; gap: 5px; margin: 6px 0; }
         .btn-record { 
             background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%); 
             color: white; 
@@ -306,7 +306,7 @@
             border-radius: 20px; 
             cursor: pointer; 
             width: 100%; 
-            max-width: 270px; 
+            max-width: 280px; 
             box-shadow: 0 2px 6px rgba(220, 53, 69, 0.2); 
             display: flex; 
             align-items: center; 
@@ -320,7 +320,7 @@
             background: #475569; 
             color: white; 
             min-height: 28px; 
-            padding: 3px 10px; 
+            padding: 3px 8px; 
             font-size: 9.5px; 
             font-weight: 600; 
             border: none; 
@@ -328,6 +328,7 @@
             cursor: pointer; 
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 4px;
         }
         .btn-sample-audio:hover { background: #334155; }
@@ -558,7 +559,6 @@
             </div>
 
             <div id="roadmap-box" class="roadmap-container hidden">
-                
                 <div class="stage-notice-banner">
                     🌟 <b>Chào mừng bạn đã bước sang Giai đoạn 2 của khóa học!</b><br>
                     Bạn có thể thoải mái lựa chọn và luyện tập các chuyên đề tiếp theo.
@@ -617,10 +617,10 @@
                     <div class="audio-sub-group">
                         <span class="audio-sub-label">⚡ Tốc độ:</span>
                         <select id="rate-select" class="audio-sub-select">
-                            <option value="0.75">0.75x</option>
-                            <option value="0.85" selected>0.85x</option>
-                            <option value="1">1.0x</option>
-                            <option value="1.25">1.25x</option>
+                            <option value="0.65">0.65x (Rất chậm)</option>
+                            <option value="0.75" selected>0.75x (Dễ nghe)</option>
+                            <option value="0.85">0.85x (Chuẩn)</option>
+                            <option value="1">1.0x (Nhanh)</option>
                         </select>
                     </div>
                 </div>
@@ -630,7 +630,10 @@
                 <button id="btn-record-mic" class="btn-record" onclick="toggleSpeechRecognition()">
                     <span>🎙️ BẤM ĐỂ NÓI / START SPEAKING</span>
                 </button>
-                <button class="btn-sample-audio" onclick="playSampleAudio()">🔊 Nghe phát âm mẫu chuẩn (Native US)</button>
+                <div style="display: flex; gap: 5px; width: 100%; max-width: 280px;">
+                    <button class="btn-sample-audio" style="flex: 1;" onclick="playSampleAudio()">🔊 Nghe mẫu chuẩn</button>
+                    <button class="btn-sample-audio" style="flex: 1; background: #0d6efd;" onclick="playSampleAudio(true)">🐢 Nghe chậm</button>
+                </div>
             </div>
 
             <div class="speech-recognized-box">
@@ -701,6 +704,8 @@
             { code: "exam4", title: "Exam 4: Giai đoạn 4 (L5-6) / Stage 4 Test", planDate: "2026-09-19", planDisplay: "19/09" },
             { code: "all", title: "Final Exam: Cuối khóa / Comprehensive Test (All Lessons)", planDate: "2026-09-22", planDisplay: "22/09" }
         ];
+
+        const STOP_WORDS_SET = new Set(['the', 'a', 'an', 'and', 'to', 'of', 'in', 'on', 'at', 'is', 'it', 'for', 'or', 'as', 'by', 'be']);
 
         let studentProgressMap = {}; 
         let studentInfo = {
@@ -812,7 +817,6 @@
             return s.replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
         }
 
-        // Tính khoảng cách Levenshtein để so khớp mềm (Fuzzy Matching) các từ phát âm gần giống
         function levenshteinDistance(a, b) {
             if (!a || !b) return (a || b).length;
             const matrix = Array.from({ length: a.length + 1 }, () => []);
@@ -832,14 +836,16 @@
             return matrix[a.length][b.length];
         }
 
-        // Kiểm tra xem từ học viên nói có tương đương với từ mẫu hay không
+        // So khớp mềm thích ứng: Hỗ trợ phát âm thiếu âm đuôi nhưng không nhầm từ ngắn
         function isWordFuzzyMatch(w1, w2) {
             if (w1 === w2) return true;
             if (Math.abs(w1.length - w2.length) > 2) return false;
             const dist = levenshteinDistance(w1, w2);
-            if (w1.length <= 3) return dist === 0;
-            if (w1.length <= 5) return dist <= 1;
-            return dist <= 2;
+            
+            if (w1.length <= 2) return dist === 0;
+            if (w1.length <= 4) return dist <= 1;
+            if (w1.length <= 7) return dist <= 2;
+            return dist <= 3;
         }
 
         function convertToNonAccent(str) {
@@ -1240,7 +1246,7 @@
             }
         }
 
-        /* THUẬT TOÁN CHẤM ĐIỂM LINH HOẠT - CHẶN GIAN LẬN PHÁT ÂM THIẾU TỪ */
+        /* THUẬT TOÁN CHẤM ĐIỂM: THÂN THIỆN NHÂN VIÊN MỚI & CHỐNG LỖI ĐỌC TỪ PHỤ ('THE', 'A'...) */
         function processRecognizedSpeech(transcript) {
             const currentItem = quizData[currentIndex];
             const targetText = currentItem.targetSentence || currentItem.text || currentItem.audioText || "";
@@ -1249,28 +1255,34 @@
             const cleanUser = normalizeEnglishText(transcript);
             
             let matchScore = 0;
+            
             if (cleanTarget && cleanUser) {
                 const targetWords = cleanTarget.split(" ").filter(Boolean);
                 const userWords = cleanUser.split(" ").filter(Boolean);
                 
-                // Tránh lỗi chỉ nói 1 từ ("the", "a", v.v.) khi câu dài
-                if (targetWords.length >= 3 && userWords.length <= 1) {
-                    matchScore = 15;
+                // Chặn lỗi: Nếu câu gốc >= 3 từ mà học viên chỉ nói 1-2 từ và toàn là từ phụ
+                const hasContentWord = userWords.some(w => !STOP_WORDS_SET.has(w));
+                if (targetWords.length >= 3 && userWords.length <= 2 && !hasContentWord) {
+                    matchScore = 0;
                 } else {
+                    let usedUserIndices = new Set();
                     let matchedCount = 0;
+                    
                     targetWords.forEach(tw => {
-                        const hasMatch = userWords.some(uw => isWordFuzzyMatch(tw, uw));
-                        if (hasMatch) matchedCount++;
+                        for (let i = 0; i < userWords.length; i++) {
+                            if (!usedUserIndices.has(i) && isWordFuzzyMatch(tw, userWords[i])) {
+                                matchedCount++;
+                                usedUserIndices.add(i);
+                                break;
+                            }
+                        }
                     });
                     
                     let baseScore = targetWords.length > 0 ? (matchedCount / targetWords.length) * 100 : 0;
                     
-                    // Phạt nếu số lượng từ nói quá ít so với độ dài câu
                     const lengthRatio = userWords.length / targetWords.length;
-                    if (lengthRatio < 0.5) {
-                        baseScore = baseScore * 0.5;
-                    } else if (lengthRatio < 0.75) {
-                        baseScore = baseScore * 0.85;
+                    if (targetWords.length >= 4 && lengthRatio < 0.35) {
+                        baseScore = baseScore * 0.7;
                     }
                     
                     matchScore = Math.round(Math.min(100, baseScore));
@@ -1281,11 +1293,11 @@
             let pointEarned = 0; 
 
             if (transcript.trim() !== '') {
-                // Giảm khắt khe: từ 70% trở lên tính là Đạt (100% điểm), từ 40% đến 69% tính Gần đúng (50% điểm)
-                if (matchScore >= 70) {
+                // Ngưỡng điểm nới lỏng cho học viên: Đạt từ 50%, Gần đúng từ 30%
+                if (matchScore >= 50) {
                     status = 'correct';
                     pointEarned = 1.0; 
-                } else if (matchScore >= 40) {
+                } else if (matchScore >= 30) {
                     status = 'approx';
                     pointEarned = 0.5; 
                 } else {
@@ -1305,24 +1317,22 @@
             if (status === 'correct') {
                 document.getElementById('status').innerText = "🌟 Phát âm tốt (Đạt 100% điểm)!";
             } else if (status === 'approx') {
-                document.getElementById('status').innerText = "⚡ Gần đúng (Đạt 50% điểm câu). Hãy luyện thêm ngữ điệu và âm đuôi!";
+                document.getElementById('status').innerText = "⚡ Gần đúng (Đạt 50% điểm). Hãy cố gắng phát âm thêm các từ còn lại!";
             } else {
                 document.getElementById('status').innerText = "💡 Phát âm chưa đạt (0 điểm). Hãy cố gắng đọc đầy đủ cả câu!";
             }
         }
 
-        function speakCustomText(text) {
+        function speakCustomText(text, forceSlow = false) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'en-US';
 
                 const rateElem = document.getElementById('rate-select');
-                let selectedRate = 0.85;
-                if (rateElem) {
-                    selectedRate = parseFloat(rateElem.value) || 0.85;
-                }
+                let selectedRate = forceSlow ? 0.65 : (rateElem ? parseFloat(rateElem.value) || 0.75 : 0.75);
                 utterance.rate = selectedRate;
+                utterance.pitch = 1.05;
 
                 const voiceElem = document.getElementById('voice-select');
                 const voiceChoice = voiceElem ? voiceElem.value : 'auto';
@@ -1342,20 +1352,17 @@
                     targetVoice = usVoices.find(v => /google|natural|samantha|jenny|guy|aria/i.test(v.name)) || usVoices[0] || cachedVoices.find(v => v.lang.startsWith('en'));
                 }
 
-                if (targetVoice) {
-                    utterance.voice = targetVoice;
-                }
-
+                if (targetVoice) utterance.voice = targetVoice;
                 window.speechSynthesis.speak(utterance);
             } else {
                 alert("Trình duyệt không hỗ trợ phát âm thanh!");
             }
         }
 
-        function playSampleAudio() {
+        function playSampleAudio(isSlow = false) {
             const currentItem = quizData[currentIndex];
             const text = currentItem.targetSentence || currentItem.text || currentItem.audioText || "";
-            speakCustomText(text);
+            speakCustomText(text, isSlow);
         }
 
         function goToNext() {
@@ -1441,10 +1448,10 @@
                 const ans = userAnswers[index];
                 if (!ans || !ans.userSaid || ans.userSaid.trim() === '') {
                     skippedCount++;
-                } else if (ans.score >= 70) {
+                } else if (ans.score >= 50) {
                     correctCount++;
                     totalEarnedPoints += 1.0;
-                } else if (ans.score >= 40) {
+                } else if (ans.score >= 30) {
                     approxCount++;
                     totalEarnedPoints += 0.5;
                 } else {
@@ -1493,11 +1500,11 @@
                     itemClass = "item-fail";
                     tagClass = "tag-skipped";
                     statusLabel = "⏳ Bỏ qua (0đ)";
-                } else if (score >= 70) {
+                } else if (score >= 50) {
                     itemClass = "item-pass";
                     tagClass = "tag-pass";
                     statusLabel = `✅ Đúng (${score}% - 100% đ)`;
-                } else if (score >= 40) {
+                } else if (score >= 30) {
                     itemClass = "item-approx";
                     tagClass = "tag-approx";
                     statusLabel = `⚡ Gần đúng (${score}% - 50% đ)`;
@@ -1522,11 +1529,12 @@
                         <div class="overview-text-vi">👉 ${viText}</div>
                         
                         <div class="overview-audio-group">
-                            <button class="btn-audio-mini" onclick="speakCustomText('${escapedTarget}')">🔊 Nghe mẫu</button>
+                            <button class="btn-audio-mini" onclick="speakCustomText('${escapedTarget}')">🔊 Nghe chuẩn</button>
+                            <button class="btn-audio-mini" onclick="speakCustomText('${escapedTarget}', true)">🐢 Nghe chậm</button>
                             <button class="btn-audio-mini" style="background:#fff3cd; border-color:#ffeeba;" onclick="jumpToQuestionForPractice(${index})">🎤 Luyện lại câu này</button>
                         </div>
 
-                        ${score < 70 ? `
+                        ${score < 50 ? `
                             <div class="overview-error-box">
                                 <b>🗣️ Bạn đã nói:</b> "${userSaid || '<i>Chưa phát âm</i>'}"<br>
                                 <b>🔍 Nhận xét chi tiết:</b> ${errorAnalysis.summaryHtml}<br>
@@ -1594,7 +1602,7 @@
                         </button>
                     </div>
 
-                    <div id="overview-container-box" class="overview-container-container hidden">
+                    <div id="overview-container-box" class="overview-card-container hidden">
                         <div class="overview-header">
                             <span>📝 BẢNG TỔNG QUAN TỪNG CÂU & PHÁT ÂM</span>
                             <span style="font-size:9.5px; color:#6c757d;">(Xem chi tiết & Nghe lại)</span>
