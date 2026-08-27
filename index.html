@@ -513,6 +513,12 @@
     <div class="brand-header">BRG LEARNING</div>
 
     <div class="container" id="main-container">
+        <!-- CẢNH BÁO NẾU MỞ TRONG ZALO -->
+        <div id="zalo-browser-warning" style="display: none; background: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 8px 10px; border-radius: 8px; margin-bottom: 6px; font-size: 10.5px; text-align: left; line-height: 1.4;">
+            ⚠️ <b>Bạn đang mở qua trình duyệt Zalo!</b><br>
+            Zalo chặn quyền sử dụng Micro. Vui lòng bấm vào <b>3 dấu chấm (...)</b> ở góc trên bên phải và chọn <b>"Mở bằng Trình duyệt" (Chrome / Safari)</b> để sử dụng được mic.
+        </div>
+
         <div class="header-section">
             <div class="speaking-badge-corner" title="Kỹ năng Phát âm / Speaking Skill">
                 <span class="icon">🎙️</span>
@@ -781,6 +787,13 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
+            // Kiểm tra mở qua Zalo In-App Browser
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
+            if (ua.indexOf("Zalo") > -1) {
+                const warningBox = document.getElementById('zalo-browser-warning');
+                if (warningBox) warningBox.style.display = 'block';
+            }
+
             const dateInput = document.getElementById('birthday-date');
             if (dateInput) {
                 const today = new Date();
@@ -1335,7 +1348,7 @@
             }
         }
 
-        /* THUẬT TOÁN CHẤM ĐIỂM LINH HOẠT: PHÂN TÁCH GIỮA LUYỆN TẬP VÀ EXAM */
+        /* THUẬT TOÁN CHẤM ĐIỂM: PHÂN TÁCH LUYỆN TẬP VÀ EXAM */
         function processRecognizedSpeech(transcript) {
             const currentItem = quizData[currentIndex];
             const targetText = currentItem.targetSentence || currentItem.text || currentItem.audioText || "";
@@ -1351,7 +1364,6 @@
                 const userWords = cleanUser.split(" ").filter(Boolean);
                 
                 if (isExamMode) {
-                    // Chế độ Exam: Thử thách cao, khắt khe với từ khóa chính
                     const keywords = targetWords.filter(w => !STOP_WORDS_SET.has(w) && w.length >= 2);
                     let matchedKeywordsCount = 0;
                     let usedUserIndices = new Set();
@@ -1389,7 +1401,6 @@
                     matchScore = Math.round(Math.min(100, calculatedScore));
 
                 } else {
-                    // Chế độ Luyện tập (Practice): Dễ thở, thân thiện cho nhân viên mới
                     const hasContentWord = userWords.some(w => !STOP_WORDS_SET.has(w));
                     if (targetWords.length >= 3 && userWords.length <= 2 && !hasContentWord) {
                         matchScore = 0;
