@@ -1335,7 +1335,7 @@
             }
         }
 
-        /* THUẬT TOÁN CHẤM ĐIỂM THỬ THÁCH: TẬP TRUNG TỪ KHÓA CHÍNH (KEYWORDS) */
+        /* THUẬT TOÁN CHẤM ĐIỂM LINH HOẠT: PHÂN TÁCH GIỮA LUYỆN TẬP VÀ EXAM */
         function processRecognizedSpeech(transcript) {
             const currentItem = quizData[currentIndex];
             const targetText = currentItem.targetSentence || currentItem.text || currentItem.audioText || "";
@@ -1344,60 +1344,86 @@
             const cleanUser = normalizeEnglishText(transcript);
             
             let matchScore = 0;
-            
+            const isExamMode = studentInfo.selectedVal && (studentInfo.selectedVal.startsWith('exam') || studentInfo.selectedVal === 'all');
+
             if (cleanTarget && cleanUser) {
                 const targetWords = cleanTarget.split(" ").filter(Boolean);
                 const userWords = cleanUser.split(" ").filter(Boolean);
                 
-                const keywords = targetWords.filter(w => !STOP_WORDS_SET.has(w) && w.length >= 2);
-                
-                let matchedKeywordsCount = 0;
-                let usedUserIndices = new Set();
-                
-                keywords.forEach(kw => {
-                    for (let i = 0; i < userWords.length; i++) {
-                        if (!usedUserIndices.has(i) && isWordFuzzyMatch(kw, userWords[i])) {
-                            matchedKeywordsCount++;
-                            usedUserIndices.add(i);
-                            break;
+                if (isExamMode) {
+                    // Chế độ Exam: Thử thách cao, khắt khe với từ khóa chính
+                    const keywords = targetWords.filter(w => !STOP_WORDS_SET.has(w) && w.length >= 2);
+                    let matchedKeywordsCount = 0;
+                    let usedUserIndices = new Set();
+                    
+                    keywords.forEach(kw => {
+                        for (let i = 0; i < userWords.length; i++) {
+                            if (!usedUserIndices.has(i) && isWordFuzzyMatch(kw, userWords[i])) {
+                                matchedKeywordsCount++;
+                                usedUserIndices.add(i);
+                                break;
+                            }
                         }
-                    }
-                });
-                
-                const keywordRatio = keywords.length > 0 ? (matchedKeywordsCount / keywords.length) : 1;
-                
-                let totalMatched = 0;
-                let generalUsedIndices = new Set();
-                targetWords.forEach(tw => {
-                    for (let i = 0; i < userWords.length; i++) {
-                        if (!generalUsedIndices.has(i) && isWordFuzzyMatch(tw, userWords[i])) {
-                            totalMatched++;
-                            generalUsedIndices.add(i);
-                            break;
+                    });
+                    
+                    const keywordRatio = keywords.length > 0 ? (matchedKeywordsCount / keywords.length) : 1;
+                    
+                    let totalMatched = 0;
+                    let generalUsedIndices = new Set();
+                    targetWords.forEach(tw => {
+                        for (let i = 0; i < userWords.length; i++) {
+                            if (!generalUsedIndices.has(i) && isWordFuzzyMatch(tw, userWords[i])) {
+                                totalMatched++;
+                                generalUsedIndices.add(i);
+                                break;
+                            }
                         }
+                    });
+                    
+                    const generalRatio = targetWords.length > 0 ? (totalMatched / targetWords.length) : 0;
+                    let calculatedScore = (keywordRatio * 70) + (generalRatio * 30);
+                    
+                    if (keywords.length > 0 && keywordRatio === 0) {
+                        calculatedScore = 15;
                     }
-                });
-                
-                const generalRatio = targetWords.length > 0 ? (totalMatched / targetWords.length) : 0;
-                
-                let calculatedScore = (keywordRatio * 70) + (generalRatio * 30);
-                
-                if (keywords.length > 0 && keywordRatio === 0) {
-                    calculatedScore = 15;
+                    matchScore = Math.round(Math.min(100, calculatedScore));
+
+                } else {
+                    // Chế độ Luyện tập (Practice): Dễ thở, thân thiện cho nhân viên mới
+                    const hasContentWord = userWords.some(w => !STOP_WORDS_SET.has(w));
+                    if (targetWords.length >= 3 && userWords.length <= 2 && !hasContentWord) {
+                        matchScore = 0;
+                    } else {
+                        let usedUserIndices = new Set();
+                        let matchedCount = 0;
+                        
+                        targetWords.forEach(tw => {
+                            for (let i = 0; i < userWords.length; i++) {
+                                if (!usedUserIndices.has(i) && isWordFuzzyMatch(tw, userWords[i])) {
+                                    matchedCount++;
+                                    usedUserIndices.add(i);
+                                    break;
+                                }
+                            }
+                        });
+                        
+                        let baseScore = targetWords.length > 0 ? (matchedCount / targetWords.length) * 100 : 0;
+                        matchScore = Math.round(Math.min(100, baseScore));
+                    }
                 }
-                
-                matchScore = Math.round(Math.min(100, calculatedScore));
             }
 
             let status = 'skipped';
             let pointEarned = 0; 
 
             if (transcript.trim() !== '') {
-                // Ngưỡng thử thách: Đạt từ 75% trở lên
-                if (matchScore >= 75) {
+                const passThreshold = isExamMode ? 75 : 50;
+                const approxThreshold = isExamMode ? 45 : 30;
+
+                if (matchScore >= passThreshold) {
                     status = 'correct';
                     pointEarned = 1.0; 
-                } else if (matchScore >= 45) {
+                } else if (matchScore >= approxThreshold) {
                     status = 'approx';
                     pointEarned = 0.5; 
                 } else {
@@ -1415,11 +1441,11 @@
 
             loadQuestion();
             if (status === 'correct') {
-                document.getElementById('status').innerText = "🌟 Tuyệt vời! Phát âm chuẩn xác các từ khóa chính (Đạt 100%).";
+                document.getElementById('status').innerText = isExamMode ? "🌟 Tuyệt vời! Bài thi đạt độ chính xác cao." : "🌟 Phát âm tốt! Tiếp tục phát huy nhé.";
             } else if (status === 'approx') {
-                document.getElementById('status').innerText = "⚡ Gần đạt yêu cầu. Cần nhấn mạnh và phát âm rõ các từ khóa hơn!";
+                document.getElementById('status').innerText = "⚡ Gần đúng. Cố gắng phát âm rõ các từ còn lại!";
             } else {
-                document.getElementById('status').innerText = "💡 Chưa đạt. Bạn đã bỏ sót các từ khóa quan trọng trong câu!";
+                document.getElementById('status').innerText = isExamMode ? "💡 Chưa đạt yêu cầu bài thi. Cần đọc đủ từ khóa chính!" : "💡 Chưa đạt. Hãy thử đọc to và rõ ràng hơn!";
             }
         }
 
@@ -1548,15 +1574,18 @@
             let skippedCount = 0;
             let totalEarnedPoints = 0;
             let totalItems = quizData.length;
+            const isExamMode = studentInfo.selectedVal && (studentInfo.selectedVal.startsWith('exam') || studentInfo.selectedVal === 'all');
+            const passLimit = isExamMode ? 75 : 50;
+            const approxLimit = isExamMode ? 45 : 30;
 
             quizData.forEach((item, index) => {
                 const ans = userAnswers[index];
                 if (!ans || !ans.userSaid || ans.userSaid.trim() === '') {
                     skippedCount++;
-                } else if (ans.score >= 75) {
+                } else if (ans.score >= passLimit) {
                     correctCount++;
                     totalEarnedPoints += 1.0;
-                } else if (ans.score >= 45) {
+                } else if (ans.score >= approxLimit) {
                     approxCount++;
                     totalEarnedPoints += 0.5;
                 } else {
@@ -1586,7 +1615,7 @@
 
             let evalText = finalScore >= 90 ? "Xuất sắc" : (finalScore >= 70 ? "Đạt" : "Chưa đạt");
             let levelBadgeHtml = `<div class="level-badge ${finalScore >= 90 ? 'level-excellent' : (finalScore >= 70 ? 'level-passed' : 'level-failed')}">${evalText} (${finalScore}/100)</div>`;
-            let adviceText = finalScore >= 70 ? "<b>Đánh giá:</b> Phát âm rõ ràng, chuẩn ngữ điệu và trọng âm từ khóa!" : "<b>Đánh giá:</b> Cần luyện tập thêm độ bật âm cuối và phát âm đầy đủ các từ khóa chính.";
+            let adviceText = finalScore >= 70 ? "<b>Đánh giá:</b> Phát âm rõ ràng, chuẩn ngữ điệu và trọng âm!" : "<b>Đánh giá:</b> Cần luyện tập thêm độ bật âm cuối và phát âm đầy đủ các từ trong câu.";
 
             let questionsListHtml = "";
             quizData.forEach((item, index) => {
@@ -1606,11 +1635,11 @@
                     itemClass = "item-fail";
                     tagClass = "tag-skipped";
                     statusLabel = "⏳ Bỏ qua (0đ)";
-                } else if (score >= 75) {
+                } else if (score >= passLimit) {
                     itemClass = "item-pass";
                     tagClass = "tag-pass";
                     statusLabel = `✅ Đúng (${score}% - 100% đ)`;
-                } else if (score >= 45) {
+                } else if (score >= approxLimit) {
                     itemClass = "item-approx";
                     tagClass = "tag-approx";
                     statusLabel = `⚡ Gần đúng (${score}% - 50% đ)`;
@@ -1640,7 +1669,7 @@
                             <button class="btn-audio-mini" style="background:#fff3cd; border-color:#ffeeba;" onclick="jumpToQuestionForPractice(${index})">🎤 Luyện lại câu này</button>
                         </div>
 
-                        ${score < 75 ? `
+                        ${score < passLimit ? `
                             <div class="overview-error-box">
                                 <b>🗣️ Bạn đã nói:</b> "${userSaid || '<i>Chưa phát âm</i>'}"<br>
                                 <b>🔍 Nhận xét chi tiết:</b> ${errorAnalysis.summaryHtml}<br>
