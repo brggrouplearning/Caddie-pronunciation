@@ -1589,7 +1589,7 @@ window.masterQuizData.push(
     },
 
     // -------------------------------------------------------------------------
-    // SECTION 3.4: REVIEW & PRACTICE L3 (THỰC HÀNH TỔNG HỢP GIAI ĐOẠN 3 - 35 CÂU)
+    // SECTION 3.4: REVIEW & PRACTICE L3 (THỰC HÀNH TỔNG HỢP GIAI ĐOẠN 3 - 55 CÂU)
     // -------------------------------------------------------------------------
     {
         "lesson": "3",
@@ -1978,6 +1978,166 @@ window.masterQuizData.push(
     {
         "lesson": "3",
         "section": "section3.4",
+        "type": "mcq",
+        "title": "[3.4 Tình huống nâng cao] Luyện phát âm thông báo khoảng cách nước và điểm thả bóng chuẩn xác:",
+        "audioText": "The penalty area boundary is marked with red stakes, Sir. You can drop the ball here.",
+        "phonetic": "/ðə ˈpen.əl.ti ˈer.i.ə ˈbaʊn.dər.i ɪz mɑːrkt wɪð red steɪks, sɜːr. juː kæn drɑːp ðə bɔːl hɪər/",
+        "translation": "Ranh giới khu vực phạt được đánh dấu bằng các cọc đỏ thưa ông. Ông có thể thả bóng ở đây.",
+        "options": [
+                { "en": "A. The penalty area boundary is marked with red stakes, Sir. You can drop the ball here.", "vi": "Ranh giới cọc đỏ, thả bóng ở đây" },
+                { "en": "B. There are yellow stakes, play from the water, Sir.", "vi": "Cọc vàng, đánh dưới nước" },
+                { "en": "C. No stakes on this hole, Sir.", "vi": "Không có cọc" },
+                { "en": "D. Out of bounds right, Sir.", "vi": "Ngoài biên bên phải" }
+        ],
+        "correct": 0
+    },
+    {
+        "lesson": "3",
+        "section": "section3.4",
+        "type": "mcq",
+        "title": "[3.4 Tình huống nâng cao] Luyện đọc câu nhắc nhở sửa vết bóng lún trên green (pitch mark):",
+        "audioText": "Please repair your pitch mark on the green, Sir. Thank you.",
+        "phonetic": "/pliːz rɪˈper jʊər pɪtʃ mɑːrk ɑːn ðə ɡriːn, sɜːr. θæŋk juː/",
+        "translation": "Xin vui lòng sửa vết bóng lõm trên green giúp tôi thưa ông. Cảm ơn ông.",
+        "options": [
+                { "en": "A. Please repair your pitch mark on the green, Sir. Thank you.", "vi": "Sửa vết bóng lún trên green" },
+                { "en": "B. Leave the green damaged, Sir.", "vi": "Để green hỏng" },
+                { "en": "C. Step heavily on the green, Sir.", "vi": "Dẫm mạnh lên green" },
+                { "en": "D. Don't touch the green surface, Sir.", "vi": "Đừng chạm mặt green" }
+        ],
+        "correct": 0
+    },
+    {
+        "lesson": "3",
+        "section": "section3.4",
+        "type": "mcq",
+        "title": "[3.4 Tình huống nâng cao] Luyện phát âm thuật ngữ cào cát san bằng bẫy cát sau khi đánh (rake the bunker):",
+        "audioText": "I will rake the bunker for you now, Sir.",
+        "phonetic": "/aɪ wɪl reɪk ðə ˈbʌŋ.kɚ fɔːr juː naʊ, sɜːr/",
+        "translation": "Tôi sẽ cào lại bẫy cát cho ông ngay bây giờ ạ.",
+        "options": [
+                { "en": "A. I will rake the bunker for you now, Sir.", "vi": "Cào lại bẫy cát cho khách (/rake the bunker/)" },
+                { "en": "B. Leave the bunker footprints, Sir.", "vi": "Để lại dấu chân trong cát" },
+                { "en": "C. Hit another ball from the sand, Sir.", "vi": "Đánh quả khác từ cát" },
+                { "en": "D. Fill the bunker with water, Sir.", "vi": "Đổ nước vào bẫy cát" }
+        ],
+        "correct": 0
+    },
+    {
+        "lesson": "3",
+        "section": "section3.4",
+        "type": "mcq",
+        "title": "[3.4 Tình huống nâng cao] Luyện phát âm thông báo vị trí cờ cắm ở tâm giữa green:",
+        "audioText": "The pin is right in the middle of the green today, Sir.",
+        "phonetic": "/ðə pɪn ɪz raɪt ɪn ðə ˈmɪd.əl əv ðə ɡriːn təˈdeɪ, sɜːr/",
+        "translation": "Hôm nay cờ cắm ngay ở chính giữa green thưa ông.",
+        "options": [
+                { "en": "A. The pin is right in the middle of the green today, Sir.", "vi": "Cờ cắm chính giữa green" },
+                { "en": "B. The pin is at the front edge, Sir.", "vi": "Cờ ở mép trước" },
+                { "en": "C. The pin is hidden behind trees, Sir.", "vi": "Cờ khuất sau cây" },
+                { "en": "D. There is no flag today, Sir.", "vi": "Hôm nay không có cờ" }
+        ],
+        "correct": 0
+    },
+    {
+        "lesson": "3",
+        "section": "section3.4",
+        "type": "mcq",
+        "title": "[3.4 Tình huống nâng cao] Luyện đọc câu nhắc nhở khách tránh dẫm lên đường line gạt bóng của người khác:",
+        "audioText": "Please watch your step and avoid walking on other players' line of putts, Sir.",
+        "phonetic": "/pliːz wɑːtʃ jʊər step ænd əˈvɔɪd ˈwɔː.kɪŋ ɑːn ˈʌð.ɚ ˈpleɪ.ɚz laɪ əv pʌts, sɜːr/",
+        "translation": "Xin chú ý bước chân và tránh dẫm lên đường gạt bóng của người chơi khác thưa ông.",
+        "options": [
+                { "en": "A. Please watch your step and avoid walking on other players' line of putts, Sir.", "vi": "Tránh dẫm lên đường line gạt bóng của người khác" },
+                { "en": "B. Walk directly on everyone's line, Sir.", "vi": "Đi thẳng lên line của mọi người" },
+                { "en": "C. Run across the green quickly, Sir.", "vi": "Chạy nhanh qua green" },
+                { "en": "D. Stand close to the cup, Sir.", "vi": "Đứng sát lỗ gôn" }
+        ],
+        "correct": 0
+    },
+    {
+        "lesson": "3",
+        "section": "section3.4",
+        "type": "mcq",
+        "title": "[3.4 Tình huống nâng cao] Luyện đọc câu tư vấn lực đánh khi green bị ướt buổi sáng sớm:",
+        "audioText": "The morning dew makes the green a bit slow. You need a firmer stroke, Sir.",
+        "phonetic": "/ðə ˈmɔːr.nɪŋ duː meɪks ðə ɡriːn ə bɪt sloʊ. juː niːd ə ˈfɜːr.mɚ stroʊk, sɜːr/",
+        "translation": "Sương sớm làm cho green hơi chậm. Ông cần cú gạt dứt khoát và mạnh tay hơn thưa ông.",
+        "options": [
+                { "en": "A. The morning dew makes the green a bit slow. You need a firmer stroke, Sir.", "vi": "Sương sớm green chậm, cần gạt mạnh tay dứt khoát" },
+                { "en": "B. Green is extremely fast, hit very softly, Sir.", "vi": "Green rất nhanh, gạt cực nhẹ" },
+                { "en": "C. No dew today, perfect speed, Sir.", "vi": "Không có sương" },
+                { "en": "D. Use a driver on the green, Sir.", "vi": "Dùng driver trên green" }
+        ],
+        "correct": 0
+    },
+    {
+        "lesson": "3",
+        "section": "section3.4",
+        "type": "mcq",
+        "title": "[3.4 Tình huống nâng cao] Luyện phát âm thông báo điểm số tốt sau khi kết thúc hố gôn:",
+        "audioText": "That was a fantastic Par on this difficult hole, Sir!",
+        "phonetic": "/ðæt wɪz ə fænˈtæs.tɪk pɑːr ɑːn ðɪs ˈdɪf.ə.kənt hoʊl, sɜːr/",
+        "translation": "Đó là một điểm Par tuyệt vời trên hố đấu khó này thưa ông!",
+        "options": [
+                { "en": "A. That was a fantastic Par on this difficult hole, Sir!", "vi": "Điểm Par tuyệt vời trên hố khó!" },
+                { "en": "B. That was a triple bogey, bad job, Sir.", "vi": "Điểm triple bogey tồi" },
+                { "en": "C. You lost the ball here, Sir.", "vi": "Mất bóng ở đây" },
+                { "en": "D. Let's quit the game, Sir.", "vi": "Bỏ chơi thôi" }
+        ],
+        "correct": 0
+    },
+    {
+        "lesson": "3",
+        "section": "section3.4",
+        "type": "mcq",
+        "title": "[3.4 Tình huống nâng cao] Luyện đọc câu nhắc nhở giữ nhịp độ chơi nhanh (Ready golf):",
+        "audioText": "To keep up with the group ahead, we should play ready golf now, Sir.",
+        "phonetic": "/tə kiːp ʌp wɪð ðə ɡruːp əˈhed, wiː ʃʊd pleɪ ˈred.i ɡɑːlf naʊ, sɜːr/",
+        "translation": "Để theo kịp nhóm phía trước, chúng ta nên chơi theo nhịp độ nhanh linh hoạt thưa ông.",
+        "options": [
+                { "en": "A. To keep up with the group ahead, we should play ready golf now, Sir.", "vi": "Chơi nhanh linh hoạt để kịp nhóm trước (/ready golf/)" },
+                { "en": "B. Slow down and take a long break, Sir.", "vi": "Đi chậm và nghỉ lâu" },
+                { "en": "C. Wait for 15 minutes before every shot, Sir.", "vi": "Chờ 15 phút trước mỗi cú đánh" },
+                { "en": "D. Skip all remaining holes, Sir.", "vi": "Bỏ tất cả các hố còn lại" }
+        ],
+        "correct": 0
+    },
+    {
+        "lesson": "3",
+        "section": "section3.4",
+        "type": "mcq",
+        "title": "[3.4 Tình huống nâng cao] Luyện phát âm câu thông báo cờ cắm ở góc trước bên trái green:",
+        "audioText": "The pin is tucked in the front left corner today, Sir.",
+        "phonetic": "/ðə pɪn ɪz tʌkt ɪn ðə frʌnt left ˈkɔːr.nɚ təˈdeɪ, sɜːr/",
+        "translation": "Hôm nay cờ cắm ở vị trí hiểm góc trước bên trái green thưa ông.",
+        "options": [
+                { "en": "A. The pin is tucked in the front left corner today, Sir.", "vi": "Cờ cắm góc trước bên trái" },
+                { "en": "B. The pin is at the back right, Sir.", "vi": "Cờ ở góc sau bên phải" },
+                { "en": "C. Pin is right in the center, Sir.", "vi": "Cờ chính giữa" },
+                { "en": "D. No pin on the green, Sir.", "vi": "Không có cờ" }
+        ],
+        "correct": 0
+    },
+    {
+        "lesson": "3",
+        "section": "section3.4",
+        "type": "mcq",
+        "title": "[3.4 Tình huống nâng cao] Luyện đọc câu hỗ trợ lau sạch bóng gôn cho khách:",
+        "audioText": "Let me clean your golf ball for you, Sir. Here it is.",
+        "phonetic": "/let miː kliːn jʊər ɡɑːlf bɔːl fɔːr juː, sɜːr. hɪər ɪt ɪz/",
+        "translation": "Để tôi lau sạch bóng gôn giúp ông nhé. Bóng của ông đây ạ.",
+        "options": [
+                { "en": "A. Let me clean your golf ball for you, Sir. Here it is.", "vi": "Để tôi lau sạch bóng gôn giúp ông" },
+                { "en": "B. Keep your dirty ball in the pocket, Sir.", "vi": "Giữ bóng bẩn trong túi" },
+                { "en": "C. Clean it yourself, Sir.", "vi": "Tự lau đi" },
+                { "en": "D. Throw away this ball, Sir.", "vi": "Vứt quả bóng này đi" }
+        ],
+        "correct": 0
+    },
+    {
+        "lesson": "3",
+        "section": "section3.4",
         "type": "fill",
         "title": "[3.4 Thực hành tổng hợp - Điền từ] Nghe phiên âm /left saɪd/ và ĐIỀN TỪ CHUẨN:",
         "audioText": "Your ball is safely on the left side of the fairway, Sir.",
@@ -2095,175 +2255,11 @@ window.masterQuizData.push(
         "targetWord": "fourteen clubs",
         "hint": "💡 Gợi ý phiên âm: /ˈfɔːr.tiːn klʌbz/ (13 ký tự)."
     },
-
-    // -------------------------------------------------------------------------
-    // SECTION 3.5: ADVANCED ON-COURSE SITUATIONS & COMMUNICATION (20 CÂU BỔ SUNG)
-    // -------------------------------------------------------------------------
     {
         "lesson": "3",
-        "section": "section3.5",
-        "type": "mcq",
-        "title": "[3.5 Tình huống nâng cao] Luyện phát âm thông báo khoảng cách nước và điểm thả bóng chuẩn xác:",
-        "audioText": "The penalty area boundary is marked with red stakes, Sir. You can drop the ball here.",
-        "phonetic": "/ðə ˈpen.əl.ti ˈer.i.ə ˈbaʊn.dər.i ɪz mɑːrkt wɪð red steɪks, sɜːr. juː kæn drɑːp ðə bɔːl hɪər/",
-        "translation": "Ranh giới khu vực phạt được đánh dấu bằng các cọc đỏ thưa ông. Ông có thể thả bóng ở đây.",
-        "options": [
-                { "en": "A. The penalty area boundary is marked with red stakes, Sir. You can drop the ball here.", "vi": "Ranh giới cọc đỏ, thả bóng ở đây" },
-                { "en": "B. There are yellow stakes, play from the water, Sir.", "vi": "Cọc vàng, đánh dưới nước" },
-                { "en": "C. No stakes on this hole, Sir.", "vi": "Không có cọc" },
-                { "en": "D. Out of bounds right, Sir.", "vi": "Ngoài biên bên phải" }
-        ],
-        "correct": 0
-    },
-    {
-        "lesson": "3",
-        "section": "section3.5",
-        "type": "mcq",
-        "title": "[3.5 Tình huống nâng cao] Luyện đọc câu nhắc nhở sửa vết bóng lún trên green (pitch mark):",
-        "audioText": "Please repair your pitch mark on the green, Sir. Thank you.",
-        "phonetic": "/pliːz rɪˈper jʊər pɪtʃ mɑːrk ɑːn ðə ɡriːn, sɜːr. θæŋk juː/",
-        "translation": "Xin vui lòng sửa vết bóng lõm trên green giúp tôi thưa ông. Cảm ơn ông.",
-        "options": [
-                { "en": "A. Please repair your pitch mark on the green, Sir. Thank you.", "vi": "Sửa vết bóng lún trên green" },
-                { "en": "B. Leave the green damaged, Sir.", "vi": "Để green hỏng" },
-                { "en": "C. Step heavily on the green, Sir.", "vi": "Dẫm mạnh lên green" },
-                { "en": "D. Don't touch the green surface, Sir.", "vi": "Đừng chạm mặt green" }
-        ],
-        "correct": 0
-    },
-    {
-        "lesson": "3",
-        "section": "section3.5",
-        "type": "mcq",
-        "title": "[3.5 Tình huống nâng cao] Luyện phát âm thuật ngữ cào cát san bằng bẫy cát sau khi đánh (rake the bunker):",
-        "audioText": "I will rake the bunker for you now, Sir.",
-        "phonetic": "/aɪ wɪl reɪk ðə ˈbʌŋ.kɚ fɔːr juː naʊ, sɜːr/",
-        "translation": "Tôi sẽ cào lại bẫy cát cho ông ngay bây giờ ạ.",
-        "options": [
-                { "en": "A. I will rake the bunker for you now, Sir.", "vi": "Cào lại bẫy cát cho khách (/rake the bunker/)" },
-                { "en": "B. Leave the bunker footprints, Sir.", "vi": "Để lại dấu chân trong cát" },
-                { "en": "C. Hit another ball from the sand, Sir.", "vi": "Đánh quả khác từ cát" },
-                { "en": "D. Fill the bunker with water, Sir.", "vi": "Đổ nước vào bẫy cát" }
-        ],
-        "correct": 0
-    },
-    {
-        "lesson": "3",
-        "section": "section3.5",
-        "type": "mcq",
-        "title": "[3.5 Tình huống nâng cao] Luyện phát âm thông báo vị trí cờ cắm ở tâm giữa green:",
-        "audioText": "The pin is right in the middle of the green today, Sir.",
-        "phonetic": "/ðə pɪn ɪz raɪt ɪn ðə ˈmɪd.əl əv ðə ɡriːn təˈdeɪ, sɜːr/",
-        "translation": "Hôm nay cờ cắm ngay ở chính giữa green thưa ông.",
-        "options": [
-                { "en": "A. The pin is right in the middle of the green today, Sir.", "vi": "Cờ cắm chính giữa green" },
-                { "en": "B. The pin is at the front edge, Sir.", "vi": "Cờ ở mép trước" },
-                { "en": "C. The pin is hidden behind trees, Sir.", "vi": "Cờ khuất sau cây" },
-                { "en": "D. There is no flag today, Sir.", "vi": "Hôm nay không có cờ" }
-        ],
-        "correct": 0
-    },
-    {
-        "lesson": "3",
-        "section": "section3.5",
-        "type": "mcq",
-        "title": "[3.5 Tình huống nâng cao] Luyện đọc câu nhắc nhở khách tránh dẫm lên đường line gạt bóng của người khác:",
-        "audioText": "Please watch your step and avoid walking on other players' line of putts, Sir.",
-        "phonetic": "/pliːz wɑːtʃ jʊər step ænd əˈvɔɪd ˈwɔː.kɪŋ ɑːn ˈʌð.ɚ ˈpleɪ.ɚz laɪ əv pʌts, sɜːr/",
-        "translation": "Xin chú ý bước chân và tránh dẫm lên đường gạt bóng của người chơi khác thưa ông.",
-        "options": [
-                { "en": "A. Please watch your step and avoid walking on other players' line of putts, Sir.", "vi": "Tránh dẫm lên đường line gạt bóng của người khác" },
-                { "en": "B. Walk directly on everyone's line, Sir.", "vi": "Đi thẳng lên line của mọi người" },
-                { "en": "C. Run across the green quickly, Sir.", "vi": "Chạy nhanh qua green" },
-                { "en": "D. Stand close to the cup, Sir.", "vi": "Đứng sát lỗ gôn" }
-        ],
-        "correct": 0
-    },
-    {
-        "lesson": "3",
-        "section": "section3.5",
-        "type": "mcq",
-        "title": "[3.5 Tình huống nâng cao] Luyện đọc câu tư vấn lực đánh khi green bị ướt buổi sáng sớm:",
-        "audioText": "The morning dew makes the green a bit slow. You need a firmer stroke, Sir.",
-        "phonetic": "/ðə ˈmɔːr.nɪŋ duː meɪks ðə ɡriːn ə bɪt sloʊ. juː niːd ə ˈfɜːr.mɚ stroʊk, sɜːr/",
-        "translation": "Sương sớm làm cho green hơi chậm. Ông cần cú gạt dứt khoát và mạnh tay hơn thưa ông.",
-        "options": [
-                { "en": "A. The morning dew makes the green a bit slow. You need a firmer stroke, Sir.", "vi": "Sương sớm green chậm, cần gạt mạnh tay dứt khoát" },
-                { "en": "B. Green is extremely fast, hit very softly, Sir.", "vi": "Green rất nhanh, gạt cực nhẹ" },
-                { "en": "C. No dew today, perfect speed, Sir.", "vi": "Không có sương" },
-                { "en": "D. Use a driver on the green, Sir.", "vi": "Dùng driver trên green" }
-        ],
-        "correct": 0
-    },
-    {
-        "lesson": "3",
-        "section": "section3.5",
-        "type": "mcq",
-        "title": "[3.5 Tình huống nâng cao] Luyện phát âm thông báo điểm số tốt sau khi kết thúc hố gôn:",
-        "audioText": "That was a fantastic Par on this difficult hole, Sir!",
-        "phonetic": "/ðæt wɪz ə fænˈtæs.tɪk pɑːr ɑːn ðɪs ˈdɪf.ə.kənt hoʊl, sɜːr/",
-        "translation": "Đó là một điểm Par tuyệt vời trên hố đấu khó này thưa ông!",
-        "options": [
-                { "en": "A. That was a fantastic Par on this difficult hole, Sir!", "vi": "Điểm Par tuyệt vời trên hố khó!" },
-                { "en": "B. That was a triple bogey, bad job, Sir.", "vi": "Điểm triple bogey tồi" },
-                { "en": "C. You lost the ball here, Sir.", "vi": "Mất bóng ở đây" },
-                { "en": "D. Let's quit the game, Sir.", "vi": "Bỏ chơi thôi" }
-        ],
-        "correct": 0
-    },
-    {
-        "lesson": "3",
-        "section": "section3.5",
-        "type": "mcq",
-        "title": "[3.5 Tình huống nâng cao] Luyện đọc câu nhắc nhở giữ nhịp độ chơi nhanh (Ready golf):",
-        "audioText": "To keep up with the group ahead, we should play ready golf now, Sir.",
-        "phonetic": "/tə kiːp ʌp wɪð ðə ɡruːp əˈhed, wiː ʃʊd pleɪ ˈred.i ɡɑːlf naʊ, sɜːr/",
-        "translation": "Để theo kịp nhóm phía trước, chúng ta nên chơi theo nhịp độ nhanh linh hoạt thưa ông.",
-        "options": [
-                { "en": "A. To keep up with the group ahead, we should play ready golf now, Sir.", "vi": "Chơi nhanh linh hoạt để kịp nhóm trước (/ready golf/)" },
-                { "en": "B. Slow down and take a long break, Sir.", "vi": "Đi chậm và nghỉ lâu" },
-                { "en": "C. Wait for 15 minutes before every shot, Sir.", "vi": "Chờ 15 phút trước mỗi cú đánh" },
-                { "en": "D. Skip all remaining holes, Sir.", "vi": "Bỏ tất cả các hố còn lại" }
-        ],
-        "correct": 0
-    },
-    {
-        "lesson": "3",
-        "section": "section3.5",
-        "type": "mcq",
-        "title": "[3.5 Tình huống nâng cao] Luyện phát âm câu thông báo cờ cắm ở góc trước bên trái green:",
-        "audioText": "The pin is tucked in the front left corner today, Sir.",
-        "phonetic": "/ðə pɪn ɪz tʌkt ɪn ðə frʌnt left ˈkɔːr.nɚ təˈdeɪ, sɜːr/",
-        "translation": "Hôm nay cờ cắm ở vị trí hiểm góc trước bên trái green thưa ông.",
-        "options": [
-                { "en": "A. The pin is tucked in the front left corner today, Sir.", "vi": "Cờ cắm góc trước bên trái" },
-                { "en": "B. The pin is at the back right, Sir.", "vi": "Cờ ở góc sau bên phải" },
-                { "en": "C. Pin is right in the center, Sir.", "vi": "Cờ chính giữa" },
-                { "en": "D. No pin on the green, Sir.", "vi": "Không có cờ" }
-        ],
-        "correct": 0
-    },
-    {
-        "lesson": "3",
-        "section": "section3.5",
-        "type": "mcq",
-        "title": "[3.5 Tình huống nâng cao] Luyện đọc câu hỗ trợ lau sạch bóng gôn cho khách:",
-        "audioText": "Let me clean your golf ball for you, Sir. Here it is.",
-        "phonetic": "/let miː kliːn jʊər ɡɑːlf bɔːl fɔːr juː, sɜːr. hɪər ɪt ɪz/",
-        "translation": "Để tôi lau sạch bóng gôn giúp ông nhé. Bóng của ông đây ạ.",
-        "options": [
-                { "en": "A. Let me clean your golf ball for you, Sir. Here it is.", "vi": "Để tôi lau sạch bóng gôn giúp ông" },
-                { "en": "B. Keep your dirty ball in the pocket, Sir.", "vi": "Giữ bóng bẩn trong túi" },
-                { "en": "C. Clean it yourself, Sir.", "vi": "Tự lau đi" },
-                { "en": "D. Throw away this ball, Sir.", "vi": "Vứt quả bóng này đi" }
-        ],
-        "correct": 0
-    },
-    {
-        "lesson": "3",
-        "section": "section3.5",
+        "section": "section3.4",
         "type": "fill",
-        "title": "[3.5 Thực hành điền từ] Nghe phiên âm /red steɪks/ và ĐIỀN TỪ CHUẨN:",
+        "title": "[3.4 Thực hành điền từ] Nghe phiên âm /red steɪks/ và ĐIỀN TỪ CHUẨN:",
         "audioText": "The penalty area is marked with red stakes, Sir.",
         "phonetic": "/ðə ˈpen.əl.ti ˈer.i.ə ɪz mɑːrkt wɪð red steɪks, sɜːr/",
         "translation": "Khu vực phạt được đánh dấu bằng các cọc đỏ thưa ông.",
@@ -2273,9 +2269,9 @@ window.masterQuizData.push(
     },
     {
         "lesson": "3",
-        "section": "section3.5",
+        "section": "section3.4",
         "type": "fill",
-        "title": "[3.5 Thực hành điền từ] Nghe phiên âm /pɪtʃ mɑːrk/ và ĐIỀN TỪ CHUẨN:",
+        "title": "[3.4 Thực hành điền từ] Nghe phiên âm /pɪtʃ mɑːrk/ và ĐIỀN TỪ CHUẨN:",
         "audioText": "Please repair your pitch mark on the green, Sir.",
         "phonetic": "/pliːz rɪˈper jʊər pɪtʃ mɑːrk ɑːn ðə ɡriːn, sɜːr/",
         "translation": "Xin vui lòng sửa vết bóng lún trên green thưa ông.",
@@ -2285,9 +2281,9 @@ window.masterQuizData.push(
     },
     {
         "lesson": "3",
-        "section": "section3.5",
+        "section": "section3.4",
         "type": "fill",
-        "title": "[3.5 Thực hành điền từ] Nghe phiên âm /rake the bunker/ và ĐIỀN TỪ CHUẨN:",
+        "title": "[3.4 Thực hành điền từ] Nghe phiên âm /rake the bunker/ và ĐIỀN TỪ CHUẨN:",
         "audioText": "I will rake the bunker after your shot, Sir.",
         "phonetic": "/aɪ wɪl reɪk ðə ˈbʌŋ.kɚ ˈæf.tər jʊər ʃɑːt, sɜːr/",
         "translation": "Tôi sẽ cào lại bẫy cát sau cú đánh của ông ạ.",
@@ -2297,9 +2293,9 @@ window.masterQuizData.push(
     },
     {
         "lesson": "3",
-        "section": "section3.5",
+        "section": "section3.4",
         "type": "fill",
-        "title": "[3.5 Thực hành điền từ] Nghe phiên âm /ready golf/ và ĐIỀN TỪ CHUẨN:",
+        "title": "[3.4 Thực hành điền từ] Nghe phiên âm /ready golf/ và ĐIỀN TỪ CHUẨN:",
         "audioText": "We need to play ready golf today, Sir.",
         "phonetic": "/wiː niːd tɔː pleɪ ˈred.i ɡɑːlf təˈdeɪ, sɜːr/",
         "translation": "Chúng ta cần chơi nhanh linh hoạt (ready golf) ngày hôm nay ạ.",
@@ -2309,9 +2305,9 @@ window.masterQuizData.push(
     },
     {
         "lesson": "3",
-        "section": "section3.5",
+        "section": "section3.4",
         "type": "fill",
-        "title": "[3.5 Thực hành điền từ] Nghe phiên âm /morning dew/ và ĐIỀN TỪ CHUẨN:",
+        "title": "[3.4 Thực hành điền từ] Nghe phiên âm /morning dew/ và ĐIỀN TỪ CHUẨN:",
         "audioText": "The morning dew makes the green slower, Sir.",
         "phonetic": "/ðə ˈmɔːr.nɪŋ duː meɪks ðə ɡriːn ˈsloʊ.ɚ, sɜːr/",
         "translation": "Sương sớm làm cho green chậm hơn thưa ông.",
@@ -2321,9 +2317,9 @@ window.masterQuizData.push(
     },
     {
         "lesson": "3",
-        "section": "section3.5",
+        "section": "section3.4",
         "type": "fill",
-        "title": "[3.5 Thực hành điền từ] Nghe phiên âm /firmer stroke/ và ĐIỀN TỪ CHUẨN:",
+        "title": "[3.4 Thực hành điền từ] Nghe phiên âm /firmer stroke/ và ĐIỀN TỪ CHUẨN:",
         "audioText": "You need a firmer stroke on this slow green, Sir.",
         "phonetic": "/juː niːd ə ˈfɜːr.mɚ stroʊk ɑːn ðɪs sloʊ ɡriːn, sɜːr/",
         "translation": "Ông cần một cú gạt dứt khoát mạnh tay hơn trên green chậm này ạ.",
@@ -2333,9 +2329,9 @@ window.masterQuizData.push(
     },
     {
         "lesson": "3",
-        "section": "section3.5",
+        "section": "section3.4",
         "type": "fill",
-        "title": "[3.5 Thực hành điền từ] Nghe phiên âm /line of putts/ và ĐIỀN TỪ CHUẨN:",
+        "title": "[3.4 Thực hành điền từ] Nghe phiên âm /line of putts/ và ĐIỀN TỪ CHUẨN:",
         "audioText": "Please avoid walking on other players' line of putts, Sir.",
         "phonetic": "/pliːz əˈvɔɪd ˈwɔː.kɪŋ ɑːn ˈʌð.ɚ ˈpleɪ.ɚz laɪ əv pʌts, sɜːr/",
         "translation": "Xin tránh dẫm lên đường line gạt bóng của người chơi khác thưa ông.",
@@ -2345,9 +2341,9 @@ window.masterQuizData.push(
     },
     {
         "lesson": "3",
-        "section": "section3.5",
+        "section": "section3.4",
         "type": "fill",
-        "title": "[3.5 Thực hành điền từ] Nghe phiên âm /clean your golf ball/ và ĐIỀN TỪ CHUẨN:",
+        "title": "[3.4 Thực hành điền từ] Nghe phiên âm /clean your golf ball/ và ĐIỀN TỪ CHUẨN:",
         "audioText": "Let me clean your golf ball, Sir.",
         "phonetic": "/let miː kliːn jʊər ɡɑːlf bɔːl, sɜːr/",
         "translation": "Để tôi lau sạch bóng gôn cho ông nhé thưa ông.",
@@ -2357,9 +2353,9 @@ window.masterQuizData.push(
     },
     {
         "lesson": "3",
-        "section": "section3.5",
+        "section": "section3.4",
         "type": "fill",
-        "title": "[3.5 Thực hành điền từ] Nghe phiên âm /difficult hole/ và ĐIỀN TỪ CHUẨN:",
+        "title": "[3.4 Thực hành điền từ] Nghe phiên âm /difficult hole/ và ĐIỀN TỪ CHUẨN:",
         "audioText": "That was a great par on this difficult hole, Sir.",
         "phonetic": "/ðæt wɪz ə ɡreɪt pɑːr ɑːn ðɪs ˈdɪf.ə.kənt hoʊl, sɜːr/",
         "translation": "Đó là điểm par tuyệt vời trên hố đấu khó này thưa ông.",
@@ -2369,9 +2365,9 @@ window.masterQuizData.push(
     },
     {
         "lesson": "3",
-        "section": "section3.5",
+        "section": "section3.4",
         "type": "fill",
-        "title": "[3.5 Thực hành điền từ] Nghe phiên âm /group ahead/ và ĐIỀN TỪ CHUẨN:",
+        "title": "[3.4 Thực hành điền từ] Nghe phiên âm /group ahead/ và ĐIỀN TỪ CHUẨN:",
         "audioText": "We need to catch up with the group ahead, Sir.",
         "phonetic": "/wiː niːd tɔː kætʃ ʌp wɪð ðə ɡruːp əˈhed, sɜːr/",
         "translation": "Chúng ta cần bắt kịp nhóm phía trước thưa ông.",
