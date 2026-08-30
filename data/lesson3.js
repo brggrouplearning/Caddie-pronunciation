@@ -1587,4 +1587,153 @@ window.masterQuizData.push(
         ],
         "correct": 0
     }
+,
+    // -------------------------------------------------------------------------
+    // SECTION 3.4: REVIEW & PRACTICE L3 (THỰC HÀNH TỔNG HỢP GIAI ĐOẠN 3)
+    // -------------------------------------------------------------------------
+    {
+        "lesson": "3",
+        "section": "section3.4",
+        "type": "mcq",
+        "title": "[3.4 Thực hành tổng hợp] Ôn tập vị trí bóng ở fairway bên trái:",
+        "audioText": "Your ball is safely on the left side of the fairway, Sir.",
+        "phonetic": "/jʊər bɔːl ɪz ˈseɪf.li ɑːn ðə left saɪd əv ðə ˈfer.weɪ, sɜːr/",
+        "translation": "Bóng của ông nằm an toàn ở phía bên trái đường fairway ạ.",
+        "options": [
+                { "en": "A. Your ball is safely on the left side of the fairway, Sir.", "vi": "Bóng nằm an toàn bên trái fairway" },
+                { "en": "B. Your ball is in the deep rough, Sir.", "vi": "Bóng trong cỏ sâu" },
+                { "en": "C. Your ball is in the water hazard, Sir.", "vi": "Bóng dưới nước" },
+                { "en": "D. Your ball is out of bounds, Sir.", "vi": "Bóng ngoài biên" }
+        ],
+        "correct": 0
+    },
+    {
+        "lesson": "3",
+        "section": "section3.4",
+        "type": "mcq",
+        "title": "[3.4 Thực hành tổng hợp] Ôn tập thông báo khoảng cách và gậy sắt số 8:",
+        "audioText": "You have 140 yards left to the green. I recommend an 8-iron, Sir.",
+        "phonetic": "/juː hæv ˈwʌn ˈhʌn.drəd ˈfɔːr.ti jɑːrdz left tə ðə ɡriːn. aɪ ˌrek.əˈmend æn eɪt ˈaɪ.ən, sɜːr/",
+        "translation": "Ông còn 140 yard nữa là lên green. Tôi gợi ý dùng gậy sắt số 8 thưa ông.",
+        "options": [
+                { "en": "A. You have 140 yards left to the green. I recommend an 8-iron, Sir.", "vi": "Còn 140 yards, gợi ý gậy sắt 8" },
+                { "en": "B. You have 250 yards, use a putter, Sir.", "vi": "Còn 250 yards, dùng putter" },
+                { "en": "C. Distance is 50 yards, use a driver, Sir.", "vi": "Khoảng cách 50 yards, dùng driver" },
+                { "en": "D. No distance check needed, Sir.", "vi": "Không cần kiểm tra" }
+        ],
+        "correct": 0
+    },
+    {
+        "lesson": "3",
+        "section": "section3.4",
+        "type": "mcq",
+        "title": "[3.4 Thực hành tổng hợp] Ôn tập xử lý tình huống gió ngược chiều mạnh:",
+        "audioText": "The headwind is blowing strongly today. Please take one club more, Sir.",
+        "phonetic": "/ðə ˈhed.wɪnd ɪz ˈbloʊ.ɪŋ ˈstrɑːŋ.li təˈdeɪ. pliːz teɪk wʌn klʌb mɔːr, sɜːr/",
+        "translation": "Gió ngược đang thổi mạnh hôm nay. Xin vui lòng tăng thêm 1 số gậy thưa ông.",
+        "options": [
+                { "en": "A. The headwind is blowing strongly today. Please take one club more, Sir.", "vi": "Gió ngược mạnh, xin tăng 1 số gậy" },
+                { "en": "B. Tailwind is blowing, take less club, Sir.", "vi": "Gió xuôi, giảm gậy" },
+                { "en": "C. No wind, use standard club, Sir.", "vi": "Không gió" },
+                { "en": "D. Ignore the wind and hit hard, Sir.", "vi": "Bỏ qua gió" }
+        ],
+        "correct": 0
+    },
+    {
+        "lesson": "3",
+        "section": "section3.4",
+        "type": "mcq",
+        "title": "[3.4 Thực hành tổng hợp] Ôn tập vị trí cờ cắm phía sau green:",
+        "audioText": "The pin is placed at the back of the green today, Sir.",
+        "phonetic": "/ðə pɪn ɪz pleɪst æt ðə bæk əv ðə ɡriːn təˈdeɪ, sɜːr/",
+        "translation": "Hôm nay cờ được cắm ở phía cuối green thưa ông.",
+        "options": [
+                { "en": "A. The pin is placed at the back of the green today, Sir.", "vi": "Cờ cắm ở phía cuối green" },
+                { "en": "B. The pin is in the front, Sir.", "vi": "Cờ ở phía trước" },
+                { "en": "C. There is no pin on the green, Sir.", "vi": "Không có cờ" },
+                { "en": "D. Pin is in the bunker, Sir.", "vi": "Cờ trong bẫy cát" }
+        ],
+        "correct": 0
+    },
+    {
+        "lesson": "3",
+        "section": "section3.4",
+        "type": "mcq",
+        "title": "[3.4 Thực hành tổng hợp] Ôn tập cảnh báo dốc đường xe điện và cài phanh tay:",
+        "audioText": "This is a steep slope. Please set the handbrake carefully when you park, Sir.",
+        "phonetic": "/ðɪs ɪz ə stiːp sloʊp. pliːz set ðə ˈhænd.breɪk ˈker.fəl.i wen juː pɑːrk, sɜːr/",
+        "translation": "Đây là đoạn dốc đứng. Xin vui lòng cài phanh tay cẩn thận khi đỗ xe thưa ông.",
+        "options": [
+                { "en": "A. This is a steep slope. Please set the handbrake carefully when you park, Sir.", "vi": "Dốc đứng, hãy cài phanh tay cẩn thận" },
+                { "en": "B. Flat road, no need for brakes, Sir.", "vi": "Đường bằng không cần phanh" },
+                { "en": "C. Release the brake on the slope, Sir.", "vi": "Nhả phanh trên dốc" },
+                { "en": "D. Park in the middle of the fairway, Sir.", "vi": "Đỗ giữa fairway" }
+        ],
+        "correct": 0
+    },
+    {
+        "lesson": "3",
+        "section": "section3.4",
+        "type": "mcq",
+        "title": "[3.4 Thực hành tổng hợp] Ôn tập đọc line gạt bóng dốc lượn 2 chiều (double break):",
+        "audioText": "Be careful, Sir. This putt is a double break, it moves from left to right then right to left.",
+        "phonetic": "/biː ˈker.fəl, sɜːr. ðɪs pʌt ɪz ə ˈdʌb.əl breɪk, ɪt muːvz frəm left tɔː raɪt ðen raɪt tɔː left/",
+        "translation": "Cẩn thận thưa ông. Cú gạt này là dốc lượn hai chiều, bóng sẽ chạy từ trái sang phải rồi từ phải sang trái ạ.",
+        "options": [
+                { "en": "A. Be careful, Sir. This putt is a double break, it moves from left to right then right to left.", "vi": "Gạt dốc lượn 2 chiều trái sang phải rồi phải sang trái" },
+                { "en": "B. It is a completely straight putt, Sir.", "vi": "Gạt thẳng hoàn toàn" },
+                { "en": "C. Just hit straight at the cup firmly, Sir.", "vi": "Gạt thẳng mạnh tay" },
+                { "en": "D. The green is flat, Sir.", "vi": "Green phẳng" }
+        ],
+        "correct": 0
+    },
+    {
+        "lesson": "3",
+        "section": "section3.4",
+        "type": "fill",
+        "title": "[3.4 Thực hành tổng hợp - Điền từ] Nghe phiên âm /left saɪd/ và ĐIỀN TỪ CHUẨN:",
+        "audioText": "Your ball is safely on the left side of the fairway, Sir.",
+        "phonetic": "/jʊər bɔːl ɪz ˈseɪf.li ɑːn ðə left saɪd əv ðə ˈfer.weɪ, sɜːr/",
+        "translation": "Bóng của ông nằm an toàn ở phía bên trái đường fairway ạ.",
+        "displaySentence": "Your ball is safely on the _______ of the fairway, Sir.",
+        "targetWord": "left side",
+        "hint": "💡 Gợi ý phiên âm: /left saɪd/ (8 ký tự)."
+    },
+    {
+        "lesson": "3",
+        "section": "section3.4",
+        "type": "fill",
+        "title": "[3.4 Thực hành tổng hợp - Điền từ] Nghe phiên âm /eɪt ˈaɪ.ən/ và ĐIỀN TỪ CHUẨN:",
+        "audioText": "I recommend an 8-iron for this distance, Sir.",
+        "phonetic": "/aɪ ˌrek.əˈmend æn eɪt ˈaɪ.ən fɔːr ðɪs ˈdɪs.təns, sɜːr/",
+        "translation": "Tôi gợi ý dùng gậy sắt số 8 cho khoảng cách này thưa ông.",
+        "displaySentence": "I recommend an _______ for this distance, Sir.",
+        "targetWord": "8-iron",
+        "hint": "💡 Gợi ý phiên âm: /eɪt ˈaɪ.ən/ (6 ký tự)."
+    },
+    {
+        "lesson": "3",
+        "section": "section3.4",
+        "type": "fill",
+        "title": "[3.4 Thực hành tổng hợp - Điền từ] Nghe phiên âm /ˈhænd.breɪk/ và ĐIỀN TỪ CHUẨN:",
+        "audioText": "Please set the handbrake when parking on this slope, Sir.",
+        "phonetic": "/pliːz set ðə ˈhænd.breɪk wen ˈpɑːr.kɪŋ ɑːn ðɪs sloʊp, sɜːr/",
+        "translation": "Xin vui lòng cài phanh tay khi đỗ xe trên dốc này thưa ông.",
+        "displaySentence": "Please set the _______ when parking on this slope, Sir.",
+        "targetWord": "handbrake",
+        "hint": "💡 Gợi ý phiên âm: /ˈhænd.breɪk/ (9 ký tự)."
+    },
+    {
+        "lesson": "3",
+        "section": "section3.4",
+        "type": "fill",
+        "title": "[3.4 Thực hành tổng hợp - Điền từ] Nghe phiên âm /trʌst jʊər swɪŋ/ và ĐIỀN TỪ CHUẨN:",
+        "audioText": "Here is your club, Sir. Trust your swing!",
+        "phonetic": "/hɪər ɪz jʊər klʌb, sɜːr. trʌst jʊər swɪŋ/",
+        "translation": "Gậy của ông đây ạ. Hãy tự tin vào cú vung gậy của mình!",
+        "displaySentence": "Here is your club, Sir. _______!",
+        "targetWord": "Trust your swing",
+        "hint": "💡 Gợi ý phiên âm: /trʌst jʊər swɪŋ/ (15 ký tự)."
+    }
+
 );
