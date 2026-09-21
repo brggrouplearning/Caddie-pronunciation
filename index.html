@@ -29,7 +29,8 @@
         .section-tag { font-size: 13.5px; color: #555; font-weight: normal; font-style: normal; text-transform: none; }
 
         .btn-group { margin-top: 18px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
-        button { padding: 11px 14px; font-size: 14px; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; }
+        button { padding: 11px 14px; font-size: 14px; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; transition: opacity 0.2s ease; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
         #prev-btn { background: #fd7e14; color: white; }
         #listen-btn { background: #17a2b8; color: white; }
         #speak-btn { background: #0d6efd; color: white; }
@@ -114,7 +115,6 @@
 
             const filesToLoad = new Set(['data/exams.js']);
 
-            // Hàm phân tích thông minh: Trích xuất số Lesson để nạp file JS tương ứng
             const extractLessonNumbers = (str) => {
                 if (!str) return [];
                 let nums = [];
@@ -133,7 +133,6 @@
                             for (let i = start; i <= end; i++) nums.push(i);
                         }
                     } else {
-                        // Tách phần số nguyên đứng trước dấu chấm (VD: "1.2" -> 1)
                         let clean = part.replace(/section|lesson/gi, '').trim();
                         let mainNum = parseInt(clean.split('.')[0], 10);
                         if (!isNaN(mainNum)) nums.push(mainNum);
@@ -142,7 +141,6 @@
                 return nums;
             };
 
-            // Xác định danh sách các file JS cần load
             if (reqSection) {
                 extractLessonNumbers(reqSection).forEach(n => filesToLoad.add(`data/lesson${n}.js`));
             } else if (reqLesson) {
@@ -152,7 +150,6 @@
                 let maxToLoad = examNums.length > 0 ? Math.max(...examNums, 10) : 20; 
                 for (let i = 1; i <= maxToLoad; i++) filesToLoad.add(`data/lesson${i}.js`);
             } else {
-                // Tự động nạp từ lesson1.js đến lesson10.js nếu không có tham số
                 for (let i = 1; i <= 10; i++) filesToLoad.add(`data/lesson${i}.js`);
             }
 
@@ -186,7 +183,7 @@
         })();
     </script>
 
-    <!-- CORE ENGINE LUYỆN PHÁT ÂM (GIỮ NGUYÊN CORE VÀ ENGINE CỦA ANH) -->
+    <!-- CORE ENGINE LUYỆN PHÁT ÂM -->
     <script>
         function cleanSectionCode(secStr) {
             if (secStr === null || secStr === undefined) return "";
@@ -212,6 +209,18 @@
             return text.replace(/[^a-z0-9\s]/g, "").replace(/\s+/g, " ").trim();
         }
 
+        // Tách các từ khóa chính (loại bỏ từ đệm, từ nối phổ biến)
+        function extractKeywords(str) {
+            const stopWords = new Set([
+                'a', 'an', 'the', 'is', 'are', 'am', 'was', 'were', 'be', 'been',
+                'to', 'of', 'in', 'on', 'at', 'for', 'with', 'by', 'about',
+                'it', 'its', 'you', 'your', 'my', 'this', 'that', 'please', 'sir', 'madam'
+            ]);
+            let words = normalizeText(str).split(/\s+/).filter(w => w.length > 0);
+            let keywords = words.filter(w => !stopWords.has(w));
+            return keywords.length > 0 ? keywords : words;
+        }
+
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -223,7 +232,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const reqSection = urlParams.get('section'); 
             const reqLesson = urlParams.get('lesson');    
-            const reqExam = urlParams.get('exam');        
+            const reqExam = urlParams.get('exam');         
 
             let rawPool = (window.masterQuizData && window.masterQuizData.length > 0) ? [...window.masterQuizData] : [];
             let filtered = [];
@@ -344,7 +353,7 @@
             if (filtered.length === 0) {
                 document.getElementById('question').innerHTML = `
                     <div style="color: #dc3545; font-size: 16px;">⚠️ Không thể tải dữ liệu bài học!</div>
-                    <div style="font-size: 13px; font-weight: normal; margin-top: 8px; color: #555;">Vui lòng kiểm tra lại đường dẫnURL.</div>
+                    <div style="font-size: 13px; font-weight: normal; margin-top: 8px; color: #555;">Vui lòng kiểm tra lại đường dẫn URL.</div>
                 `;
                 document.getElementById('learning-buttons').style.display = 'none';
                 return [];
@@ -515,11 +524,13 @@
             
             let targetWords = targetText.split(/\s+/);
             let spokenNormalized = normalizeText(spokenText);
-            let spokenWordsSet = new Set(spokenNormalized.split(/\s+/));
+            let spokenWords = spokenNormalized.split(/\s+/);
             
             return targetWords.map(word => {
                 let cleanWord = normalizeText(word);
-                if (cleanWord === "" || spokenWordsSet.has(cleanWord)) {
+                // Khớp từ chuẩn hoặc khớp xấp xỉ với bất kỳ từ nào đã nói
+                let matched = spokenWords.some(sw => sw === cleanWord || getSimilarityScore(sw, cleanWord) >= 0.75);
+                if (cleanWord === "" || matched) {
                     return word; 
                 } else {
                     return `<span class="mispronounced-word">${word}</span>`;
@@ -550,13 +561,13 @@
 
             if (calculatedScore >= 90) {
                 levelBadgeHtml = `<div class="level-badge level-excellent">🌟 MỐC NĂNG LỰC: XUẤT SẮC (${calculatedScore}/100)</div>`;
-                adviceText = "<b>Đánh giá:</b> Phát âm chuẩn xác, khẩu hình và âm điệu tự nhiên.";
+                adviceText = "<b>Đánh giá:</b> Nắm chắc từ khóa nghiệp vụ, phản xạ và phát âm chuẩn xác.";
             } else if (calculatedScore >= 70) {
                 levelBadgeHtml = `<div class="level-badge level-passed">✅ MỐC NĂNG LỰC: ĐẠT (${calculatedScore}/100)</div>`;
-                adviceText = "<b>Đánh giá:</b> Phát âm rõ ràng, giao tiếp tốt; cần rà soát lại các từ chưa đạt chuẩn trọng âm hoặc nối âm.";
+                adviceText = "<b>Đánh giá:</b> Phát âm rõ ràng, nắm được các từ khóa giao tiếp cốt lõi; cần trau chuốt thêm các từ nối.";
             } else {
                 levelBadgeHtml = `<div class="level-badge level-needs-improvement">⚠️ MỐC NĂNG LỰC: CẦN CẢI THIỆN (${calculatedScore}/100)</div>`;
-                adviceText = "<b>Đánh giá:</b> Phát âm chưa rõ phụ âm cuối hoặc chưa chuẩn ngữ điệu; khuyến nghị nghe lại mẫu nhiều lần.";
+                adviceText = "<b>Đánh giá:</b> Chưa bắt được các từ khóa chuyên môn quan trọng; khuyến nghị nghe lại mẫu nhiều lần.";
             }
 
             const resultView = document.getElementById('result-view');
@@ -666,14 +677,33 @@
         function playSampleAudio() {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
+
                 const currentText = activeItems[currentIndex].text;
                 const utterance = new SpeechSynthesisUtterance(currentText);
                 utterance.lang = 'en-US';
                 utterance.rate = 0.82;
                 utterance.pitch = 1.0;
                 getBestEnglishVoice(utterance);
+
+                const speakBtn = document.getElementById('speak-btn');
+                const listenBtn = document.getElementById('listen-btn');
+
+                utterance.onstart = () => {
+                    document.getElementById('status').innerText = "🔊 Đang phát phát âm mẫu...";
+                    if (speakBtn) speakBtn.disabled = true;
+                    if (listenBtn) listenBtn.disabled = true;
+                };
+
+                const resetButtons = () => {
+                    if (speakBtn) speakBtn.disabled = false;
+                    if (listenBtn) listenBtn.disabled = false;
+                    document.getElementById('status').innerText = "Sẵn sàng...";
+                };
+
+                utterance.onend = resetButtons;
+                utterance.onerror = resetButtons;
+
                 window.speechSynthesis.speak(utterance);
-                document.getElementById('status').innerText = "🔊 Đang phát phát âm mẫu...";
             } else {
                 document.getElementById('error').innerText = "Trình duyệt không hỗ trợ phát âm thanh.";
             }
@@ -704,60 +734,99 @@
                 window.speechSynthesis.cancel();
             }
 
-            const recognition = new SpeechRecognition();
-            recognition.lang = 'en-US';
+            const speakBtn = document.getElementById('speak-btn');
+            if (speakBtn) speakBtn.disabled = true;
 
-            recognition.onstart = () => {
-                document.getElementById('status').innerText = "🎙️ Đang lắng nghe... Hãy nói câu tiếng Anh trên màn hình.";
-                document.getElementById('error').innerText = "";
-            };
+            setTimeout(() => {
+                const recognition = new SpeechRecognition();
+                recognition.lang = 'en-US';
+                recognition.interimResults = false;
+                recognition.maxAlternatives = 1;
 
-            recognition.onerror = (event) => {
-                document.getElementById('status').innerText = "Chưa nhận diện được giọng nói!";
-                if (event.error === 'not-allowed') {
-                    document.getElementById('error').innerText = "Chưa cấp quyền Micro. Vui lòng cho phép Micro trên trình duyệt.";
-                } else {
-                    document.getElementById('error').innerText = "Chưa nghe rõ, vui lòng bấm nói lại.";
-                }
-            };
+                recognition.onstart = () => {
+                    document.getElementById('status').innerText = "🎙️ Đang lắng nghe... Hãy nói câu tiếng Anh trên màn hình.";
+                    document.getElementById('error').innerText = "";
+                };
 
-            recognition.onresult = function(event) {
-                const rawTranscript = event.results[0][0].transcript;
-                const normTarget = normalizeText(activeItems[currentIndex].text);
-                const normSpoken = normalizeText(rawTranscript);
+                const finishListening = () => {
+                    if (speakBtn) speakBtn.disabled = false;
+                };
 
-                itemTranscripts[currentIndex] = rawTranscript; 
-                const similarity = getSimilarityScore(normTarget, normSpoken);
+                recognition.onerror = (event) => {
+                    finishListening();
+                    document.getElementById('status').innerText = "Chưa nhận diện được giọng nói!";
+                    if (event.error === 'not-allowed') {
+                        document.getElementById('error').innerText = "Chưa cấp quyền Micro. Vui lòng cho phép Micro trên trình duyệt.";
+                    } else {
+                        document.getElementById('error').innerText = "Chưa nghe rõ, vui lòng bấm nói lại.";
+                    }
+                };
 
-                if (normSpoken.includes(normTarget) || normTarget.includes(normSpoken) || similarity >= 0.80) {
-                    itemStatus[currentIndex] = 'passed';
-                    document.getElementById('status').innerText = "✅ Chính xác! Phát âm rất tốt.";
-                    const statusTag = document.getElementById('item-status');
-                    statusTag.className = "status-passed";
-                    statusTag.innerText = "✅ Trạng thái: Đạt";
+                recognition.onend = finishListening;
 
-                    setTimeout(() => { 
-                        if (currentIndex === activeItems.length - 1) {
-                            finishSession("🎉 NỘP BÀI THÀNH CÔNG!");
-                        } else {
-                            currentIndex++; 
-                            showQuestion(); 
-                        }
-                    }, 1500);
+                recognition.onresult = function(event) {
+                    finishListening();
 
-                } else if (similarity >= 0.45) {
-                    itemStatus[currentIndex] = 'approx';
-                    document.getElementById('status').innerText = `🟡 Bạn nói: "${rawTranscript}". Gần đúng, bạn có thể nói lại hoặc bấm Câu tiếp.`;
-                    const statusTag = document.getElementById('item-status');
-                    statusTag.className = "status-approx";
-                    statusTag.innerText = "🟡 Trạng thái: Gần đúng";
+                    const rawTranscript = event.results[0][0].transcript;
+                    const normTarget = normalizeText(activeItems[currentIndex].text);
+                    const normSpoken = normalizeText(rawTranscript);
 
-                } else {
-                    document.getElementById('status').innerText = `❌ Bạn nói: "${rawTranscript}". Hãy thử lại hoặc bấm Bỏ qua/Câu tiếp.`;
-                }
-            };
+                    itemTranscripts[currentIndex] = rawTranscript; 
 
-            recognition.start();
+                    // 1. Độ tương đồng chuỗi tổng thể
+                    const fullSimilarity = getSimilarityScore(normTarget, normSpoken);
+
+                    // 2. Chấm điểm theo Keywords (từ khóa nghiệp vụ cốt lõi)
+                    const targetKeywords = extractKeywords(activeItems[currentIndex].text);
+                    const spokenWords = normSpoken.split(/\s+/).filter(w => w.length > 0);
+
+                    let matchedKeywordsCount = 0;
+                    targetKeywords.forEach(kw => {
+                        // Khớp chính xác hoặc phát âm xấp xỉ >= 75% cho từng từ khóa
+                        let isMatch = spokenWords.some(sw => sw === kw || getSimilarityScore(sw, kw) >= 0.75);
+                        if (isMatch) matchedKeywordsCount++;
+                    });
+
+                    const keywordScore = targetKeywords.length > 0 ? (matchedKeywordsCount / targetKeywords.length) : 0;
+
+                    // TIÊU CHÍ ĐẠT (100% điểm):
+                    // Khớp >= 70% từ khóa cốt lõi HOẶC tổng thể cả câu đạt >= 75%
+                    const isPassed = (keywordScore >= 0.70) || (fullSimilarity >= 0.75);
+
+                    // TIÊU CHÍ GẦN ĐÚNG (50% điểm):
+                    // Bắt được >= 40% từ khóa (có keyword tốt) HOẶC câu tương đồng >= 40%
+                    const isApprox = (keywordScore >= 0.40) || (fullSimilarity >= 0.40);
+
+                    if (isPassed) {
+                        itemStatus[currentIndex] = 'passed';
+                        document.getElementById('status').innerText = `✅ Rất tốt! Bạn nói: "${rawTranscript}".`;
+                        const statusTag = document.getElementById('item-status');
+                        statusTag.className = "status-passed";
+                        statusTag.innerText = "✅ Trạng thái: Đạt";
+
+                        setTimeout(() => { 
+                            if (currentIndex === activeItems.length - 1) {
+                                finishSession("🎉 NỘP BÀI THÀNH CÔNG!");
+                            } else {
+                                currentIndex++; 
+                                showQuestion(); 
+                            }
+                        }, 1400);
+
+                    } else if (isApprox) {
+                        itemStatus[currentIndex] = 'approx';
+                        document.getElementById('status').innerText = `🟡 Có từ khóa tốt (${matchedKeywordsCount}/${targetKeywords.length} từ chính): "${rawTranscript}". Bạn có thể thử lại hoặc bấm Câu tiếp.`;
+                        const statusTag = document.getElementById('item-status');
+                        statusTag.className = "status-approx";
+                        statusTag.innerText = "🟡 Trạng thái: Gần đúng";
+
+                    } else {
+                        document.getElementById('status').innerText = `❌ Bạn nói: "${rawTranscript}". Chưa rõ từ khóa chính, hãy thử lại.`;
+                    }
+                };
+
+                recognition.start();
+            }, 250);
         }
     </script>
 </body>
