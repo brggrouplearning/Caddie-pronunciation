@@ -182,8 +182,6 @@
             line-height: 1.25;
         }
         .remark-good { background: #d1e7dd; color: #0f5132; border: 1px solid #badbcc; }
-        .remark-warning { background: #fff3cd; color: #664d03; border: 1px solid #ffecb5; }
-        .remark-danger { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
 
         .matrix-grid { 
             display: grid; 
@@ -246,7 +244,6 @@
         .progress-box span { color: #dc3545; }
         .section-tag { font-size: 9.5px; color: #1e7e34; font-weight: 600; }
 
-        /* KHUNG CÂU MẪU & PHIÊN ÂM PHÍA DƯỚI TỪNG TỪ */
         .pronounce-card { 
             position: relative;
             background: #fff5f5; 
@@ -319,17 +316,8 @@
             margin-top: 4px;
             gap: 4px;
         }
-        .audio-sub-group {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-        }
-        .audio-sub-label {
-            font-size: 8.5px;
-            font-weight: 700;
-            color: #721c24;
-            white-space: nowrap;
-        }
+        .audio-sub-group { display: flex; align-items: center; gap: 3px; }
+        .audio-sub-label { font-size: 8.5px; font-weight: 700; color: #721c24; white-space: nowrap; }
         .audio-sub-select {
             height: 22px;
             padding: 0 4px;
@@ -361,7 +349,9 @@
             align-items: center; 
             justify-content: center; 
             gap: 5px; 
+            transition: opacity 0.2s ease;
         }
+        .btn-record:disabled { opacity: 0.5; cursor: not-allowed; }
         .btn-record.recording { background: #dc3545; animation: pulse-red 1.2s infinite; }
         @keyframes pulse-red { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
 
@@ -379,8 +369,10 @@
             align-items: center;
             justify-content: center;
             gap: 4px;
+            transition: opacity 0.2s ease;
         }
-        .btn-sample-audio:hover { background: #334155; }
+        .btn-sample-audio:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-sample-audio:hover:not(:disabled) { background: #334155; }
 
         .speech-recognized-box { 
             background: #ffffff; 
@@ -686,8 +678,8 @@
                     <span>🎙️ BẤM ĐỂ NÓI / START SPEAKING</span>
                 </button>
                 <div style="display: flex; gap: 5px; width: 100%; max-width: 280px;">
-                    <button class="btn-sample-audio" style="flex: 1;" onclick="playSampleAudio()">🔊 Nghe mẫu chuẩn</button>
-                    <button class="btn-sample-audio" style="flex: 1; background: #0d6efd;" onclick="playSampleAudio(true)">🐢 Nghe chậm</button>
+                    <button id="btn-sample-normal" class="btn-sample-audio" style="flex: 1;" onclick="playSampleAudio()">🔊 Nghe mẫu chuẩn</button>
+                    <button id="btn-sample-slow" class="btn-sample-audio" style="flex: 1; background: #0d6efd;" onclick="playSampleAudio(true)">🐢 Nghe chậm</button>
                 </div>
             </div>
 
@@ -760,7 +752,10 @@
             { code: "all", title: "Final Exam: Cuối khóa / Comprehensive Test (All Lessons)", planDate: "2026-09-22", planDisplay: "22/09" }
         ];
 
-        const STOP_WORDS_SET = new Set(['the', 'a', 'an', 'and', 'to', 'of', 'in', 'on', 'at', 'is', 'it', 'for', 'or', 'as', 'by', 'be']);
+        const STOP_WORDS_SET = new Set([
+            'the', 'a', 'an', 'and', 'to', 'of', 'in', 'on', 'at', 'is', 'it', 'for', 'or', 'as', 'by', 'be',
+            'are', 'am', 'was', 'were', 'been', 'with', 'about', 'its', 'you', 'your', 'my', 'this', 'that', 'please', 'sir', 'madam'
+        ]);
 
         let studentProgressMap = {}; 
         let studentInfo = {
@@ -787,7 +782,6 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            // Kiểm tra mở qua Zalo In-App Browser
             const ua = navigator.userAgent || navigator.vendor || window.opera;
             if (ua.indexOf("Zalo") > -1) {
                 const warningBox = document.getElementById('zalo-browser-warning');
@@ -877,6 +871,12 @@
             });
 
             return s.replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
+        }
+
+        function extractKeywords(str) {
+            let words = normalizeEnglishText(str).split(/\s+/).filter(Boolean);
+            let keywords = words.filter(w => !STOP_WORDS_SET.has(w) && w.length >= 2);
+            return keywords.length > 0 ? keywords : words;
         }
 
         function levenshteinDistance(a, b) {
@@ -1326,16 +1326,30 @@
                 recognition.stop();
                 stopRecordingUI();
             } else {
-                try {
-                    recognition.start();
-                    isRecording = true;
-                    const btn = document.getElementById('btn-record-mic');
-                    btn.classList.add('recording');
-                    btn.innerHTML = `<span>🛑 ĐANG LẮNG NGHE... (BẤM ĐỂ DỪNG)</span>`;
-                    document.getElementById('status').innerText = "🎙️ Đang nghe, hãy đọc to và rõ ràng câu trên...";
-                } catch(e) {
-                    console.warn(e);
+                // Ngắt hẳn phát âm mẫu trước khi bật mic để tránh dội âm thanh
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
                 }
+
+                const btn = document.getElementById('btn-record-mic');
+                if (btn) btn.disabled = true;
+
+                // Tạo độ trễ 250ms để loa tắt hẳn trước khi mic mở
+                setTimeout(() => {
+                    try {
+                        recognition.start();
+                        isRecording = true;
+                        if (btn) {
+                            btn.disabled = false;
+                            btn.classList.add('recording');
+                            btn.innerHTML = `<span>🛑 ĐANG LẮNG NGHE... (BẤM ĐỂ DỪNG)</span>`;
+                        }
+                        document.getElementById('status').innerText = "🎙️ Đang nghe, hãy đọc to và rõ ràng câu trên...";
+                    } catch(e) {
+                        console.warn(e);
+                        if (btn) btn.disabled = false;
+                    }
+                }, 250);
             }
         }
 
@@ -1343,12 +1357,13 @@
             isRecording = false;
             const btn = document.getElementById('btn-record-mic');
             if (btn) {
+                btn.disabled = false;
                 btn.classList.remove('recording');
                 btn.innerHTML = `<span>🎙️ BẤM ĐỂ NÓI / START SPEAKING</span>`;
             }
         }
 
-        /* THUẬT TOÁN CHẤM ĐIỂM: PHÂN TÁCH LUYỆN TẬP VÀ EXAM */
+        /* THUẬT TOÁN CHẤM ĐIỂM LINH HOẠT THEO TỪ KHÓA */
         function processRecognizedSpeech(transcript) {
             const currentItem = quizData[currentIndex];
             const targetText = currentItem.targetSentence || currentItem.text || currentItem.audioText || "";
@@ -1360,76 +1375,53 @@
             const isExamMode = studentInfo.selectedVal && (studentInfo.selectedVal.startsWith('exam') || studentInfo.selectedVal === 'all');
 
             if (cleanTarget && cleanUser) {
-                const targetWords = cleanTarget.split(" ").filter(Boolean);
-                const userWords = cleanUser.split(" ").filter(Boolean);
+                const targetWords = cleanTarget.split(/\s+/).filter(Boolean);
+                const userWords = cleanUser.split(/\s+/).filter(Boolean);
                 
-                if (isExamMode) {
-                    const keywords = targetWords.filter(w => !STOP_WORDS_SET.has(w) && w.length >= 2);
-                    let matchedKeywordsCount = 0;
-                    let usedUserIndices = new Set();
-                    
-                    keywords.forEach(kw => {
-                        for (let i = 0; i < userWords.length; i++) {
-                            if (!usedUserIndices.has(i) && isWordFuzzyMatch(kw, userWords[i])) {
-                                matchedKeywordsCount++;
-                                usedUserIndices.add(i);
-                                break;
-                            }
+                // 1. Trích xuất từ khóa chính
+                const keywords = extractKeywords(targetText);
+                let matchedKeywordsCount = 0;
+                let usedUserIndices = new Set();
+                
+                keywords.forEach(kw => {
+                    for (let i = 0; i < userWords.length; i++) {
+                        if (!usedUserIndices.has(i) && isWordFuzzyMatch(kw, userWords[i])) {
+                            matchedKeywordsCount++;
+                            usedUserIndices.add(i);
+                            break;
                         }
-                    });
-                    
-                    const keywordRatio = keywords.length > 0 ? (matchedKeywordsCount / keywords.length) : 1;
-                    
-                    let totalMatched = 0;
-                    let generalUsedIndices = new Set();
-                    targetWords.forEach(tw => {
-                        for (let i = 0; i < userWords.length; i++) {
-                            if (!generalUsedIndices.has(i) && isWordFuzzyMatch(tw, userWords[i])) {
-                                totalMatched++;
-                                generalUsedIndices.add(i);
-                                break;
-                            }
-                        }
-                    });
-                    
-                    const generalRatio = targetWords.length > 0 ? (totalMatched / targetWords.length) : 0;
-                    let calculatedScore = (keywordRatio * 70) + (generalRatio * 30);
-                    
-                    if (keywords.length > 0 && keywordRatio === 0) {
-                        calculatedScore = 15;
                     }
-                    matchScore = Math.round(Math.min(100, calculatedScore));
+                });
+                
+                const keywordRatio = keywords.length > 0 ? (matchedKeywordsCount / keywords.length) : 0;
 
-                } else {
-                    const hasContentWord = userWords.some(w => !STOP_WORDS_SET.has(w));
-                    if (targetWords.length >= 3 && userWords.length <= 2 && !hasContentWord) {
-                        matchScore = 0;
-                    } else {
-                        let usedUserIndices = new Set();
-                        let matchedCount = 0;
-                        
-                        targetWords.forEach(tw => {
-                            for (let i = 0; i < userWords.length; i++) {
-                                if (!usedUserIndices.has(i) && isWordFuzzyMatch(tw, userWords[i])) {
-                                    matchedCount++;
-                                    usedUserIndices.add(i);
-                                    break;
-                                }
-                            }
-                        });
-                        
-                        let baseScore = targetWords.length > 0 ? (matchedCount / targetWords.length) * 100 : 0;
-                        matchScore = Math.round(Math.min(100, baseScore));
+                // 2. Tỷ lệ khớp toàn câu
+                let generalMatchedCount = 0;
+                let generalUsedIndices = new Set();
+                targetWords.forEach(tw => {
+                    for (let i = 0; i < userWords.length; i++) {
+                        if (!generalUsedIndices.has(i) && isWordFuzzyMatch(tw, userWords[i])) {
+                            generalMatchedCount++;
+                            generalUsedIndices.add(i);
+                            break;
+                        }
                     }
-                }
+                });
+                const generalRatio = targetWords.length > 0 ? (generalMatchedCount / targetWords.length) : 0;
+
+                // Tính điểm: 70% từ khóa cốt lõi + 30% cấu trúc câu
+                let calculatedScore = (keywordRatio * 70) + (generalRatio * 30);
+                matchScore = Math.round(Math.min(100, calculatedScore));
             }
 
             let status = 'skipped';
             let pointEarned = 0; 
 
             if (transcript.trim() !== '') {
-                const passThreshold = isExamMode ? 75 : 50;
-                const approxThreshold = isExamMode ? 45 : 30;
+                // Tiêu chí: Khớp >= 70% từ khóa HOẶC tổng điểm >= 75% -> ĐẠT
+                // Khớp >= 40% từ khóa HOẶC tổng điểm >= 40% -> GẦN ĐÚNG
+                const passThreshold = isExamMode ? 75 : 65;
+                const approxThreshold = isExamMode ? 45 : 35;
 
                 if (matchScore >= passThreshold) {
                     status = 'correct';
@@ -1452,11 +1444,11 @@
 
             loadQuestion();
             if (status === 'correct') {
-                document.getElementById('status').innerText = isExamMode ? "🌟 Tuyệt vời! Bài thi đạt độ chính xác cao." : "🌟 Phát âm tốt! Tiếp tục phát huy nhé.";
+                document.getElementById('status').innerText = "🌟 Phát âm rất tốt! Nắm chắc từ khóa chuẩn.";
             } else if (status === 'approx') {
-                document.getElementById('status').innerText = "⚡ Gần đúng. Cố gắng phát âm rõ các từ còn lại!";
+                document.getElementById('status').innerText = "⚡ Bắt được từ khóa chính (Gần đúng)! Bạn có thể luyện lại hoặc bấm Tiếp.";
             } else {
-                document.getElementById('status').innerText = isExamMode ? "💡 Chưa đạt yêu cầu bài thi. Cần đọc đủ từ khóa chính!" : "💡 Chưa đạt. Hãy thử đọc to và rõ ràng hơn!";
+                document.getElementById('status').innerText = "💡 Chưa rõ từ khóa chính. Hãy thử đọc to, rõ ràng hơn!";
             }
         }
 
@@ -1494,6 +1486,28 @@
                 if (targetVoice) {
                     utterance.voice = targetVoice;
                 }
+
+                // Khóa nút nói trong khi loa phát mẫu để chống tiếng vang lọt vào Mic
+                const btnMic = document.getElementById('btn-record-mic');
+                const btnNormal = document.getElementById('btn-sample-normal');
+                const btnSlow = document.getElementById('btn-sample-slow');
+
+                utterance.onstart = () => {
+                    if (btnMic) btnMic.disabled = true;
+                    if (btnNormal) btnNormal.disabled = true;
+                    if (btnSlow) btnSlow.disabled = true;
+                    document.getElementById('status').innerText = "🔊 Đang phát phát âm mẫu...";
+                };
+
+                const resetAudioBtns = () => {
+                    if (btnMic) btnMic.disabled = false;
+                    if (btnNormal) btnNormal.disabled = false;
+                    if (btnSlow) btnSlow.disabled = false;
+                    document.getElementById('status').innerText = "";
+                };
+
+                utterance.onend = resetAudioBtns;
+                utterance.onerror = resetAudioBtns;
 
                 window.speechSynthesis.speak(utterance);
             } else {
@@ -1586,8 +1600,8 @@
             let totalEarnedPoints = 0;
             let totalItems = quizData.length;
             const isExamMode = studentInfo.selectedVal && (studentInfo.selectedVal.startsWith('exam') || studentInfo.selectedVal === 'all');
-            const passLimit = isExamMode ? 75 : 50;
-            const approxLimit = isExamMode ? 45 : 30;
+            const passLimit = isExamMode ? 75 : 65;
+            const approxLimit = isExamMode ? 45 : 35;
 
             quizData.forEach((item, index) => {
                 const ans = userAnswers[index];
@@ -1626,7 +1640,7 @@
 
             let evalText = finalScore >= 90 ? "Xuất sắc" : (finalScore >= 70 ? "Đạt" : "Chưa đạt");
             let levelBadgeHtml = `<div class="level-badge ${finalScore >= 90 ? 'level-excellent' : (finalScore >= 70 ? 'level-passed' : 'level-failed')}">${evalText} (${finalScore}/100)</div>`;
-            let adviceText = finalScore >= 70 ? "<b>Đánh giá:</b> Phát âm rõ ràng, chuẩn ngữ điệu và trọng âm!" : "<b>Đánh giá:</b> Cần luyện tập thêm độ bật âm cuối và phát âm đầy đủ các từ trong câu.";
+            let adviceText = finalScore >= 70 ? "<b>Đánh giá:</b> Phát âm rõ ràng, nắm vững các từ khóa nghiệp vụ giao tiếp!" : "<b>Đánh giá:</b> Cần luyện tập thêm các từ khóa chuyên môn và ngữ điệu câu.";
 
             let questionsListHtml = "";
             quizData.forEach((item, index) => {
