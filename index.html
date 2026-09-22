@@ -1363,7 +1363,7 @@
             }
         }
 
-        /* THUẬT TOÁN CHẤM ĐIỂM LINH HOẠT THEO TỪ KHÓA */
+        /* THUẬT TOÁN CHẤM ĐIỂM: BẢO LƯU ĐIỂM CAO NHẤT CỦA TỪNG CÂU */
         function processRecognizedSpeech(transcript) {
             const currentItem = quizData[currentIndex];
             const targetText = currentItem.targetSentence || currentItem.text || currentItem.audioText || "";
@@ -1409,7 +1409,7 @@
                 });
                 const generalRatio = targetWords.length > 0 ? (generalMatchedCount / targetWords.length) : 0;
 
-                // Tính điểm: 70% từ khóa cốt lõi + 30% cấu trúc câu
+                // 70% từ khóa nghiệp vụ + 30% cấu trúc câu
                 let calculatedScore = (keywordRatio * 70) + (generalRatio * 30);
                 matchScore = Math.round(Math.min(100, calculatedScore));
             }
@@ -1418,8 +1418,6 @@
             let pointEarned = 0; 
 
             if (transcript.trim() !== '') {
-                // Tiêu chí: Khớp >= 70% từ khóa HOẶC tổng điểm >= 75% -> ĐẠT
-                // Khớp >= 40% từ khóa HOẶC tổng điểm >= 40% -> GẦN ĐÚNG
                 const passThreshold = isExamMode ? 75 : 65;
                 const approxThreshold = isExamMode ? 45 : 35;
 
@@ -1435,20 +1433,47 @@
                 }
             }
 
+            // === CƠ CHẾ BẢO LƯU ĐIỂM CAO NHẤT CỦA CÂU NÀY ===
+            const previousAns = userAnswers[currentIndex];
+            let keptUserSaid = transcript;
+            let finalStatus = status;
+            let finalScore = matchScore;
+            let finalPointEarned = pointEarned;
+            let isKeptOldScore = false;
+
+            if (previousAns) {
+                // Nếu lần nói trước có điểm cao hơn lần nói hiện tại
+                if (previousAns.pointEarned > pointEarned || (previousAns.pointEarned === pointEarned && previousAns.score > matchScore)) {
+                    finalStatus = previousAns.status;
+                    finalScore = previousAns.score;
+                    finalPointEarned = previousAns.pointEarned;
+                    keptUserSaid = previousAns.userSaid; // Giữ lại câu phát âm tốt nhất
+                    isKeptOldScore = true;
+                }
+            }
+
+            // Cập nhật kết quả tốt nhất vào mảng
             userAnswers[currentIndex] = {
-                userSaid: transcript,
-                status: status,
-                score: matchScore,
-                pointEarned: pointEarned
+                userSaid: keptUserSaid,
+                status: finalStatus,
+                score: finalScore,
+                pointEarned: finalPointEarned
             };
 
             loadQuestion();
-            if (status === 'correct') {
-                document.getElementById('status').innerText = "🌟 Phát âm rất tốt! Nắm chắc từ khóa chuẩn.";
-            } else if (status === 'approx') {
-                document.getElementById('status').innerText = "⚡ Bắt được từ khóa chính (Gần đúng)! Bạn có thể luyện lại hoặc bấm Tiếp.";
+
+            // Hiển thị thông báo trạng thái
+            const statusElem = document.getElementById('status');
+            if (isKeptOldScore) {
+                statusElem.innerText = `🛡️ Lần này bạn nói: "${transcript}" (${matchScore}%), hệ thống bảo lưu kết quả cao nhất trước đó: "${keptUserSaid}" (${finalScore}% - ${finalStatus === 'correct' ? 'ĐẠT' : 'GẦN ĐÚNG'}).`;
             } else {
-                document.getElementById('status').innerText = "💡 Chưa rõ từ khóa chính. Hãy thử đọc to, rõ ràng hơn!";
+                if (finalStatus === 'correct') {
+                    statusElem.innerText = `🌟 Phát âm rất tốt (${finalScore}%)! Nắm chắc từ khóa chuẩn.`;
+                } else if (finalStatus === 'approx') {
+                    statusElem.innerText = `⚡ Bắt được từ khóa chính (${finalScore}% - Gần đúng)! Có thể bấm nói lại để lấy 100% điểm.`;
+                } else {
+                    statusElem.innerText = `💡 Chưa rõ từ khóa chính (${finalScore}%). Hãy thử đọc to, rõ ràng hơn!`;
+                }
             }
         }
 
@@ -1603,6 +1628,7 @@
             const passLimit = isExamMode ? 75 : 65;
             const approxLimit = isExamMode ? 45 : 35;
 
+            // Tính điểm dựa trên các kết quả cao nhất đã được bảo lưu tại từng câu
             quizData.forEach((item, index) => {
                 const ans = userAnswers[index];
                 if (!ans || !ans.userSaid || ans.userSaid.trim() === '') {
@@ -1618,18 +1644,21 @@
                 }
             });
 
-            let finalScore = totalItems > 0 ? Math.round((totalEarnedPoints / totalItems) * 100) : 0;
+            let currentScore = totalItems > 0 ? Math.round((totalEarnedPoints / totalItems) * 100) : 0;
             const now = new Date();
             const dateShort = `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
 
             const oldRecord = studentProgressMap[studentInfo.selectedVal] || null;
-            const oldScore = (oldRecord && oldRecord.score !== undefined) ? oldRecord.score : -1;
+            const oldScore = (oldRecord && oldRecord.score !== undefined && oldRecord.score !== null) ? oldRecord.score : -1;
 
-            if (finalScore >= oldScore) {
+            let isNewRecord = currentScore > oldScore;
+            let recordedScore = Math.max(oldScore, currentScore);
+
+            if (currentScore >= oldScore) {
                 studentProgressMap[studentInfo.selectedVal] = {
-                    score: finalScore,
+                    score: recordedScore,
                     date: dateShort,
-                    status: finalScore >= 70 ? 'passed' : 'failed'
+                    status: recordedScore >= 70 ? 'passed' : 'failed'
                 };
             }
 
@@ -1638,9 +1667,23 @@
                 localStorage.setItem(localKey, JSON.stringify(studentProgressMap));
             } catch (e) {}
 
-            let evalText = finalScore >= 90 ? "Xuất sắc" : (finalScore >= 70 ? "Đạt" : "Chưa đạt");
-            let levelBadgeHtml = `<div class="level-badge ${finalScore >= 90 ? 'level-excellent' : (finalScore >= 70 ? 'level-passed' : 'level-failed')}">${evalText} (${finalScore}/100)</div>`;
-            let adviceText = finalScore >= 70 ? "<b>Đánh giá:</b> Phát âm rõ ràng, nắm vững các từ khóa nghiệp vụ giao tiếp!" : "<b>Đánh giá:</b> Cần luyện tập thêm các từ khóa chuyên môn và ngữ điệu câu.";
+            let evalText = recordedScore >= 90 ? "Xuất sắc" : (recordedScore >= 70 ? "Đạt" : "Chưa đạt");
+            let levelBadgeHtml = `<div class="level-badge ${recordedScore >= 90 ? 'level-excellent' : (recordedScore >= 70 ? 'level-passed' : 'level-failed')}">${evalText} (${recordedScore}/100)</div>`;
+            
+            let recordNote = "";
+            if (oldScore !== -1 && currentScore < oldScore) {
+                recordNote = `<div style="font-size:10px; color:#c2410c; background:#fff7ed; border:1px solid #ffedd5; padding:4px 6px; border-radius:4px; margin-top:3px;">
+                    🛡️ <b>Bảo lưu điểm cao nhất:</b> Lượt này bạn đạt ${currentScore} điểm. Hệ thống tự động giữ lại kết quả cao nhất trước đó: <b>${recordedScore} điểm</b>.
+                </div>`;
+            } else if (isNewRecord && oldScore !== -1) {
+                recordNote = `<div style="font-size:10px; color:#155724; background:#d4edda; border:1px solid #c3e6cb; padding:4px 6px; border-radius:4px; margin-top:3px;">
+                    🎉 <b>Kỷ lục mới!</b> Bạn đã nâng điểm từ ${oldScore} lên <b>${currentScore} điểm</b>!
+                </div>`;
+            }
+
+            let adviceText = recordedScore >= 70 
+                ? "<b>Đánh giá:</b> Phát âm rõ ràng, nắm vững các từ khóa nghiệp vụ giao tiếp!" 
+                : "<b>Đánh giá:</b> Cần luyện tập thêm các từ khóa chuyên môn và ngữ điệu câu.";
 
             let questionsListHtml = "";
             quizData.forEach((item, index) => {
@@ -1718,7 +1761,7 @@
                 department: studentInfo.department,
                 rawLessonCode: studentInfo.rawLessonCode,
                 lessonTitle: studentInfo.lessonTitle,
-                score: finalScore,
+                score: recordedScore,
                 evaluationText: evalText,
                 passedCount: `${correctCount}/${totalItems}`,
                 approxCount: `${approxCount}/${totalItems}`,
@@ -1741,19 +1784,21 @@
                     <div class="result-title-banner">${msg}</div>
                     
                     <div class="score-row">
-                        <div class="score-box">${finalScore} <span style="font-size:10.5px; color:#666;">/ 100đ</span></div>
+                        <div class="score-box">${recordedScore} <span style="font-size:10.5px; color:#666;">/ 100đ</span></div>
                         ${levelBadgeHtml}
                     </div>
                     
-                    <div id="save-status-msg">✅ Đã lưu kết quả Phát âm an toàn</div>
+                    <div id="save-status-msg">✅ Đã lưu kết quả (Ghi nhận điểm cao nhất: ${recordedScore}đ)</div>
+                    ${recordNote}
                     <div class="advice-box">${adviceText}</div>
 
                     <div class="stats-box">
-                        <b>📊 CHI TIẾT KẾT QUẢ:</b><br>
+                        <b>📊 CHI TIẾT LƯỢT LÀM BÀI NÀY:</b><br>
                         • 👤 Học viên: <b>${studentInfo.studentName}</b> (${studentInfo.staffNumber}) - <b>${studentInfo.workPlace}</b><br>
                         • 📚 Chuyên đề: <b>${studentInfo.lessonTitle}</b><br>
+                        • 🎯 Điểm lượt này: <b>${currentScore}đ</b> | 🏆 Điểm ghi nhận cao nhất: <b>${recordedScore}đ</b><br>
                         • ⏱️ Thời gian: <b>${formatDuration(elapsedSeconds)}</b> | 🕒 Bắt đầu: <b>${startTimeFormatted}</b><br>
-                        • 📊 Thống kê: ✅ Đúng: <b>${correctCount}/${totalItems}</b> | ⚡ Gần đúng: <b>${approxCount}/${totalItems}</b> | ❌ Chưa đạt/Bỏ qua: <b>${skippedCount}/${totalItems}</b>
+                        • 📊 Thống kê lượt này: ✅ Đúng: <b>${correctCount}/${totalItems}</b> | ⚡ Gần đúng: <b>${approxCount}/${totalItems}</b> | ❌ Chưa đạt/Bỏ qua: <b>${skippedCount}/${totalItems}</b>
                     </div>
 
                     <div style="margin-top: 5px;">
