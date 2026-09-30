@@ -610,7 +610,7 @@
 
             <div class="record-control-box">
                 <button id="btn-record-mic" class="btn-record" onclick="toggleSpeechRecognition()">
-                    <span>🎙️ BẤM ĐỂ NÓI / START SPEAKING</span>
+                    <span>🎙️️ BẤM ĐỂ NÓI / START SPEAKING</span>
                 </button>
                 <div style="display: flex; gap: 5px; width: 100%; max-width: 280px;">
                     <button id="btn-sample-normal" class="btn-sample-audio" style="flex: 1;" onclick="playSampleAudio()">🔊 Nghe mẫu chuẩn</button>
@@ -831,10 +831,9 @@
             if (w1 === w2) return true;
             if (Math.abs(w1.length - w2.length) > 2) return false;
             const dist = levenshteinDistance(w1, w2);
-            if (w1.length <= 2) return dist === 0;
-            if (w1.length <= 4) return dist <= 1;
-            if (w1.length <= 7) return dist <= 2;
-            return dist <= 3;
+            if (w1.length <= 3) return dist === 0; // Từ ngắn (<=3 ký tự) bắt buộc đúng tuyệt đối để tránh nhận diện sai
+            if (w1.length <= 6) return dist <= 1;
+            return dist <= 2;
         }
 
         function convertToNonAccent(str) {
@@ -1513,6 +1512,7 @@
 
             let correctCount = 0;
             let approxCount = 0;
+            let failedCount = 0;
             let skippedCount = 0;
             let totalEarnedPoints = 0;
             let totalItems = quizData.length;
@@ -1522,7 +1522,7 @@
 
             quizData.forEach((item, index) => {
                 const ans = userAnswers[index];
-                if (!ans || !ans.userSaid || ans.userSaid.trim() === '') {
+                if (!ans || ans.userSaid === undefined || ans.userSaid === null || ans.userSaid.trim() === '') {
                     skippedCount++;
                 } else if (ans.score >= passLimit) {
                     correctCount++;
@@ -1531,7 +1531,8 @@
                     approxCount++;
                     totalEarnedPoints += 0.5;
                 } else {
-                    skippedCount++; 
+                    failedCount++;
+                    totalEarnedPoints += 0;
                 }
             });
 
@@ -1588,9 +1589,9 @@
                 
                 let itemClass = "item-fail";
                 let tagClass = "tag-skipped";
-                let statusLabel = "❌ Chưa đạt / Bỏ qua (0đ)";
+                let statusLabel = "⏳ Bỏ qua (0đ)";
 
-                if (!ans || !userSaid || userSaid.trim() === '') {
+                if (!ans || userSaid === undefined || userSaid === null || userSaid.trim() === '') {
                     itemClass = "item-fail";
                     tagClass = "tag-skipped";
                     statusLabel = "⏳ Bỏ qua (0đ)";
@@ -1611,6 +1612,26 @@
                 const errorAnalysis = analyzeSentenceError(targetText, userSaid);
                 const escapedTarget = targetText.replace(/'/g, "\\'").replace(/"/g, '&quot;');
 
+                let detailFeedbackHtml = "";
+                if (score >= passLimit) {
+                    detailFeedbackHtml = `
+                        <div style="font-size:8.5px; color:#0f5132; margin-top:2px;">
+                            🗣️ <i>Phát âm chính xác: "${userSaid}"</i>
+                        </div>`;
+                } else if (score >= approxLimit) {
+                    detailFeedbackHtml = `
+                        <div style="font-size:8.5px; color:#856404; margin-top:2px; background:#fff3cd; padding:3px; border-radius:3px;">
+                            ⚡ <b>Gần đúng:</b> Bạn nói "${userSaid}". ${errorAnalysis.summaryHtml}
+                        </div>`;
+                } else {
+                    detailFeedbackHtml = `
+                        <div class="overview-error-box">
+                            <b>🗣️ Bạn đã nói:</b> "${userSaid || '<i>Chưa phát âm</i>'}"<br>
+                            <b>🔍 Nhận xét chi tiết:</b> ${errorAnalysis.summaryHtml}<br>
+                            <b>📌 Ghi chú:</b> ${errorAnalysis.reason}
+                        </div>`;
+                }
+
                 questionsListHtml += `
                     <div class="overview-item ${itemClass}">
                         <div class="overview-top-row">
@@ -1626,17 +1647,7 @@
                             <button class="btn-audio-mini" onclick="speakCustomText('${escapedTarget}', true)">🐢 Nghe chậm</button>
                             <button class="btn-audio-mini" style="background:#fff3cd; border-color:#ffeeba;" onclick="jumpToQuestionForPractice(${index})">🎤 Luyện lại câu này</button>
                         </div>
-                        ${score < passLimit ? `
-                            <div class="overview-error-box">
-                                <b>🗣️ Bạn đã nói:</b> "${userSaid || '<i>Chưa phát âm</i>'}"<br>
-                                <b>🔍 Nhận xét chi tiết:</b> ${errorAnalysis.summaryHtml}<br>
-                                <b>📌 Ghi chú:</b> ${errorAnalysis.reason}
-                            </div>
-                        ` : `
-                            <div style="font-size:8.5px; color:#0f5132; margin-top:2px;">
-                                🗣️ <i>Phát âm chính xác: "${userSaid}"</i>
-                            </div>
-                        `}
+                        ${detailFeedbackHtml}
                     </div>
                 `;
             });
@@ -1684,7 +1695,7 @@
                         • 📚 Chuyên đề: <b>${studentInfo.lessonTitle}</b><br>
                         • 🎯 Điểm lượt này: <b>${currentScore}đ</b> | 🏆 Điểm ghi nhận cao nhất: <b>${recordedScore}đ</b><br>
                         • ⏱️ Thời gian: <b>${formatDuration(elapsedSeconds)}</b> | 🕒 Bắt đầu: <b>${startTimeFormatted}</b><br>
-                        • 📊 Thống kê lượt này: ✅ Đúng: <b>${correctCount}/${totalItems}</b> | ⚡ Gần đúng: <b>${approxCount}/${totalItems}</b> | ❌ Chưa đạt/Bỏ qua: <b>${skippedCount}/${totalItems}</b>
+                        • 📊 Thống kê: ✅ Đúng: <b>${correctCount}</b> | ⚡ Gần đúng: <b>${approxCount}</b> | ❌ Chưa đạt: <b>${failedCount}</b> | ⏳ Bỏ qua: <b>${skippedCount}</b>
                     </div>
                     <div style="margin-top: 5px;">
                         <button id="btn-toggle-overview" class="btn-review-toggle" onclick="toggleOverviewSection()">
